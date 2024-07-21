@@ -76,13 +76,21 @@ const Node = function (val) {
      TIME COMPLEXITY: O(N)
      SPACE COMPLEXITY: O(1)
 
-  6.2 CREATE THE GET VERSION 2 METHOD FOR THE DLL
+  6.2 CREATE THE GET VERSION 2 METHOD FOR THE DLL // yet unecessary since you can just get element from array if you have the index
       A. IT WILL TAKE AN INDEX AS ITS PARAMETERS
       B. IF THERE IS A HEAD FOR THE CLASS INSTANCE
       C. IT WILL DO A BINARY SEARCH OVER THE NODE LIST ARRAY OF THE CLASS INSTANCE AND RETURN THE NODE AT THE PASSED IN IDX
 
       TIME COMPLEXITY: O(N LOG N)
       SPACE COMPLEXITY: O(1)
+
+  6.3 CREATE THE GET VERSION 3 METHOD FOR THE DLL
+     A. IT WILL TAKE AN INDEX AS ITS PARAMETERS
+     B. IF THERE IS A HEAD FOR THE CLASS INSTANCE
+     C. IT WILL RETURN THE NODE AT THE PASSED IN INDEX
+
+     TIME COMPLEXITY: O(1)
+     SPACE COMPLEXITY: O(1)
 
   7. CREATE THE SET METHOD FOR THE DLL
     A. IT WILL TAKE AN INDEX AND A VALUE AS PARAMETERS
@@ -147,7 +155,13 @@ const Node = function (val) {
       E. RETURN THIS;
 
       TIME COMPLEXITY: O(N)
-      SPACE COMPLEXITY: O(1)
+
+  11. CREATE THE ASYNCFUNC METOD FOR THE DLL
+      A. IT RETURNS A PROMISE TO RESOLVE THE FUNCTION THAT CREATES/RECREATES THE NODELIST ARRAY
+      TIME COMPLEXITY: O(N)
+      SPACE COMPLEXITY: O(N)
+
+
 */
 
 const DLL = class {
@@ -156,6 +170,12 @@ const DLL = class {
     this.tail = null;
     this.nodeList = [];
     this.length = 0;
+  }
+
+  asyncFunc() {
+    return new Promise((res, rej) => {
+      res(this.setNodeList());
+    });
   }
 
   push(val) {
@@ -168,6 +188,7 @@ const DLL = class {
     }
     this.tail = incoming;
     this.length++;
+    this.asyncFunc();
     return incoming;
   }
 
@@ -178,6 +199,7 @@ const DLL = class {
       this.tail.next = null;
       tail.prev = null;
       this.length--;
+      this.asyncFunc();
       return tail;
     }
   }
@@ -192,6 +214,7 @@ const DLL = class {
       this.head = incoming;
     }
     this.length++;
+    this.asyncFunc();
     return incoming;
   }
 
@@ -202,6 +225,7 @@ const DLL = class {
       this.head.prev = null;
       head.next = null;
       this.length--;
+      this.asyncFunc();
       return head;
     }
   }
@@ -249,7 +273,7 @@ const DLL = class {
 
   // SO THE IDEA IS TO DO A BINARY SEARCH FOR A NODE IN THE NODE LIST; TIME COMPLEXITY: O(N LOG N)
   getV2(idx) {
-    this.setNodeList();
+    //this.setNodeList(); // this might best be called at some other point in code
     if (this.head && idx >= 0 && idx < this.length) {
       if (idx === 0) return this.head;
       if (idx === this.length - 1) return this.tail;
@@ -265,6 +289,15 @@ const DLL = class {
     }
   }
 
+  // VERSION 3 HAS A TIME COMPLEXITY: O(1) AND SPACE COMPLEXITY: O(1)
+  getV3(idx) {
+    //you have an index and an array, so just return array at index
+    //this.setNodeList(); // might work well if called at some other point in code
+    if (this.head && idx >= 0 && idx < this.nodeList.length) {
+      return this.nodeList[idx];
+    }
+  }
+
   set(idx, val) {
     if (this.head) {
       const curr = this.get(idx);
@@ -276,6 +309,7 @@ const DLL = class {
   setNodeList() {
     if (this.head) {
       let curr = this.head;
+      this.nodeList = [];
       while (curr) {
         this.nodeList[this.nodeList.length] = curr;
         curr = curr.next;
@@ -294,6 +328,7 @@ const DLL = class {
         incoming.next = prev.next;
         prev.next = incoming;
         this.length++;
+        this.asyncFunc();
         return this;
       }
     }
@@ -311,15 +346,15 @@ const DLL = class {
         remv.prev = null;
         remv.next = null;
         this.length--;
+        this.asyncFunc();
         return remv;
       }
     }
     // if not this.head, undefined will be returned by default when no explicit return is provided
   }
 
-  //     1 ->  2  ->  3  -> 4
-
   reverse() {
+    // REVERSES THE LIST OF NODES
     if (this.head) {
       let curr = this.head,
         head = this.head,
@@ -336,6 +371,7 @@ const DLL = class {
         this.tail = head;
       }
     }
+    this.asyncFunc();
     return this;
   }
 
@@ -359,10 +395,12 @@ myDLL.push(3);
 myDLL.push(4);
 // console.log("pop method's return value: ", myDLL.pop());
 console.log('\n\n\n\n');
-console.log("get version 2's return value: ", myDLL.getV0(1));
+console.log(myDLL.reverse());
+// console.log("get version 2's return value: ", myDLL.getV3(2));
 // console.log("insert method's return value: ", myDLL.insert(2, 9999), '\n\n');
 // console.log(myDLL.print(), '\n\n');
 // console.log('remove methods\'s return value: ', myDLL.remove(3));
 // myDLL.reverse();
-// console.log(myDLL.print(), '\n\n');
+console.log(myDLL.print(), '\n\n');
 // console.log('this.tail: ', myDLL.tail)
+// console.log('this.nodeList: ', this.nodeList);
