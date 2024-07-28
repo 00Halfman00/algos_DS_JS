@@ -335,18 +335,18 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*
-  0. CREATE A FUNCTION TO CREATE NODES FOR BST CLASS NAMED Node                              // done
-  1. CREATE A BINARY SEARCH TREE CLASS NAMED BST                                             // done
-  2. CREATE A METHOD TO INSERT NODES, ITERATIVELY, NAMED insertI                             // done
-  3. CREATE A METHOD TO INSERT NODES, RECURSIVELY, NAMED insertR                             // done
-  4. CREATE A METHOD TO FIND A NODE, ITERATIVELY, GIVEN A VALUE NAMED findI                  // done
-  5. CREATE A METHOD TO FIND A NODE, RECURSIVELY, GIVEN A VALUE NAMED findR                  // done
-  6. CREATE A METHOD TO TRAVERSE THE BST VIA BFS NAMEDD bFS                                  // done
-  7. CREATE A METHOD TO TRAVERSE THE BST VIA DFS, RECURSIVELY, NAMED indorderR               // done
-  8. CREATE A METHOD TO TRAVERSE THE BST VIA DFS, ITERATIVELY, NAMED inorderI                // done
-  9. CREATE A METHOD TO TRAVERSE THE BST VIA DFS, RECURSIVELY, NAMED preorderR               // done
-  10.CREATE A METHOD TO TRAVERSE THE BST VIA DFS, ITERATIVELY, NAMED preorderI               // done
-  11.CREATE A METHOD TO TRAVERSE THE BST VIA DFS, RECURSIVELY, NAMED postorderR              // done
+  0. CREATE A FUNCTION TO CREATE NODES FOR BST CLASS NAMED Node                              // O(1)
+  1. CREATE A BINARY SEARCH TREE CLASS NAMED BST                                             // O(1)
+  2. CREATE A METHOD TO INSERT NODES, ITERATIVELY, NAMED insertI                             // O(log n)
+  3. CREATE A METHOD TO INSERT NODES, RECURSIVELY, NAMED insertR                             // O(log n)
+  4. CREATE A METHOD TO FIND A NODE, ITERATIVELY, GIVEN A VALUE NAMED findI                  // O(log n)
+  5. CREATE A METHOD TO FIND A NODE, RECURSIVELY, GIVEN A VALUE NAMED findR                  // O(log n)
+  6. CREATE A METHOD TO TRAVERSE THE BST VIA BFS NAMEDD bFS                                  // O(n)
+  7. CREATE A METHOD TO TRAVERSE THE BST VIA DFS, RECURSIVELY, NAMED indorderR               // O(n)
+  8. CREATE A METHOD TO TRAVERSE THE BST VIA DFS, ITERATIVELY, NAMED inorderI                // O(n)
+  9. CREATE A METHOD TO TRAVERSE THE BST VIA DFS, RECURSIVELY, NAMED preorderR               // O(n)
+  10.CREATE A METHOD TO TRAVERSE THE BST VIA DFS, ITERATIVELY, NAMED preorderI               // O(n)
+  11.CREATE A METHOD TO TRAVERSE THE BST VIA DFS, RECURSIVELY, NAMED postorderR              // O(n)
   12.CREATE A METHOD TO TRAVERSE THE BST VIA DFS, ITERATIVELY, NAMED postorderI
 */
 
@@ -363,9 +363,10 @@ const BST = class {
 
   insertI(val) {
     const incoming = new Node(val);
-    if (this.root) {
+    if (this.root && val) {
       let curr = this.root;
       while (curr) {
+        if(val === curr.val) break;
         if (val < curr.val) {
           if (!curr.left) {
             curr.left = incoming;
@@ -387,7 +388,7 @@ const BST = class {
 
   insertR(val) {
     const incoming = new Node(val);
-    if (this.root) {
+    if (this.root && val) {
       const insert = (curr) => {
         if (curr) {
           if (val < curr.val) {
@@ -423,7 +424,7 @@ const BST = class {
         if (node) {
           if (val === node.val) return node;
           if (val < node.val) return find(node.left);
-          else return find(node.right);
+          if (val > node.val) return find(node.right);
         }
       };
       return find(this.root);
@@ -568,12 +569,14 @@ myBST.insertR(3);
 myBST.insertR(8);
 myBST.insertR(20);
 
+// console.log(myBST.root)
+
 // console.log("findI method's return value: ", myBST.findI(6));
-// console.log("findR method's return value: ", myBST.findR(6));
-// console.log('bst method\'s return value: ', myBST.bFS())
+console.log("findR method's return value: ", myBST.findR(5));
+// console.log('bfs method\'s return value: ', myBST.bFS())
 // console.log("inorderR method's return value: ", myBST.inorderR());
 // console.log("inorderI method's return value: ", myBST.inorderI());
 // console.log("preorderR method's return value: ", myBST.preorderR());
 // console.log("preorderI method's return value: ", myBST.preorderI());
-console.log("postorderR method's return value: ", myBST.postorderR());
-console.log("postorderI method's return value: ", myBST.postorderI());
+// console.log("postorderR method's return value: ", myBST.postorderR());
+// console.log("postorderI method's return value: ", myBST.postorderI());
