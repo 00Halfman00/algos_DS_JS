@@ -208,7 +208,7 @@ const DLL = class {
     const incoming = new Node(val);
     if (!this.head) {
       this.head = incoming;
-      this.tail = incoiming;
+      this.tail = incoming;
     } else {
       incoming.next = this.head;
       this.head = incoming;

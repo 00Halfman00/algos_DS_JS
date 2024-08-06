@@ -63,13 +63,27 @@ const HashTable = class {
     // undefined will be returned by default
   }
 
-  keys(){
+  keys() {
     const res = [];
-    if(this.keyMap[0]){
-      for(let i = 0; i < this.keyMap.length; ++i){
-        if(this.keyMap[i][0]){
-          for(let j = 0; j < this.keyMap[i].length; ++j){
+    if (this.keyMap[0]) {
+      for (let i = 0; i < this.keyMap.length; ++i) {
+        if (this.keyMap[i][0]) {
+          for (let j = 0; j < this.keyMap[i].length; ++j) {
             res[res.length] = this.keyMap[i][j][0];
+          }
+        }
+      }
+    }
+    return [...new Set(res)];
+  }
+
+  values() {
+    const res = [];
+    if (this.keyMap[0]) {
+      for (let i = 0; i < this.keyMap.length; ++i) {
+        if (this.keyMap[i][0]) {
+          for (let j = 0; j < this.keyMap[i].length; ++j) {
+            res[res.length] = this.keyMap[i][j][1];
           }
         }
       }
@@ -102,4 +116,5 @@ console.log('hasArr: ', myHT.keyMap);
 // console.log('the value for myHT.get("blue"): ', myHT.get('blue')); // three
 // console.log('the value for myHT.get("rojo"): ', myHT.get('rojo')); // nine
 // console.log('the value for myHT.get("black"): ', myHT.get('black')); // undefined
-console.log(myHT.keys())
+console.log(myHT.keys());
+console.log(myHT.values());
