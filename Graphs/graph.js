@@ -72,12 +72,16 @@ const UGraph = class {
   }
 
   addVertex(vertex) {
-    if (!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
+    if (vertex && !this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
   }
 
   addEdge(vertex1, vertex2) {
-    if (this.adjacencyList[vertex1] && this.adjacencyList[vertex2]) {
-
+    if (
+      vertex1 &&
+      vertex2 &&
+      this.adjacencyList[vertex1] &&
+      this.adjacencyList[vertex2]
+    ) {
       if (!this.adjacencyList[vertex1].includes(vertex2)) {
         this.adjacencyList[vertex1][this.adjacencyList[vertex1].length] =
           vertex2;
@@ -86,13 +90,12 @@ const UGraph = class {
         this.adjacencyList[vertex2][this.adjacencyList[vertex2].length] =
           vertex1;
       }
-
     }
   }
 
   removeVertex(vertex) {
     // this works with undirected graphs, not with directed graphs
-    if (this.adjacencyList[vertex]) {
+    if (vertex && this.adjacencyList[vertex]) {
       this.adjacencyList[vertex].forEach((v) => {
         this.adjacencyList[v] = this.adjacencyList[v].filter(
           (e) => e !== vertex
@@ -102,15 +105,32 @@ const UGraph = class {
     }
   }
 
-  rDFS(vertex, res = [], vis = {}) {
+  rPreDFS(vertex, res = [], vis = {}) {
+    // the callstack is the stack
 
-    if (this.adjacencyList[vertex]) {
+    if (vertex && this.adjacencyList[vertex]) {
       res[res.length] = vertex;
       vis[vertex] = true;
       this.adjacencyList[vertex].forEach((v) => {
         // easier/more efficient to shuttle data structures in parameters
-        if (!vis[v]) this.rDFS(v, res, vis);
+        if (!vis[v]) this.rPreDFS(v, res, vis);
       });
+    }
+
+    return res;
+  }
+
+
+  rPostDFS(vertex, res = [], vis = {}) { // the callstack is the stack
+
+    if (vertex && this.adjacencyList[vertex]) {
+      vis[vertex] = true;
+      this.adjacencyList[vertex].forEach((v) => {
+        if (!vis[v]) {
+          this.rPostDFS(v, res, vis);
+        }
+      });
+      res[res.length] = vertex;
     }
 
     return res;
@@ -119,51 +139,74 @@ const UGraph = class {
   iDFS(vertex) {
     const res = [];
 
-    if (this.adjacencyList[vertex]) {
-      const stack = [vertex],
+    if (vertex && this.adjacencyList[vertex]) {
+      const stack = [vertex], // an array is the stack
         vis = {};
       let v;
-      vis[vertex] = true;
+      //vis[vertex] = true;
 
       while (stack[0]) {
         v = stack.pop();
         res[res.length] = v;
+        vis[v] = true;
         this.adjacencyList[v].forEach((e) => {
           if (!vis[e]) {
-            vis[e] = true;
             stack[stack.length] = e;
           }
         });
       }
-
     }
 
     return res;
   }
 
-  iBFS(vertex){
+  rBFS(vertex) {
     const res = [];
 
-    if(this.adjacencyList[vertex]){
-      const queue = [vertex], vis = {};
+    if (vertex && this.adjacencyList[vertex]) {
+      const queue = [vertex], // an array is the stack
+        vis = {};
       let v;
       vis[vertex] = true;
 
-      while(queue[0]){
+      while (queue[0]) {
         v = queue.shift();
         res[res.length] = v;
-        this.adjacencyList[v].forEach(e => {
-          if(!vis[e]){
+        this.adjacencyList[v].forEach((e) => {
+          if (!vis[e]) {
             vis[e] = true;
             queue[queue.length] = e;
           }
-        })
+        });
       }
     }
 
     return res;
   }
 
+  iBFS(vertex) {
+    const res = [];
+
+    if (vertex && this.adjacencyList[vertex]) {
+      const queue = [vertex],
+        vis = {}; // a queue instead of stack
+      let v;
+      vis[vertex] = true;
+
+      while (queue[0]) {
+        v = queue.shift();
+        res[res.length] = v;
+        this.adjacencyList[v].forEach((e) => {
+          if (!vis[e]) {
+            vis[e] = true;
+            queue[queue.length] = e;
+          }
+        });
+      }
+    }
+
+    return res;
+  }
 };
 
 const myGMap = new UGraph();
@@ -182,6 +225,15 @@ myGMap.addEdge('D', 'E');
 myGMap.addEdge('D', 'F');
 myGMap.addEdge('E', 'F');
 
+// myGMap.addEdge('A', 'B');
+// myGMap.addEdge('A', 'C');
+// myGMap.addEdge('B', 'E');
+// myGMap.addEdge('C', 'D');
+// myGMap.addEdge('C', 'F');
+// myGMap.addEdge('D', 'E');
+// myGMap.addEdge('D', 'F');
+// myGMap.addEdge('E', 'F');
+
 // myGMap.addVertex('Chicago');
 // myGMap.addVertex('Indianapolis');
 // myGMap.addVertex('Austin');
@@ -195,6 +247,8 @@ myGMap.addEdge('E', 'F');
 // console.log(myGMap.adjacencyList);
 // myGMap.removeVertex('Chicago');
 // console.log(myGMap.adjacencyList);
-console.log('return value of myGMap.rDFS(): \n', myGMap.rDFS('A'));
+console.log('return value of myGMap.rDFS(): \n', myGMap.rPreDFS('A'));
+// console.log('return value of myGMap.rPODFS(): \n', myGMap.rPostDFS('A'));
 console.log('return value of myGMap.iDFS(): \n', myGMap.iDFS('A'));
-console.log('return value of myGMap.iBFS(): \n', myGMap.iBFS('A'));
+// console.log('return value of myGMap.iBFS(): \n', myGMap.rBFS('A'));
+// console.log('return value of myGMap.iBFS(): \n', myGMap.iBFS('A'));
