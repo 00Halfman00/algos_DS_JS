@@ -22,8 +22,8 @@
                         SECOND PARAMETER, IGNORING THE FIRST SINCE IT IS NOT BEING USED FOR ITS THIS
                         VALUE
       NOTE:
-      1.  curried will have closure, meaning access to fn.
-      2.  the anonymous function will have closure over args1.
+      1.  curried will have closure/access to fn.
+      2.  the anonymous function will have closure/access to args1.
 */
 
 const curry = function (fn) {
