@@ -109,7 +109,6 @@ const threeSum = (nums) => {
 
     for (let left = i + 1, right = nums.length - 1; left < right; ) {
       subtrahend = nums[left] + nums[right];
-      ++count;
 
       if (target === subtrahend) {
         res[res.length] = [nums[i], nums[left], nums[right]];

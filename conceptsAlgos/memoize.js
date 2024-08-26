@@ -70,10 +70,11 @@ const memoize = (fn) => {
     }
   };
 };
-// TIME COMPLEXITY: O(n^2)
+
+// TIME COMPLEXITY: O(2^n)
 // SPACE COMPLEXITY: O(n)
 const fibo = (idx) => {
-  if (idx <= 1) return 1;
+  if (idx <= 2) return 1;
   return fibo(idx - 1) + fibo(idx - 2);
 };
 // TIME COMPLEXITY: O(n)
@@ -87,36 +88,50 @@ const fibo2 = (idx) => {
     left = tmp;
   }
 };
-/////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
 
-
-
-// TIME COMPLEXITY: O(n)
-// SPACE COMPLEXITY: O(n)
+////////////////  dynamic programing ( tabulation ) //////////////////////////////
+// // TIME COMPLEXITY: O(n)
+// // SPACE COMPLEXITY: O(n)
 const fibo3 = (idx) => {
-  const nums = [0, 1];
-  for (let i = 2; i <= idx; ++i) {
-    nums[i] = nums[i - 2] + nums[i - 1];
+  const tab = [0, 1, 1];
+  for (let i = 3; i <= idx; ++i) {
+    tab[i] = tab[i - 2] + tab[i - 1];
   }
-  return nums[idx];
+  return tab[idx];
 };
 
+////////////////  dynamic programing ( tabulation ) //////////////////////////////
 // TIME COMPLEXITY: O(n)
 // SPACE COMPLEXITY: O(n)
 const fibo4 = (idx) => {
-  const cache = {
+  const tab = {
     0: 0,
     1: 1,
+    1: 1
   };
-  for (let i = 2; i <= idx; ++i) {
-    cache[i] = cache[i - 2] + cache[i - 1];
+  for (let i = 3; i <= idx; ++i) {
+    tab[i] = tab[i - 2] + tab[i - 1];
   }
-  return cache[idx];
+  return tab[idx];
 };
 
-// const one = memoize(fibo2);
-// console.log(one(4));
-console.log(fibo4(3));
-// 0 1 1 2 3 5 8
-// 0,1,2,3,4,5
+  /////////////////////// dynamic programing ( memoization )  ///////////////////
+const fibo5 = (idx, memo = [0, 1, 1], c=true) => {
+  if(idx === 0 && c){
+    count = false;
+    return 0;
+  }
+  if (memo[idx]) return memo[idx];
+  if (idx <= 2) return 1;
+  const num = fibo5(idx - 1, memo) + fibo5(idx - 2, memo);
+  memo[idx] = num;
+  return num;
+};
+
+const one = memoize(fibo2);
+console.log(one(4));
+//console.log(fibo(7))
+console.log(fibo5(7));
+
+// 0 1 1 2 3 5 8,13
+// 0,1,2,3,4,5,6,7
