@@ -442,8 +442,7 @@ const pivot = (arr, startIdx = 0, endIdx = arr.length - 1) => {
   let piv = arr[startIdx]; // value to pivot on [...left elemenst, piv, ...right elements]
   let swapIdx = startIdx; // index/pointer to keep track of where to swap;
 
-  for (let i = startIdx + 1; i <= endIdx; ++i) {
-    // don't need to compare piv to itself
+  for (let i = startIdx + 1; i <= endIdx; ++i) { // don't need to compare piv to itself
     if (piv > arr[i]) {
       ++swapIdx;
       swap(arr, swapIdx, i);
@@ -463,7 +462,7 @@ const quickSort = (arr, strIdx = 0, endIdx = arr.length - 1) => {
 };
 
 // console.log('pivot helper function: ', pivot(ints1));
-// console.log('quickSort results: ', quickSort(ints1));
+console.log('quickSort results: ', quickSort(ints1));
 
 ////////////////////// CREATE RADIX ALGORITHM    /////////////////////////////
 
@@ -548,7 +547,7 @@ const radixSort = (numsArr) => {
 
 
 
-console.log('radix sort: ', radixSort([123, 98, 4, 6754, 234]));
+// console.log('radix sort: ', radixSort([123, 98, 4, 6754, 234]));
 
 // console.log('123 at position 0: ', getDigit(123, 0));
 // console.log('123 at position 1: ', getDigit(123, 1));
