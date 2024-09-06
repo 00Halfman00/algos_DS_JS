@@ -397,7 +397,7 @@ const merge = (left, right) => {
   return res;
 };
 
-// console.log('merge function: ', merge(ints1, ints4));
+console.log('merge function: ', merge(ints1, ints4));
 
 const mergeSort = (arr) => {
   if (arr.length <= 1) return arr;
@@ -407,7 +407,7 @@ const mergeSort = (arr) => {
   return merge(left, right);
 };
 
-console.log('ints1 before: ', ints1);
+// console.log('ints1 before: ', ints1);
 // console.log('mergeSort: ', mergeSort(ints1));
 
 /////////////   CREATE QUCKSORT ALGORITHM   ///////////////////////////////////
@@ -462,7 +462,7 @@ const quickSort = (arr, strIdx = 0, endIdx = arr.length - 1) => {
 };
 
 // console.log('pivot helper function: ', pivot(ints1));
-console.log('quickSort results: ', quickSort(ints1));
+// console.log('quickSort results: ', quickSort(ints1));
 
 ////////////////////// CREATE RADIX ALGORITHM    /////////////////////////////
 

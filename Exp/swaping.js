@@ -19,13 +19,9 @@ const ints2 = [1, 2, 3, 4, 5, 6, 7, 9, 8, 10, -24];
   2.
 */
 
-
-
-
 const swap = (arr, idx1, idx2) => {
   [ arr[idx1], arr[idx2] ] = [ arr[idx2], arr[idx1] ];
  }
-
  const pivot = (arr, startIdx = 0, endIdx = arr.length-1) => {
   const pivotElement = arr[startIdx];
   let swapIdx = startIdx;
@@ -38,7 +34,6 @@ const swap = (arr, idx1, idx2) => {
   }
   swap(arr, startIdx, swapIdx);
  }
-
  pivot(ints2);
  console.log(ints2);
 
