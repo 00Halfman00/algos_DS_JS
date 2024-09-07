@@ -72,14 +72,6 @@ const selectionSort = (nums) => {
   return nums;
 };
 
-// so this version is doing the same math but it is using less memory, so slight improvement
-const selectionSort2 = nums => {
-  for(let i = 0; i < nums.length - 2; ++i){
-    if(nums[i] > nums[i+1]) [nums[i], nums[i+1]] = [nums[i+1], nums[i]];
-  }
-  return nums;
-}
-
 const ints1 = [4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
 console.log(selectionSort(ints1));
 
@@ -139,6 +131,7 @@ const insertionSort = (nums) => {
 
   1.  CREATE A FUNCTION THAT MERGES THE ELEMENTS IN TWO ARRAYS AND RETURNS THEM
       IN A NEW ARRAY IN SORTED ORDER. NAME THE FUNCTION merge2Arrs
+      TIME COMPLEXITY: O( N+M )
 
   2.  CREATE THE FUNCTION MERGESORT
       A.  IT WILL TAKE AN ARRAY OF UNSORTED NUMBERS NAMED nums
@@ -156,6 +149,7 @@ const insertionSort = (nums) => {
           AND NO ENDING VALUE SO THAT IT WILL GO ONTO THE END OF THE ARRAY
       F.  IT WILL RETURN THE VALUE OF CALLING THE merge2Arrays HELPER FUNCTION
           ON WITH THE ARGUMENTS left AND right
+      TIME COMPLEXITY: O (N LOG N)
 
 */
 
