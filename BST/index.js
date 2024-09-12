@@ -1,51 +1,168 @@
+///////////////////////////////////  function to create a node class for binary tree ////////////////////////////
 const Node = function (val) {
   this.val = val;
   this.left = null;
   this.right = null;
 };
 
+/////////////////////////////////   class to create a binary search tree with instance methods //////////////////
 const BST = class {
   constructor() {
     this.root = null;
   }
-
-  insert(val) {
+  ////////////////////////////////////// method to insert a node via iteration   ////////////////////////////////
+  insertIteration(val) {
     if (val) {
       const incoming = new Node(val);
       if (this.root) {
         let tmp = this.root;
         while (tmp) {
-					if(val < tmp.val){
-						if(!tmp.left){
-							tmp.left = incoming;
-							break;
-						} else tmp = tmp.left;
-					}
-					if(val > tmp.val){
-						if(!tmp.right){
-							tmp.right = incoming;
-							break;
-						} else tmp = tmp.right;
-					}
-				}
+          if (val < tmp.val) {
+            if (!tmp.left) {
+              tmp.left = incoming;
+              break;
+            } else tmp = tmp.left;
+          }
+          if (val > tmp.val) {
+            if (!tmp.right) {
+              tmp.right = incoming;
+              break;
+            } else tmp = tmp.right;
+          }
+        }
       } else {
         this.root = incoming;
       }
     }
+    return this;
   }
+  ////////////////////////////////////// method to insert a node via recursion  //////////////////////////////////
+  insertRecursion = (val) => {
+    if (val) {
+      const incoming = new Node(val);
+
+      if (this.root) {
+        const insertR = (node) => {
+          if (val < node.val) {
+            if (!node.left) node.left = incoming;
+            else node = node.left;
+          }
+          if (val > node.val) {
+            if (!node.right) node.right = incoming;
+            else node = node.right;
+          }
+        };
+        insertR(this.root);
+      } else this.root = incoming;
+    }
+    return this;
+  };
+
+  /////////////////////////////////   method to find a node inside the BST via iteration  ////////////////////
+  findIteration = (val) => {
+    if (this.root && val) {
+      let tmp = this.root;
+      while (tmp) {
+        if (val === tmp.val) return tmp;
+        if (val < tmp.val) tmp = tmp.left;
+        if (val > tmp.val) tmp = tmp.right;
+      }
+    }
+    /////////////// undefined will be returned implicitly if for some reason the sought after node is not found
+  };
+
+  /////////////////////////////////   method to find a node inside the BST via recursion  ////////////////////
+  findRecurion = (val) => {
+    if (this.root && val) {
+      const findR = (node) => {
+        if (node) {
+          if (val === node.val) return node;
+          if (val < node.val) return findR(node.left);
+          if (val > node.val) return findR(node.right);
+        }
+      };
+      return findR(this.root);
+    }
+    /////////////// undefined will be returned implicitly if for some reason the sought after node is not found
+  };
+
+  //////////////  method to retrieve all values from nodes inside BST via breath first search BFS   /////////////////
+  bFS = () => {
+    const res = [];
+    if (this.root) {
+      const queue = [this.root];
+      let tmp;
+      while (queue[0]) {
+        tmp = queue.shift();
+        res[res.length] = tmp.val;
+        if (tmp.left) queue[queue.length] = tmp.left;
+        if (tmp.right) queue[queue.length] = tmp.right;
+      }
+    }
+    return res;
+  };
+
+	/////////////  method to retrievve all values from nodes inside BST via inorder iteration   /////////////////
+	inorderIteration = () => {
+		const res = [];
+		if(this.root){
+			const stack = [];
+			let node = this.root;
+			while(stack[0] || node){
+				while(node){
+					stack[stack.length] = node;
+					node = node.left;
+				}
+				node = stack.pop();
+				res[res.length] = node.val;
+				node = node.right;
+			}
+		}
+		return res;
+	}
+
+  /////////////   method to retrieve all values from nodes inside BST via preorder iteration  /////////////////
+  preorderIteration = () => {
+    const res = [];
+    if (this.root) {
+      const stack = [this.root];
+      let curr;
+      while (stack[0]) {
+        curr = stack.pop();
+        res[res.length] = curr.val;
+        if (curr.right) stack[stack.length] = curr.right;
+        if (curr.left) stack[stack.length] = curr.left;
+      }
+    }
+    return res;
+  };
+
+  preorderRecursion = () => {
+    const res = [];
+
+    const preorderR = (node) => {
+      if (node) {
+				res[res.length] = node.val;
+        if (node.left) preorderR(node.left);
+        if (node.right) preorderR(node.right);
+      }
+    };
+    preorderR(this.root);
+    return res;
+  };
 };
 
 const myBST = new BST();
 
-myBST.insert(10);
-myBST.insert(4);
-myBST.insert(2);
-myBST.insert(15);
-myBST.insert(1);
-myBST.insert(5);
-myBST.insert(20);
-myBST.insert(13);
-myBST.insert(3);
+myBST.insertIteration(10);
+myBST.insertIteration(4);
+myBST.insertIteration(2);
+myBST.insertIteration(15);
+myBST.insertIteration(1);
+myBST.insertIteration(5);
+myBST.insertIteration(20);
+myBST.insertIteration(13);
+myBST.insertIteration(3);
 
 /*
 						10
@@ -57,8 +174,28 @@ myBST.insert(3);
 		1		3
 */
 
-console.log('MY BINARY SEARCH TREE CLASS INSTANCE: ', myBST.root);
+// console.log('MY BINARY SEARCH TREE CLASS INSTANCE: ', myBST.root);
 
+// console.log(
+//   'find the value via iteration inside the BST class instance: ',
+//   myBST.findIteration(15)
+// );
+
+// console.log(
+//   'find the value via recursion inside the BST class instance: ',
+//   myBST.findRecurion(18)
+// // );
+// console.log('retrieve all values from nodes in BST class instance via BFS iteration : ', myBST.bFS())
+
+console.log('retrieve all values from nodes in BST class instance via inorder iteration: ', myBST.inorderIteration())
+// console.log(
+//   'retrieve all values from nodes in BST class instance via preorder recursion: ',
+//   myBST.preorderRecursion()
+// );
+// console.log(
+//   'retrieve all values from nodes in BST class instance via preorder iteration : ',
+//   myBST.preorderIteration()
+// );
 
 /*
 	TASK: WRITE A FUNCTION THAT WILL TAKE A BINARY TREE AND RETURN THE TOTAL SUM
@@ -87,20 +224,20 @@ console.log('MY BINARY SEARCH TREE CLASS INSTANCE: ', myBST.root);
 // IT WORKS BY KEEPING TRACK OF THE VALUE OF num AT EACH NODE AND WHEN IT CALLS THE LEFT OR
 // RIGHT NODE/CHILD, IT ADDS ONE TO WHATEVER NUM IS AT THAT DEPTH OF THE TREE AND THEN
 // ADDS THAT FIGURE TO TOTAL
-const totalEdgesFromRoot = root => {
-	let total = 0;
-	const dfs = (node, num) => {
-		total += num;
-		if(node.left){
-			 dfs(node.left, num+1)
-		}
-		if(node.right){
-			dfs(node.right, num+1)
-		}
-	}
-	dfs(root, total);
-	return total;
-}
+const totalEdgesFromRoot = (root) => {
+  let total = 0;
+  const dfs = (node, num) => {
+    total += num;
+    if (node.left) {
+      dfs(node.left, num + 1);
+    }
+    if (node.right) {
+      dfs(node.right, num + 1);
+    }
+  };
+  dfs(root, total);
+  return total;
+};
 
 /*
 
@@ -115,7 +252,7 @@ const totalEdgesFromRoot = root => {
 		1		3
 */
 
-console.log('TOTAL EDGES FROM ROOT: ', totalEdgesFromRoot(myBST.root))
+// console.log('TOTAL EDGES FROM ROOT: ', totalEdgesFromRoot(myBST.root));
 // console.log(totalEdgesFromRoot(myBST.root.left))
 // console.log(totalEdgesFromRoot(myBST.root.left.left))
 // console.log(totalEdgesFromRoot(myBST.root.right))
@@ -144,18 +281,18 @@ console.log('TOTAL EDGES FROM ROOT: ', totalEdgesFromRoot(myBST.root))
 			E.	IT WILL RETURN THE VALUE OF THE total VARIABLE
 */
 
-
-const totalEdgesFromAllTrees = root => {
-	const stack = [root];
-	let total = 0, tmp;
-	while(stack[0]){
-		tmp = stack.pop()
-		total += totalEdgesFromRoot(tmp, 0);
-		if(tmp.right) stack[stack.length] = tmp.right;
-		if(tmp.left) stack[stack.length] = tmp.left;
-	}
-	return total;
-}
+const totalEdgesFromAllTrees = (root) => {
+  const stack = [root];
+  let total = 0,
+    tmp;
+  while (stack[0]) {
+    tmp = stack.pop();
+    total += totalEdgesFromRoot(tmp, 0);
+    if (tmp.right) stack[stack.length] = tmp.right;
+    if (tmp.left) stack[stack.length] = tmp.left;
+  }
+  return total;
+};
 
 /*
 
@@ -170,5 +307,7 @@ const totalEdgesFromAllTrees = root => {
 		1		3
 */
 
-console.log('TOTAL EDGES FROM TREE AND SUBTREES: ', totalEdgesFromAllTrees(myBST.root));
-
+// console.log(
+//   'TOTAL EDGES FROM TREE AND SUBTREES: ',
+//   totalEdgesFromAllTrees(myBST.root)
+// );
