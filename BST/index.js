@@ -353,7 +353,7 @@ const totalEdgesFromAllTrees = (root) => {
       8   return the sum of all the values found in distances object
 */
 
-const alledges2TargetNode = (root, point) => {
+const allEdges2TargetNode = (root, point) => {
   let sum = 0;
 
   if (root && point) {
@@ -386,7 +386,7 @@ const alledges2TargetNode = (root, point) => {
 
 
 
-console.log('total edges to target: ', alledges2TargetNode(myBST.root, 15));
+console.log('total edges to target: ', allEdges2TargetNode(myBST.root, 15));
 
 // const allNodeDistances2TargetNode = (root, target) => {  // this will give the distances to the root
 //   const distances = {};
@@ -415,7 +415,7 @@ console.log('total edges to target: ', alledges2TargetNode(myBST.root, 15));
 
 /*
         target node's value is 15
-				find the total edges for all nodes to the target node: 20
+				find the total edges for all nodes to the target node: 19
 
 						10
 					/	   \
