@@ -102,24 +102,24 @@ const BST = class {
     return res;
   };
 
-	/////////////  method to retrievve all values from nodes inside BST via inorder iteration   /////////////////
-	inorderIteration = () => {
-		const res = [];
-		if(this.root){
-			const stack = [];
-			let node = this.root;
-			while(stack[0] || node){
-				while(node){
-					stack[stack.length] = node;
-					node = node.left;
-				}
-				node = stack.pop();
-				res[res.length] = node.val;
-				node = node.right;
-			}
-		}
-		return res;
-	}
+  /////////////  method to retrievve all values from nodes inside BST via inorder iteration   /////////////////
+  inorderIteration = () => {
+    const res = [];
+    if (this.root) {
+      const stack = [];
+      let node = this.root;
+      while (stack[0] || node) {
+        while (node) {
+          stack[stack.length] = node;
+          node = node.left;
+        }
+        node = stack.pop();
+        res[res.length] = node.val;
+        node = node.right;
+      }
+    }
+    return res;
+  };
 
   /////////////   method to retrieve all values from nodes inside BST via preorder iteration  /////////////////
   preorderIteration = () => {
@@ -142,7 +142,7 @@ const BST = class {
 
     const preorderR = (node) => {
       if (node) {
-				res[res.length] = node.val;
+        res[res.length] = node.val;
         if (node.left) preorderR(node.left);
         if (node.right) preorderR(node.right);
       }
@@ -187,7 +187,7 @@ myBST.insertIteration(3);
 // // );
 // console.log('retrieve all values from nodes in BST class instance via BFS iteration : ', myBST.bFS())
 
-console.log('retrieve all values from nodes in BST class instance via inorder iteration: ', myBST.inorderIteration())
+// console.log('retrieve all values from nodes in BST class instance via inorder iteration: ', myBST.inorderIteration())
 // console.log(
 //   'retrieve all values from nodes in BST class instance via preorder recursion: ',
 //   myBST.preorderRecursion()
@@ -239,6 +239,30 @@ const totalEdgesFromRoot = (root) => {
   return total;
 };
 
+const totalEdges = (node, depth) => {
+  if (!node) return 0;
+  return (
+    depth + totalEdges(node.left, depth + 1) + totalEdges(node.right, depth + 1)
+  );
+};
+
+const numOfNodes = (root) => {
+  if (root) {
+    const stack = [root];
+    let node,
+      total = 0;
+    while (stack[0]) {
+      node = stack.pop();
+      total += 1;
+      if (node.left) stack[stack.length] = node.left;
+      if (node.right) stack[stack.length] = node.right;
+    }
+    return total;
+  }
+};
+
+console.log('total number of nodes in binary tree: ', numOfNodes(myBST.root));
+
 /*
 
 				find the total edges for all nodes from root node : 16
@@ -252,7 +276,7 @@ const totalEdgesFromRoot = (root) => {
 		1		3
 */
 
-// console.log('TOTAL EDGES FROM ROOT: ', totalEdgesFromRoot(myBST.root));
+// console.log('TOTAL EDGES FROM ROOT: ', totalEdges(myBST.root, 0));
 // console.log(totalEdgesFromRoot(myBST.root.left))
 // console.log(totalEdgesFromRoot(myBST.root.left.left))
 // console.log(totalEdgesFromRoot(myBST.root.right))
@@ -311,3 +335,93 @@ const totalEdgesFromAllTrees = (root) => {
 //   'TOTAL EDGES FROM TREE AND SUBTREES: ',
 //   totalEdgesFromAllTrees(myBST.root)
 // );
+
+/*
+  1.  TASK:   CREATE A FUNCTION THAT WILL TAKE A ROOT NODE AND A TARGET NODE AND HAVE IT RETURN THE
+              TOTAL NUMBER/SUM OF ALL DISTANCES/EDGES FROM THE TARGET TO ALL THE OTHER NODES IN THE
+              BINARY TREE
+
+      NOTE: DFS APPROACH WITH AN OBJECT TO STORE DISTANCES FOR EACH NODE TO TARGET NODE
+      1.  define a helper function that will perform dfs via recursion that takes a node and a variable
+          to keep track of the number of edges/depth
+      2.  define a base case where if node is undefined/null to return
+      3.  assign the depth/edge value to the key of node in object
+      4.  if node equals target set depth/edge variable to zero
+      5.  call the dfs helper function on the left property of node and the depth/edge variable plus one
+      6.  call the dfs helper function on the right property of node and the depth/edge variable plus one
+      7.  invoke the helper function with root node and the value of zero for the depth/edge variable
+      8   return the sum of all the values found in distances object
+*/
+
+const alledges2TargetNode = (root, point) => {
+  let sum = 0;
+
+  if (root && point) {
+    let currDepth = 0,
+      nodes;
+
+    const getResults = (node, target, totalDepth, totalNodes) => {
+      if (node.val === target) {
+        sum = totalDepth;
+        return;
+      }
+
+      if (node.left) {
+        nodes = numOfNodes(node.left);
+        currDepth = totalDepth - nodes + (totalNodes - nodes);
+        getResults(node.left, target, currDepth, totalNodes);
+      }
+
+      if (node.right) {
+        nodes = numOfNodes(node.right);
+        currDepth = totalDepth - nodes + (totalNodes - nodes);
+        getResults(node.right, target, currDepth, totalNodes);
+      }
+    };
+
+    getResults(root, point, totalEdges(root, 0), numOfNodes(root));
+  }
+  return sum;
+};
+
+
+
+console.log('total edges to target: ', alledges2TargetNode(myBST.root, 15));
+
+// const allNodeDistances2TargetNode = (root, target) => {  // this will give the distances to the root
+//   const distances = {};
+//   let total = 0;
+
+//   const dfs = (node, num) => {
+//     if(!node) return;
+//      if(node.val === target) num = 0;
+//      distances[node.val] = num;
+//     total += num;
+//     dfs(node.left, num+1);
+//     dfs(node.right, num+1);
+//   }
+//   // console.log(total)
+//   dfs(root, 1);
+
+//   // let sum = 0;
+//   // for(let val in distances){
+//   //   if(val !== target+'') sum += distances[val];
+//   // }
+//   console.log('distances: ', distances)
+//   return total;
+// }
+
+// console.log(allNodeDistances2TargetNode(myBST.root, 5))
+
+/*
+        target node's value is 15
+				find the total edges for all nodes to the target node: 20
+
+						10
+					/	   \
+				4		    15
+			 / \     /  \
+		  2   5   13   20
+     / \
+		1		3
+*/
