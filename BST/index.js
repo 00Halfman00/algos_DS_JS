@@ -1,8 +1,32 @@
+/*
+  TASK: CREATE A METHOD THAT WILL RETURN ALL THE VALUES OF THE NODES IN THE BT
+      IN AN ARRAY AND INORDER
+
+  1.  CREATE A METHOD NAMED inorderIteration
+      A.  IT WILL TAKE NO PARAMETERS
+      B.  IT WILL CREATE AN ARRAY NAMED res THAT WILL CONTAIN ALL THE VALUES FOUND IN BT
+          INRODER
+      C.  IT WILL CHECK IF THE BT HAS A ROOT
+          I.    IT WILL CREATE AN UNMUTABLE VARIABLE NAMED stack THAT WILL BE AN ARRAY THAT'S EMPTY
+          II.   IT WILL CREATE A MUTABLE VARIABLE NAMED node AND ASSIGN IT THE VALUE OF THE ROOT NODE
+          III.  IT WILL LOOP WHILE THERE IS A NODE/ELEMENT FOUND IN THE STACK OR WHILE node
+                IS NOT NULL
+                a.  IT WILL LOOP WHILE node IS NOT NULL
+                    I.    IT WILL PUSH node ONTO THE STACK
+                    II.   IT WILL ASSIGN node THE VALUE OF ITS OWN LEFT PROPERTY
+                b.  IT WILL ASSINGN node TO BE THE VALUE OF POPPING FROM THE stack ARRAY
+                c.  IT WILL PUSH THE VALUE OF node ONTO THE res ARRAY
+                d.  IT WILL REASSIGN node TO BE THE VALUE OF node's RIGHT PROPERTY
+      D.  IT WILL RETURN THE res ARRAY
+
+*/
+
 ///////////////////////////////////  function to create a node class for binary tree ////////////////////////////
 const Node = function (val) {
   this.val = val;
   this.left = null;
   this.right = null;
+  this.count = 0;
 };
 
 /////////////////////////////////   class to create a binary search tree with instance methods //////////////////
@@ -102,7 +126,7 @@ const BST = class {
     return res;
   };
 
-  /////////////  method to retrievve all values from nodes inside BST via inorder iteration   /////////////////
+  ///////////  method to retrievve all values from nodes inside BST via inorder iteration   /////////////////
   inorderIteration = () => {
     const res = [];
     if (this.root) {
@@ -226,6 +250,7 @@ myBST.insertIteration(3);
 // ADDS THAT FIGURE TO TOTAL
 const totalEdgesFromRoot = (root) => {
   let total = 0;
+
   const dfs = (node, num) => {
     total += num;
     if (node.left) {
@@ -235,9 +260,23 @@ const totalEdgesFromRoot = (root) => {
       dfs(node.right, num + 1);
     }
   };
+
   dfs(root, total);
   return total;
 };
+/*
+				find the total edges for all nodes from root node : 16
+
+						10
+					/	   \
+				4		    15             // num = 1, total += num, total = 1
+			 / \     /  \
+		  2   5   13   20          // num = 2, total += num, total = 3
+     / \
+		1		3                      // num = 3, total += num, total = 6
+*/
+// console.log('TOTAL EDGES FROM ROOT: ', totalEdgesFromRoot(myBST.root, 0));
+
 
 const totalEdges = (node, depth) => {
   if (!node) return 0;
@@ -246,37 +285,82 @@ const totalEdges = (node, depth) => {
   );
 };
 
-const numOfNodes = (root) => {
+const numOfNodesDFS = (root) => {
+  let total = 0;
   if (root) {
     const stack = [root];
-    let node,
-      total = 0;
+    let node;
     while (stack[0]) {
       node = stack.pop();
       total += 1;
-      if (node.left) stack[stack.length] = node.left;
-      if (node.right) stack[stack.length] = node.right;
+      if (node.right) {
+        stack[stack.length] = node.right;
+      }
+      if (node.left) {
+        stack[stack.length] = node.left;
+      }
     }
-    return total;
+  }
+  return total;
+};
+
+const countNodesBFSI = (root) => {
+  let count = 0;
+  if (root) {
+    const queue = [root];
+    let node;
+    while (queue[0]) {
+      node = queue.shift();
+      count += 1;
+      node.count = count;
+      if (node.left) queue[queue.length] = node.left;
+      if (node.right) queue[queue.length] = node.right;
+    }
+  }
+  return count;
+};
+
+const countNodesBFSR = (root) => {
+  if (root) {
+    let count = 0;
+    const rBFS = (nodes) => {
+      if (!nodes[0]) return
+        let newNodes = [];
+        for (let node of nodes) {
+          count += 1;
+          node.count = count;
+          if (node.left) newNodes[newNodes.length] = node.left;
+
+          if (node.right) newNodes[newNodes.length] = node.right;
+        }
+        rBFS(newNodes);
+    };
+    rBFS([root]);
+    return count;
   }
 };
 
-console.log('total number of nodes in binary tree: ', numOfNodes(myBST.root));
 
-/*
+const countNodes = node => {
+    if(!node) return 0;
+      return countNodes(node.left) + countNodes(node.right) + 1;
+}
 
-				find the total edges for all nodes from root node : 16
 
-						10
-					/	   \
-				4		    15
-			 / \     /  \
-		  2   5   13   20
-     / \
-		1		3
-*/
+console.log('count nodes method: ', countNodes(myBST.root))
 
-// console.log('TOTAL EDGES FROM ROOT: ', totalEdges(myBST.root, 0));
+
+
+
+
+
+
+
+// console.log('count nodes BFSR: ', countNodesBFSR(myBST.root))
+
+// console.log('total number of nodes in binary tree: ', countNodes(myBST.root));
+
+
 // console.log(totalEdgesFromRoot(myBST.root.left))
 // console.log(totalEdgesFromRoot(myBST.root.left.left))
 // console.log(totalEdgesFromRoot(myBST.root.right))
@@ -335,6 +419,7 @@ const totalEdgesFromAllTrees = (root) => {
 //   'TOTAL EDGES FROM TREE AND SUBTREES: ',
 //   totalEdgesFromAllTrees(myBST.root)
 // );
+// console.log('myBST.root: ', myBST.root)
 
 /*
   1.  TASK:   CREATE A FUNCTION THAT WILL TAKE A ROOT NODE AND A TARGET NODE AND HAVE IT RETURN THE
@@ -353,7 +438,13 @@ const totalEdgesFromAllTrees = (root) => {
       8   return the sum of all the values found in distances object
 */
 
-const allEdges2TargetNode = (root, point) => {
+
+
+
+
+
+
+const allEdges2TargetNodeV1 = (root, point) => { // time complexity: O(n^2)
   let sum = 0;
 
   if (root && point) {
@@ -365,28 +456,70 @@ const allEdges2TargetNode = (root, point) => {
         sum = totalDepth;
         return;
       }
-
       if (node.left) {
-        nodes = numOfNodes(node.left);
+        nodes = numOfNodesDFS(node.left);
         currDepth = totalDepth - nodes + (totalNodes - nodes);
+        console.log('node.left  currDepth: ', currDepth)
         getResults(node.left, target, currDepth, totalNodes);
       }
-
       if (node.right) {
-        nodes = numOfNodes(node.right);
+        nodes = numOfNodesDFS(node.right);
         currDepth = totalDepth - nodes + (totalNodes - nodes);
+        console.log('node.right currDepth: ', currDepth)
         getResults(node.right, target, currDepth, totalNodes);
       }
     };
 
-    getResults(root, point, totalEdges(root, 0), numOfNodes(root));
+    getResults(root, point, totalEdges(root, 0), numOfNodesDFS(root));
   }
   return sum;
 };
 
 
 
-console.log('total edges to target: ', allEdges2TargetNode(myBST.root, 15));
+
+
+
+
+
+
+
+
+
+
+
+
+const allEdges2TargetNodeV2 = (root, point) => { // time complexity: O(n)
+  let sum = 0;
+
+  if (root && point) {
+    let currDepth;
+
+    const getResults = (node, target, totalDepth, totalNodes) => {
+      if (node.val === target) {
+        sum = totalDepth;
+      }
+      if (node.left) {
+        currDepth =
+          totalDepth - node.left.count + (totalNodes - node.left.count);
+          console.log('node.left  currDepth: ', currDepth)
+        getResults(node.left, target, currDepth, totalNodes);
+      }
+      if (node.right) {
+        currDepth =
+          totalDepth - node.right.count + (totalNodes - node.right.count);
+          console.log('node.right currDepth: ', currDepth)
+        getResults(node.right, target, currDepth, totalNodes);
+      }
+    };
+
+    getResults(root, point, totalEdges(root, 0), countNodesBFSI(root));
+  }
+  return sum;
+};
+
+// console.log('total edges to target v1: ', allEdges2TargetNodeV1(myBST.root, 15));
+// console.log('total edges to target v2 : ', allEdges2TargetNodeV2(myBST.root, 15));
 
 // const allNodeDistances2TargetNode = (root, target) => {  // this will give the distances to the root
 //   const distances = {};
@@ -420,8 +553,11 @@ console.log('total edges to target: ', allEdges2TargetNode(myBST.root, 15));
 						10
 					/	   \
 				4		    15
-			 / \     /  \
+			 / \     /  \    5
 		  2   5   13   20
      / \
 		1		3
 */
+
+
+document.write('one')
