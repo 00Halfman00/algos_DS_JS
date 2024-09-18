@@ -33,11 +33,13 @@ const Node = function (val) {
 const BST = class {
   constructor() {
     this.root = null;
+    this.nodes = [];
   }
   ////////////////////////////////////// method to insert a node via iteration   ////////////////////////////////
   insertIteration(val) {
     if (val) {
       const incoming = new Node(val);
+      this.nodes[this.nodes.length] = incoming;
       if (this.root) {
         let tmp = this.root;
         while (tmp) {
@@ -64,7 +66,7 @@ const BST = class {
   insertRecursion = (val) => {
     if (val) {
       const incoming = new Node(val);
-
+      this.nodes[this.nodes.length] = incoming;
       if (this.root) {
         const insertR = (node) => {
           if (val < node.val) {
@@ -277,7 +279,6 @@ const totalEdgesFromRoot = (root) => {
 */
 // console.log('TOTAL EDGES FROM ROOT: ', totalEdgesFromRoot(myBST.root, 0));
 
-
 const totalEdges = (node, depth) => {
   if (!node) return 0;
   return (
@@ -301,8 +302,29 @@ const numOfNodesDFS = (root) => {
       }
     }
   }
-  root.count = total;
+  // root.count = total;
   return total;
+};
+
+const numOfNodesDFSV2 = (nodes) => {
+  for (const n of nodes) {
+    let total = 0;
+    if (n) {
+      const stack = [n];
+      let node;
+      while (stack[0]) {
+        node = stack.pop();
+        total += 1;
+        if (node.right) {
+          stack[stack.length] = node.right;
+        }
+        if (node.left) {
+          stack[stack.length] = node.left;
+        }
+      }
+    }
+    n.count = total;
+  }
 };
 
 const countNodesBFSI = (root) => {
@@ -325,42 +347,30 @@ const countNodesBFSR = (root) => {
   if (root) {
     let count = 0;
     const rBFS = (nodes) => {
-      if (!nodes[0]) return
-        let newNodes = [];
-        for (let node of nodes) {
-          count += 1;
-          node.count = count;
-          if (node.left) newNodes[newNodes.length] = node.left;
+      if (!nodes[0]) return;
+      let newNodes = [];
+      for (let node of nodes) {
+        count += 1;
+        node.count = count;
+        if (node.left) newNodes[newNodes.length] = node.left;
 
-          if (node.right) newNodes[newNodes.length] = node.right;
-        }
-        rBFS(newNodes);
+        if (node.right) newNodes[newNodes.length] = node.right;
+      }
+      rBFS(newNodes);
     };
     rBFS([root]);
     return count;
   }
 };
 
-
-const countNodes = node => {
-    if(!node) return 0;
-      return countNodes(node.left) + countNodes(node.right) + 1;
-}
-
+const countNodes = (node) => {
+  if (!node) return 0;
+  return countNodes(node.left) + countNodes(node.right) + 1;
+};
 
 // console.log('count nodes method: ', countNodes(myBST.root))
 
-
-
-
-
-
-
-
-// console.log('count nodes BFSR: ', countNodesBFSR(myBST.root))
-
 // console.log('total number of nodes in binary tree: ', countNodes(myBST.root));
-
 
 // console.log(totalEdgesFromRoot(myBST.root.left))
 // console.log(totalEdgesFromRoot(myBST.root.left.left))
@@ -428,7 +438,8 @@ const totalEdgesFromAllTrees = (root) => {
               BINARY TREE
 */
 
-const allEdges2TargetNodeV1 = (root, point) => { // time complexity: O(n^2)
+const allEdges2TargetNodeV1 = (root, point) => {
+  // time complexity: O(n^2)
   let sum = 0;
 
   if (root && point) {
@@ -457,7 +468,6 @@ const allEdges2TargetNodeV1 = (root, point) => { // time complexity: O(n^2)
   return sum;
 };
 
-
 /*
         target node's value is 15
 				find the total edges for all nodes to the target node: 19
@@ -471,8 +481,10 @@ const allEdges2TargetNodeV1 = (root, point) => { // time complexity: O(n^2)
 		1		3
 */
 
-const allEdges2TargetNodeV2 = (root, point) => { // time complexity: O(n)
-  if (root && point) {
+const allEdges2TargetNodeV2 = (root, point, nodes) => {
+  // time complexity: O(n)
+  if (root && point && nodes) {
+    numOfNodesDFSV2(nodes);
     let currDepth;
 
     const getResults = (node, target, totalDepth, totalNodes) => {
@@ -491,14 +503,13 @@ const allEdges2TargetNodeV2 = (root, point) => { // time complexity: O(n)
       }
     };
 
-    getResults(root, point, totalEdges(root, 0), numOfNodesDFS(root));
+    getResults(root, point, totalEdgesFromRoot(root, 0), root.count);
   }
   return sum;
 };
 
-console.log('total edges to target v1: ', allEdges2TargetNodeV1(myBST.root, 1));
-console.log('total edges to target v2 : ', allEdges2TargetNodeV2(myBST.root, 1));
-
+// console.log('total edges to target v1: ', allEdges2TargetNodeV1(myBST.root, 15));
+console.log('total edges to target v2 : ', allEdges2TargetNodeV2(myBST.root, 15, myBST.nodes));
 
 /*
         target node's value is 15
@@ -513,3 +524,8 @@ console.log('total edges to target v2 : ', allEdges2TargetNodeV2(myBST.root, 1))
 		1		3
 */
 
+// console.log('this.root: ', myBST.root);
+
+
+// console.log(numOfNodesDFSV2(myBST.nodes));
+// console.log('this.nodes: ', myBST.nodes);
