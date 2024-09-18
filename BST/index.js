@@ -301,6 +301,7 @@ const numOfNodesDFS = (root) => {
       }
     }
   }
+  root.count = total;
   return total;
 };
 
@@ -347,7 +348,7 @@ const countNodes = node => {
 }
 
 
-console.log('count nodes method: ', countNodes(myBST.root))
+// console.log('count nodes method: ', countNodes(myBST.root))
 
 
 
@@ -425,24 +426,7 @@ const totalEdgesFromAllTrees = (root) => {
   1.  TASK:   CREATE A FUNCTION THAT WILL TAKE A ROOT NODE AND A TARGET NODE AND HAVE IT RETURN THE
               TOTAL NUMBER/SUM OF ALL DISTANCES/EDGES FROM THE TARGET TO ALL THE OTHER NODES IN THE
               BINARY TREE
-
-      NOTE: DFS APPROACH WITH AN OBJECT TO STORE DISTANCES FOR EACH NODE TO TARGET NODE
-      1.  define a helper function that will perform dfs via recursion that takes a node and a variable
-          to keep track of the number of edges/depth
-      2.  define a base case where if node is undefined/null to return
-      3.  assign the depth/edge value to the key of node in object
-      4.  if node equals target set depth/edge variable to zero
-      5.  call the dfs helper function on the left property of node and the depth/edge variable plus one
-      6.  call the dfs helper function on the right property of node and the depth/edge variable plus one
-      7.  invoke the helper function with root node and the value of zero for the depth/edge variable
-      8   return the sum of all the values found in distances object
 */
-
-
-
-
-
-
 
 const allEdges2TargetNodeV1 = (root, point) => { // time complexity: O(n^2)
   let sum = 0;
@@ -459,92 +443,20 @@ const allEdges2TargetNodeV1 = (root, point) => { // time complexity: O(n^2)
       if (node.left) {
         nodes = numOfNodesDFS(node.left);
         currDepth = totalDepth - nodes + (totalNodes - nodes);
-        console.log('node.left  currDepth: ', currDepth)
         getResults(node.left, target, currDepth, totalNodes);
       }
       if (node.right) {
         nodes = numOfNodesDFS(node.right);
         currDepth = totalDepth - nodes + (totalNodes - nodes);
-        console.log('node.right currDepth: ', currDepth)
         getResults(node.right, target, currDepth, totalNodes);
       }
     };
 
-    getResults(root, point, totalEdges(root, 0), numOfNodesDFS(root));
+    getResults(root, point, totalEdgesFromRoot(root, 0), numOfNodesDFS(root));
   }
   return sum;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const allEdges2TargetNodeV2 = (root, point) => { // time complexity: O(n)
-  let sum = 0;
-
-  if (root && point) {
-    let currDepth;
-
-    const getResults = (node, target, totalDepth, totalNodes) => {
-      if (node.val === target) {
-        sum = totalDepth;
-      }
-      if (node.left) {
-        currDepth =
-          totalDepth - node.left.count + (totalNodes - node.left.count);
-          console.log('node.left  currDepth: ', currDepth)
-        getResults(node.left, target, currDepth, totalNodes);
-      }
-      if (node.right) {
-        currDepth =
-          totalDepth - node.right.count + (totalNodes - node.right.count);
-          console.log('node.right currDepth: ', currDepth)
-        getResults(node.right, target, currDepth, totalNodes);
-      }
-    };
-
-    getResults(root, point, totalEdges(root, 0), countNodesBFSI(root));
-  }
-  return sum;
-};
-
-// console.log('total edges to target v1: ', allEdges2TargetNodeV1(myBST.root, 15));
-// console.log('total edges to target v2 : ', allEdges2TargetNodeV2(myBST.root, 15));
-
-// const allNodeDistances2TargetNode = (root, target) => {  // this will give the distances to the root
-//   const distances = {};
-//   let total = 0;
-
-//   const dfs = (node, num) => {
-//     if(!node) return;
-//      if(node.val === target) num = 0;
-//      distances[node.val] = num;
-//     total += num;
-//     dfs(node.left, num+1);
-//     dfs(node.right, num+1);
-//   }
-//   // console.log(total)
-//   dfs(root, 1);
-
-//   // let sum = 0;
-//   // for(let val in distances){
-//   //   if(val !== target+'') sum += distances[val];
-//   // }
-//   console.log('distances: ', distances)
-//   return total;
-// }
-
-// console.log(allNodeDistances2TargetNode(myBST.root, 5))
 
 /*
         target node's value is 15
@@ -559,5 +471,45 @@ const allEdges2TargetNodeV2 = (root, point) => { // time complexity: O(n)
 		1		3
 */
 
+const allEdges2TargetNodeV2 = (root, point) => { // time complexity: O(n)
+  if (root && point) {
+    let currDepth;
 
-document.write('one')
+    const getResults = (node, target, totalDepth, totalNodes) => {
+      if (node.val === target) {
+        sum = totalDepth;
+      }
+      if (node.left) {
+        currDepth =
+          totalDepth - node.left.count + (totalNodes - node.left.count);
+        getResults(node.left, target, currDepth, totalNodes);
+      }
+      if (node.right) {
+        currDepth =
+          totalDepth - node.right.count + (totalNodes - node.right.count);
+        getResults(node.right, target, currDepth, totalNodes);
+      }
+    };
+
+    getResults(root, point, totalEdges(root, 0), numOfNodesDFS(root));
+  }
+  return sum;
+};
+
+console.log('total edges to target v1: ', allEdges2TargetNodeV1(myBST.root, 1));
+console.log('total edges to target v2 : ', allEdges2TargetNodeV2(myBST.root, 1));
+
+
+/*
+        target node's value is 15
+				find the total edges for all nodes to the target node: 19
+
+						10
+					/	   \
+				4		    15
+			 / \     /  \    5
+		  2   5   13   20
+     / \
+		1		3
+*/
+
