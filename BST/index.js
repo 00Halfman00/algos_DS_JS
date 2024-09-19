@@ -315,12 +315,8 @@ const numOfNodesDFSV2 = (nodes) => {
       while (stack[0]) {
         node = stack.pop();
         total += 1;
-        if (node.right) {
-          stack[stack.length] = node.right;
-        }
-        if (node.left) {
-          stack[stack.length] = node.left;
-        }
+        if (node.right) stack[stack.length] = node.right;
+        if (node.left) stack[stack.length] = node.left;
       }
     }
     n.count = total;
@@ -481,8 +477,7 @@ const allEdges2TargetNodeV1 = (root, point) => {
 		1		3
 */
 
-const allEdges2TargetNodeV2 = (root, point, nodes) => {
-  // time complexity: O(n)
+const allEdges2TargetNodeV2 = (root, point, nodes) => { // time complexity: O(n)
   if (root && point && nodes) {
     numOfNodesDFSV2(nodes);
     let currDepth;
@@ -508,8 +503,8 @@ const allEdges2TargetNodeV2 = (root, point, nodes) => {
   return sum;
 };
 
-// console.log('total edges to target v1: ', allEdges2TargetNodeV1(myBST.root, 15));
-console.log('total edges to target v2 : ', allEdges2TargetNodeV2(myBST.root, 15, myBST.nodes));
+console.log('total edges to target v1: ', allEdges2TargetNodeV1(myBST.root, 1));
+console.log('total edges to target v2 : ', allEdges2TargetNodeV2(myBST.root, 1, myBST.nodes));
 
 /*
         target node's value is 15
