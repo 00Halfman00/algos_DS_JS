@@ -69,19 +69,16 @@ const BST = class {
       this.nodes[this.nodes.length] = incoming;
       if (this.root) {
         const insertR = (node) => {
-          if (val < node.val) {
-            if (!node.left) node.left = incoming;
-            else node = node.left;
-          }
-          if (val > node.val) {
-            if (!node.right) node.right = incoming;
-            else node = node.right;
-          }
+          if (!node) return incoming;
+          if ((val === node.val)) return node;
+          if (val < node.val) node.left = insertR(node.left);
+          if (val > node.val) node.right = insertR(node.right);
         };
         insertR(this.root);
-      } else this.root = incoming;
+      } else {
+        this.root = incoming;
+      }
     }
-    return this;
   };
 
   /////////////////////////////////   method to find a node inside the BST via iteration  ////////////////////
@@ -504,7 +501,7 @@ const allEdges2TargetNodeV2 = (root, point, nodes) => { // time complexity: O(n)
 };
 
 console.log('total edges to target v1: ', allEdges2TargetNodeV1(myBST.root, 1));
-console.log('total edges to target v2 : ', allEdges2TargetNodeV2(myBST.root, 1, myBST.nodes));
+console.log('total edges to target v2 : ', allEdges2TargetNodeV2(myBST.root, 15, myBST.nodes));
 
 /*
         target node's value is 15
