@@ -170,7 +170,6 @@ const allDistances2TargetRecursion = (root, target) => {
 
     const getDistances = (node, goal, allDistances, totalNodes) => {
       if (node.val === goal) sum = allDistances;
-
       if (node.left) {
         distances = allDistances - node.left.nodes + (totalNodes - node.left.nodes);
         getDistances(node.left, goal, distances, totalNodes);
@@ -181,7 +180,7 @@ const allDistances2TargetRecursion = (root, target) => {
       }
     };
 
-    // getAllTreesDistances(root); // when to run this function is the question
+    // getAllTreesDistances(root); // when to run this function is the question (outside or inside)
     getDistances(root, target, root.edges, root.nodes);
   }
   return sum;
@@ -189,13 +188,13 @@ const allDistances2TargetRecursion = (root, target) => {
 
 const allDistances2TargetIteration = (root, target) => {
   if (root && target) {
+    // getAllTreesDistances(root); // when to run this function is the question (outside or inside)
     root.distances = root.edges;
     const stack = [root];
     let node;
 
     while (stack[0]) {
       node = stack.pop();
-
       if (target === node.val) return node.distances;
       if (node.right){
         stack[stack.length] = node.right;
