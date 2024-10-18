@@ -3,17 +3,34 @@ import java.util.Arrays;
 public class NumOfEnclaves {
   public static void main(String[] args) {
 
-    int[][] grid = {
-        { 0, 0, 0, 0 },
-        { 1, 0, 1, 0 },
-        { 0, 1, 1, 0 },
-        { 0, 0, 0, 0 }
-    };
-
     // int[][] grid = {
-    //   {1,1,0,0,1,1,0,1,0,0},
-    //   {0,0,0,1,0,0,1,0,1,0},{1,0,0,0,0,0,1,0,0,0},{1,0,0,1,0,0,0,1,1,0},{1,0,0,1,0,1,0,0,1,1},{0,0,0,0,1,1,0,0,0,1},{0,0,1,0,0,0,0,0,1,1},{1,1,0,0,1,0,1,0,0,0},{0,0,1,0,0,1,1,0,0,0},{0,0,1,1,0,0,1,1,0,0},{0,0,1,1,1,0,1,1,1,0},{1,1,1,0,0,1,0,1,1,0},{0,0,0,1,1,0,0,1,1,1}
+    //     { 0, 0, 0, 0 },
+    //     { 1, 0, 1, 0 },
+    //     { 0, 1, 1, 0 },
+    //     { 0, 0, 0, 0 }
     // };
+
+      // int[][] grid = {
+    //   {1,1,0,0,1,1,0,1,0,0},
+    //   {0,0,0,1,0,0,1,0,1,0},
+    //   {1,0,0,0,0,0,1,0,0,0},
+    //   {1,0,0,1,0,0,0,1,1,0},
+    //   {1,0,0,1,0,1,0,0,1,1},
+    //   {0,0,0,0,1,1,0,0,0,1},
+    //   {0,0,1,0,0,0,0,0,1,1},
+    //   {1,1,0,0,1,0,1,0,0,0},
+    //   {0,0,1,0,0,1,1,0,0,0},
+    //   {0,0,1,1,0,0,1,1,0,0},{0,0,1,1,1,0,1,1,1,0},{1,1,1,0,0,1,0,1,1,0},{0,0,0,1,1,0,0,1,1,1}
+    // };
+
+    int[][] grid = {
+      {1,1,0,0,1,1,0,1,0,0},
+      {0,0,0,1,0,0,1,0,1,0},
+      {1,0,0,0,0,0,1,0,0,0},
+      {1,0,0,1,0,0,0,1,1,0},
+      {1,0,0,1,0,1,0,0,1,1},
+      {0,0,0,0,1,1,0,0,0,1},
+    };
 
     for (int[] row : grid) {
       System.out.println(Arrays.toString(row));
@@ -29,16 +46,16 @@ public class NumOfEnclaves {
 
   public static int numEnclaves(int[][] grid) {
     int count = 0;
-    if(grid[0].length < 2) return count;
+    if(grid[0].length < 2 && grid.length < 2) return count;
 
     // get elements in the first row and column and the last row and column in grid
     // assuming that the grid is a square in dimensions
     for (int i = 0; i < grid.length || i < grid[0].length; i++) {
-      // get elements in firt row and last rows
+      // get elements in firt row and last row
       if (i < grid[0].length && grid[0][i] == 1) dfs(grid, 0, i);
       if (i < grid[0].length && grid[grid.length - 1][i] == 1) dfs(grid, grid.length - 1, i);
 
-      // get elements in  first column and last column
+      // get elements in first column and last column
       // avoid corners since the row searches will cover them
       if (i > 0 && i < grid.length - 1 && grid[i][0] == 1) dfs(grid, i, 0);
       if (i > 0 && i < grid.length - 1 && grid[i][grid[0].length - 1] == 1) dfs(grid, i, grid[0].length - 1);
@@ -46,7 +63,7 @@ public class NumOfEnclaves {
 
     for (int[] row : grid) {
       for (int num : row) {
-        if(num == 1)count ++;
+        if(num == 1)count++;
       }
     }
 
@@ -72,3 +89,10 @@ public class NumOfEnclaves {
     dfs(grid, x, y-1);// go left
   }
 }
+
+                                        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                                        // [0, 0, 0, 1, 0, 0, 1, 0, 1, 0]
+                                        // [0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+                                        // [0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+                                        // [0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+                                        // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
