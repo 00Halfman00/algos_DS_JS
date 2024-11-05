@@ -52,7 +52,8 @@ const searchPivotedArray = (arr, tar) => {
   return -1;
 };
 
-const nums = [1, 3],
+const nums1 = [0, 0, 0];
+const nums = [4, 5, 6, 7, 0, 1, 2],
   target = 2;
 
-console.log(searchPivotedArray(nums, target));
+console.log(searchPivotedArray(nums1, target));

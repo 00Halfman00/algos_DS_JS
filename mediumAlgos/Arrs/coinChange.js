@@ -29,8 +29,8 @@ Constraints:
 
 */
 
-const coins = [1, 2, 5],
-  amount = 11;
+const coins = [1, 2, 3],
+  amount = 5;
 
 var coinChange = function (coins, amount) {
   let dp = new Array(amount + 1).fill(Infinity);
@@ -38,9 +38,9 @@ var coinChange = function (coins, amount) {
 
   for (let i = 0; i < coins.length; i++) {
     for (let j = coins[i]; j <= amount; j++) {
-      let chip = coins[i];
-      let numCoins = dp[j - chip];
-      numCoins += 1;
+      let coin = coins[i];
+      // quite the trick: to assign the
+      let numCoins = dp[j - coin] + 1;
       dp[j] = Math.min(numCoins, dp[j]);
     }
   }
