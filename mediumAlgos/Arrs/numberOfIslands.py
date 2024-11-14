@@ -20,7 +20,7 @@ def numOfIslandsDFS(grid):
   """
   1. Run through the matrix looking for cells that are land, which are marked by a one.
   2. If a one is found, increment counter and call dfs on that cell.
-  3. dfs will mark the cell as visited and call dfs on neighbors if logical recursively.
+  3. dfs will mark the cell as visited and call dfs on neighbors if logical, recursively.
   """
   counter = 0
   for row in range(len(grid)):
@@ -44,10 +44,7 @@ def dfs(x, y):
   # left
   dfs(x, y - 1)
 
-
 # print(numOfIslandsDFS(grid))
-
-
 def numIslandsBFS(grid):
     def bfs(x, y):
       stack = [(x, y)]
@@ -65,7 +62,6 @@ def numIslandsBFS(grid):
           # left
           if y - 1 >= 0 and grid[x][y - 1] == "1": stack.append((x, y - 1))
 
-
     counter = 0
     for i in range(len(grid)):
       for j in range(len(grid[0])):
@@ -74,11 +70,7 @@ def numIslandsBFS(grid):
             bfs(i, j)
     return counter
 
-
 # print(numIslandsBFS(grid))
-
-
-
 def numIslandsDFS2(grid):
         def dfs(x, y):
             grid[x][y] = "0"
