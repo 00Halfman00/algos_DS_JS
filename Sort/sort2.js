@@ -4,7 +4,7 @@
   1.  CREATE THE BUBBLE SORT ALGO NAMED bubbleSort
       A.  IT WILL TAKE AN ARRAY OF NUMBERS AS ITS SOLE PARAMETER NAMED arr
       B.  IT WILL SORT THE ARRAY IN PLACE
-      C.  IT WILL CREATE A MUTABLE VARIABLE NAMED sorted AND INITIATE IT TO false
+      C.  IT WILL CREATE A MUTABLE VARIABLE NAMED sorted AND LEAVE IT UNASSIGNED
       D.  IT WILL LOOP OVER THE arr ARRAY IN REVERSE ORDER WITH THE
           VARIABLE i ASSIGNED THE LENGTH OF THE ARRAY AND WILL KEEP LOOPING AS LONG
           AS i IS GREATER THAN ZERO
@@ -21,7 +21,7 @@
       TIME COMPLEXITY O(N^2)
       SPACE COMPLEXITY O(1)    ( NO NEW MEMORY IS CREATED )
 */
-// WORKS BY MOVING THE BIGGEST NUMBER TOWARDS THE END OF THE ARRAY AND WORKS ITS WAY BACK TOWARDS THE START
+// WORKS BY MOVING THE BIitermGGEST NUMBER TOWARDS THE END OF THE ARRAY AND WORKS ITS WAY BACK TOWARDS THE START
 // NOTE: TWO POINTER ALGORITHM: arr[j], arr[j+1]
 const bubbleSort = (arr) => {
   let sorted;
@@ -39,9 +39,9 @@ const bubbleSort = (arr) => {
   return arr;
 };
 
-// const ints1 = [4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
-// const ints2 = [1, 2, 3, 4, 5];
-// console.log(bubbleSort(ints1));
+const ints1 = [4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
+const ints2 = [1, 2, 3, 4, 5];
+console.log(bubbleSort(ints1));
 
 /*
   1.  CREATE THE selectionSort SORT ALGO NAMED selectionSort
@@ -264,7 +264,6 @@ const quickSort = (arr, strIdx = 0, endIdx = arr.length - 1) => {
 // const ints1 = [4, 6, 9, 1, 2, 5];
 // console.log('quickSort: ', quickSort(ints1))
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -359,4 +358,4 @@ const radixSort = (ints) => {
   return ints;
 };
 
-console.log(radixSort([1123, 6870, 112, 34, 9, 564, 321]));
+// console.log(radixSort([1123, 6870, 112, 34, 9, 564, 321]));
