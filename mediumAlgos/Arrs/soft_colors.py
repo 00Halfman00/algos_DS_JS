@@ -24,11 +24,34 @@ Constraints:
 n == nums.length
 1 <= n <= 300
 nums[i] is either 0, 1, or 2.
+
 """
 
 
+def soft_colors1(nums):
+  """
+  initiate three variable to zero, each representin one of the three colors available
+  loop over nums and add one to the respecive variable that represents that color
+  finally, iterate over the same length a sencond time from zero to lenght of nums,
+  replacing each element in the original list with
 
-def soft_colors(nums):
+  """
+  red = white = blue = 0
+  for num in nums:
+      if num == 0: red += 1
+      elif num == 1: white += 1
+      else: blue += 1
+  color = 0
+
+  for i in range(red + white + blue):
+      if i == red: color += 1
+      if i == red + white: color += 1
+      if color == 0: nums[i] = 0
+      elif color == 1: nums[i] = 1
+      else: nums[i] = 2
+
+
+def soft_colors2(nums):
   """
   1. create a new list with three zeros and traverse nums list
   2. at the negative index plus one of that num in nums, add one to its value for each accurance of the same number
@@ -36,7 +59,6 @@ def soft_colors(nums):
   4. pop of the last element in new list
   5. loop from zero to the size of that number while replacing the elements in nums from start to end
   """
-
   rwb = [0, 0, 0]
   for num in nums:
       rwb[-(num + 1)] += 1
@@ -49,10 +71,18 @@ def soft_colors(nums):
           idx += 1
       key += 1
 
-
-
 colors = [2, 2, 0, 1, 0, 1, 2]
 
-soft_colors(colors)
-
+soft_colors1(colors)
 print(colors)
+
+
+# this approach would work if the items in the nums list where not a few known items, but a list with many different items in it
+def sortColorsBubbleSort(nums):
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        for i in range(len(nums), -1, -1):
+            for j in range(0, i - 1):
+                if nums[j] > nums[j + 1]:
+                    nums[j], nums[j + 1] = nums[j + 1], nums[j]

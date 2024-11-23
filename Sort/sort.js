@@ -346,6 +346,7 @@ const insertionSortV3 = (arr) => {
   return arr;
 };
 
+console.log(insertionSortV3([23, 10, 9, 50, 3, 47]));
 // console.log('insertion sort version 3: ', insertionSortV3(ints2));
 
 ////////////////    CHREATE MERGE SORT ALGORITHM   /////////////////////////////
@@ -374,7 +375,7 @@ const merge = (left, right) => {
   const res = [];
   let i = 0,
     j = 0;
-``
+  ``;
   while (i < left.length && j < right.length) {
     if (left[i] < right[j]) {
       res[res.length] = left[i];
@@ -442,7 +443,8 @@ const pivot = (arr, startIdx = 0, endIdx = arr.length - 1) => {
   let piv = arr[startIdx]; // value to pivot on [...left elemenst, piv, ...right elements]
   let swapIdx = startIdx; // index/pointer to keep track of where to swap;
 
-  for (let i = startIdx + 1; i <= endIdx; ++i) { // don't need to compare piv to itself
+  for (let i = startIdx + 1; i <= endIdx; ++i) {
+    // don't need to compare piv to itself
     if (piv > arr[i]) {
       ++swapIdx;
       swap(arr, swapIdx, i);
@@ -543,9 +545,6 @@ const radixSort = (numsArr) => {
   }
   return numsArr;
 };
-
-
-
 
 // console.log('radix sort: ', radixSort([123, 98, 4, 6754, 234]));
 
