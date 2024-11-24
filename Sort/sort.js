@@ -214,10 +214,10 @@
 
 // // console.log(quickSort([4, 8, 2, 1, 5, 7, 6, 3]));
 
-const ints1 = [4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
-const ints2 = [1, 2, 3, 4, 5, 6, 7, 9, 8, 10, -24];
-const ints3 = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
-const ints4 = [12, 19, 17, 13, 11];
+// const ints1 = [4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
+// const ints2 = [1, 2, 3, 4, 5, 6, 7, 9, 8, 10, -24];
+// const ints3 = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
+// const ints4 = [12, 19, 17, 13, 11];
 
 /////////////////////////////////////////////////////////////////////////////
 ///////////////       SORTING ARRAY DATA STRUCTURES       /////////////////////
@@ -398,7 +398,7 @@ const merge = (left, right) => {
   return res;
 };
 
-console.log('merge function: ', merge(ints1, ints4));
+// console.log('merge function: ', merge(ints1, ints4));
 
 const mergeSort = (arr) => {
   if (arr.length <= 1) return arr;
@@ -462,9 +462,9 @@ const quickSort = (arr, strIdx = 0, endIdx = arr.length - 1) => {
   }
   return arr;
 };
-
+ints1 = [23, 10, 9, 50, 3, 47];
 // console.log('pivot helper function: ', pivot(ints1));
-// console.log('quickSort results: ', quickSort(ints1));
+console.log('quickSort results: ', quickSort(ints1));
 
 ////////////////////// CREATE RADIX ALGORITHM    /////////////////////////////
 
