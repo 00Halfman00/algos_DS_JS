@@ -64,9 +64,9 @@ const insertionSort = (arr) => {
   console.log(count);
 };
 
-console.log('nums1 before:  ', nums1);
-insertionSort(nums1);
-console.log('nums1 after:  ', nums1);
+// console.log('nums1 before:  ', nums1);
+// insertionSort(nums1);
+// console.log('nums1 after:  ', nums1);
 
 // sorting algorithms above have a time complexity of O(n^2)
 
@@ -176,3 +176,69 @@ const quickSort = (arr, startIdx = 0, endIdx = arr.length - 1) => {
 // console.log('nums1 before:  ', nums1);
 // quickSort(nums1);
 // console.log('nums1 after:  ', nums1);
+
+/*
+
+  CREATE HELPER FUNCTION NAMED getDigit
+    1. IT WILL HAVE A NUMBER AND AN POSITION AS ITS PARAMETERS
+    2. FUNCTION WILL RETURN THE DIGIT AT THE LOCATION OF THE POSITION,
+       STARTING FROM RIGHT TO LEFT
+
+
+  CREATE HELPER FUNCTION NAMED mostDigits
+    1. IT WILL TAKE A LIST/ARRAY OF DIGITS AS A PARAMETER
+    2. IT WILL RETURN THE the number of digits OF THE ELEMENT/NUMBER WITH THE MOST DIGITS
+
+
+  CREATE FUKNCTION NAMED radixSort
+    1. IT WILL TAKE A LIST/ARRAY OF DIGITS AS A PARAMETER
+    2. IT WILL GET THE SIZE OF THE NUMBER IN THE LIST WITH THE MOST DIGITS
+    3. IT WILL START TO LOOP AS MANY TIMES AS THE SIZE OF THE LARGEST NUMBER, K = DIGIT POSITION IN NUMBER
+    4. IT WILL CREATE AN ARRAY OF 9 ARRAYS, REPRESENTING (0-9) BASE 10 NUMBERS
+    5. IT WILL THEN LOOP OVER THE LENGTH OF THE ARRAY OF NUMBERS PASSED IN
+       AND ASSIGN EACH ELEMENT/NUMBER TO A BUCKET/ARRAY ACCORDING TO TO VALUE
+       OF THE DIGIT POSITION (DIGIT POSITION = K) BEING LOOPED OVER IN OUTER LOOP
+    6. RETRIEVE ALL VALUES/ELEMENTS FROM ARRAYS AND ASSIGN THEM TO BE THE ELEMENTS OF THE SINGLE ARRAY AGAIN
+
+
+    NOTE: CURRENTLY WORKING WITH POSITIVE NUMBERS
+*/
+
+const getDigit = (num, pos) => {
+  const numStr = num + '';
+  if (pos < numStr.length) {
+    return +numStr[numStr.length - 1 - pos];
+  }
+  return 0;
+};
+
+const mostDigits = (intsArr) => {
+  let max = 0,
+    strInt = '';
+  for (let int of intsArr) {
+    strInt = int + '';
+    max = strInt.length > max ? strInt.length : max;
+  }
+  return max;
+};
+
+// console.log(getDigit(123456, 3));
+// console.log(mostDigits([1, 23, 456, 7, 6879]));
+
+const ints1 = [23, 10, 9, 50, 3, 47];
+
+const radixSort = (intsArr) => {
+  const maxNum = mostDigits(intsArr);
+  let num;
+  for (let i = 0; i < maxNum; ++i) {
+    const containers = [[], [], [], [], [], [], [], [], [], []];
+    for (let j = 0; j < intsArr.length; ++j) {
+      num = getDigit(intsArr[j], i);
+      containers[num].push(intsArr[j]);
+    }
+    intsArr = [].concat(...containers);
+  }
+  return intsArr;
+};
+
+console.log(radixSort(ints1));

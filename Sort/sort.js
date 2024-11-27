@@ -486,7 +486,6 @@ console.log('quickSort results: ', quickSort(ints1));
     2. IT WILL RETURN THE SIZE OF THE ELEMENT/NUMBER WITH THE MOST DIGITS
 
 
-
   CREATE FUKNCTION NAMED radixSort
     1. IT WILL TAKE A LIST/ARRAY OF DIGITS AS A PARAMETER
     2. IT WILL GET THE SIZE OF THE NUMBER IN THE LIST WITH THE MOST DIGITS
@@ -504,7 +503,7 @@ console.log('quickSort results: ', quickSort(ints1));
 const getDigit = (num, pos) => {
   const numStr = num + '';
   ++pos;
-  if (pos <= numStr.length) {
+  if (pos < numStr.length) {
     return +numStr[numStr.length - pos];
   }
   return 0;
