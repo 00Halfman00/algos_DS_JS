@@ -45,6 +45,7 @@ class Singly_LL:
         self.head = incoming_node
       self.tail = incoming_node
       self.len += 1
+    return self
 
 
   ##################################################################################################
@@ -59,16 +60,12 @@ class Singly_LL:
         if idx == 0 or idx < 0 and abs(idx) >= self.len:
           incoming_node.next = self.head
           self.head = incoming_node
-          self.len += 1
-          return
         # if idx is a positive number and greater than self.len ####################################
-        if idx >= self.len:
+        elif idx >= self.len:
           self.tail.next = incoming_node
           self.tail = incoming_node
-          self.len += 1
-          return
         # work from left to right (positive idx) ###################################################
-        if idx > 0:
+        elif idx > 0:
           count, tmp_node = 0, self.head
           while(count <= idx):
             if(count == idx - 1):
@@ -197,11 +194,11 @@ my_SLL.append(6)
 print('before: ')
 my_SLL.print_SLL()
 ############################################  insert  ##############################################
-# my_SLL.insert(-1, 4)
-# my_SLL.insert(2, 3)
-# my_SLL.insert(-10, 0)
-# my_SLL.insert(10, 1000)
-# my_SLL.insert(-2, 5)
+my_SLL.insert(-1, 4)
+my_SLL.insert(2, 3)
+my_SLL.insert(-10, 0)
+my_SLL.insert(10, 1000)
+my_SLL.insert(-2, 5)
 
 ############################################  remove  ##############################################
 # my_SLL.remove(0)
@@ -214,7 +211,7 @@ my_SLL.print_SLL()
 # my_SLL.remove(1000)
 
 ############################################  remove  ##############################################
-print('pop: ', my_SLL.pop(5))
+# print('pop: ', my_SLL.pop(5))
 
 print('after: ')
 my_SLL.print_SLL()
