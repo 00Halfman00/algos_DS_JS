@@ -27,9 +27,17 @@ class Singly_LL:
             (removes the node that has the value passed in from the singly linked list)
             time complexity: O(n) except if it is the first node then O(1)
 
-      IV.   pop ( seems to be working just like list method except for implementing IndexError return )
+      IV.   pop     ( seems to be working just like list method except for implementing IndexError return )
             (removes the last node in the list by default else at the provided index)
             takes a positive or negative index to remove from SLL and returns node
+
+      V.    count   ( seems to be working just like list method )
+            takes a value and returns the amount of times that value was found in the SLL
+            time complexity: O(n)
+
+      VI.   index   ( seems to be working just like list method )
+            takes a value and a start and stop index
+            return the index of the first instance of val with the provided indices
 
 
 
@@ -64,31 +72,24 @@ class Singly_LL:
         elif idx >= self.len:
           self.tail.next = incoming_node
           self.tail = incoming_node
-        # work from left to right (positive idx) ###################################################
-        elif idx > 0:
+        # if list has more than one node and index is positive or negative number ###################
+        else:
+          target_idx = 0
+          if idx < 0:
+            target_idx = self.len + idx
+          else:
+            target_idx = idx
           count, tmp_node = 0, self.head
-          while(count <= idx):
-            if(count == idx - 1):
+          while(count <= target_idx):
+            if(count == target_idx - 1):
               next_node = tmp_node.next
               tmp_node.next = incoming_node
               incoming_node.next = next_node
               break
             tmp_node = tmp_node.next
             count += 1
-        # work from right to left (negative idx) ###################################################
-        else:
-          target_idx = self.len + idx
-          count, tmp_node = 0, self.head
-          while count <= target_idx:
-            if count == target_idx - 1:
-              next = tmp_node.next
-              tmp_node.next = incoming_node
-              incoming_node.next = next
-              break
-            tmp_node = tmp_node.next
-            count += 1
-
-      else: # if there are zero nodes in SLL #######################################################
+      # if there are zero nodes in SLL #############################################################
+      else:
         self.head = incoming_node
         self.tail = incoming_node
       self.len += 1
@@ -168,6 +169,26 @@ class Singly_LL:
       return found.val
 
   ##################################################################################################
+  def count(self, val):
+    count, tmp_node =0, self.head
+    while(tmp_node):
+      if val == tmp_node.val:
+        count += 1
+      tmp_node = tmp_node.next
+    return count
+
+  ##################################################################################################
+  def index(self, val, start=0, stop=9223372036854775807):
+    if self.len:
+      count, tmp_node = 0, self.head
+      while count <= stop and tmp_node:
+        if count  >= start and tmp_node.val == val:
+          break
+        count += 1
+        tmp_node = tmp_node.next
+      return count
+
+  ##################################################################################################
   def print_SLL(self) -> None:
     if self.len >= 1:
       count, tmp, val_list = 0, self.head, []
@@ -187,18 +208,24 @@ class Singly_LL:
 
 my_SLL = Singly_LL()
 
+
+############################################  append  ##############################################
 my_SLL.append(1)
+my_SLL.append(8)
 my_SLL.append(2)
 my_SLL.append(6)
+my_SLL.append(6)
+my_SLL.append(8)
+my_SLL.append(8)
 
 print('before: ')
 my_SLL.print_SLL()
 ############################################  insert  ##############################################
-my_SLL.insert(-1, 4)
-my_SLL.insert(2, 3)
-my_SLL.insert(-10, 0)
-my_SLL.insert(10, 1000)
-my_SLL.insert(-2, 5)
+# my_SLL.insert(-1, 4)
+# my_SLL.insert(2, 3)
+# my_SLL.insert(-10, 0)
+# my_SLL.insert(10, 1000)
+# my_SLL.insert(-2, 5)
 
 ############################################  remove  ##############################################
 # my_SLL.remove(0)
@@ -212,6 +239,14 @@ my_SLL.insert(-2, 5)
 
 ############################################  remove  ##############################################
 # print('pop: ', my_SLL.pop(5))
+
+############################################  count  ###############################################
+print('count of occurence of value: ', my_SLL.count(8))
+
+############################################  index  ###############################################
+print( 'index of first ocuurence of value at provided index or zero: ', my_SLL.index(8))
+print( 'index of first ocuurence of value at provided index or zero: ', my_SLL.index(8, 4))
+
 
 print('after: ')
 my_SLL.print_SLL()
