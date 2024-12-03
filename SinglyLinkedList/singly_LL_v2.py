@@ -2,6 +2,7 @@
 """
   1.  The logic here is to try and simulate what ARRAY methods in JavaScript can do for SLL in Python programming language
   2.  Start by creating an empty singly link list ( my_SLL = Singly_LL() ), just like creating an empty list( my_list = [] )
+  3.  Indices that are illogicaly small or greater than or equal to the length of SLL will access first and last node, respectively
 """
 
 
@@ -18,6 +19,7 @@ class SLL:
     self.len = 0
 
   ##################     PYTHON/JS VERSION OF APPEND/PUSH METHOD FOR []s ###########################
+  # time complexity: O(1)
   def append(self, val):
     if val:
       tmp_node = Node(val)
@@ -31,6 +33,7 @@ class SLL:
     return None
 
   #######################  JS VERSION OF POP METHOD FOR []s  #######################################
+  # time complexity: O(1)
   def pop(self):
     found_node = None
     # IF THERE IS AT LEAST A SINGLE NODE IN SLL  ###################################################
@@ -53,6 +56,7 @@ class SLL:
     return found_node
 
   #######################  JS VERSION OF SHIFT METHOD FOR []s  #####################################
+  # time complexity: O(1)
   def shift(self):
     found_node = None
     # IF THERE IS AT LEAST A SINGLE NODE IN SLL  ###################################################
@@ -69,7 +73,7 @@ class SLL:
     return found_node
 
   #######################  JS VERSION OF UNSHIFT METHOD FOR []s  ###################################
-
+  # time complexity: O(1)
   def unshift(self, val):
     if type(val) == int:
       tmp_node = Node(val)
@@ -87,18 +91,16 @@ class SLL:
 
 
   #########    JUST A GET METHOD FOR SLL (TAKES POSITIVE AND NEGATIVE INDEX )     ##################
+  # time complexity: best case O(1); worst case and on average O(n)
   def get(self, idx):
     found_node = None
     # if index is an integer  ######################################################################
     if type(idx) == int:
-      # if index is illogical  #####################################################################
-      if idx < -self.len or idx >= self.len:
-        return found_node
-      # if index is zero or negative version of length of the SLL  #################################
-      if(idx == 0 or idx == -self.len):
+      # if index is zero or smaller or equal to negative version of length of the SLL  #############
+      if(idx == 0 or idx <= -self.len):
         found_node = self.head
-      # if index is -1 or self.len - 1  ############################################################
-      elif(idx == -1 or idx == self.len - 1):
+      # if index is -1 or greater than or equal to self.len - 1  ###################################
+      elif(idx == -1 or idx >= self.len - 1):
         found_node = self.tail
       # if index is neither at the first or last node  #############################################
       else:
@@ -118,6 +120,7 @@ class SLL:
 
 
   #########    JUST A SET METHOD FOR SLL (TAKES POSITIVE AND NEGATIVE INDEX )     ##################
+  # time complexity: best case O(1); worst case and on average O(n)
   def set(self, idx, val):
     # IF VALID ARGUMENTS ARE PASSED IN  ############################################################
     if type(val) == int and type(idx):
@@ -131,40 +134,40 @@ class SLL:
     return False
 
   #######################  PYTHON VERSION OF INSERT METHOD FOR []s  ################################
+  # time complexity: best case O(1); worst case and on average O(n)
   def insert(self, idx, val):
     # IF VALID ARGUMENTS ARE PASSED IN  ############################################################
     if type(idx) == int and type(val) == int:
-      # if index is illogical  #####################################################################
-      if abs(idx) <= self.len:
       # IF THERE IS AT LEAST ONE NODE IN SLL  ######################################################
-        if self.head:
-          # if index is zero or negative version of length of the SLL  #############################
-          if idx == 0 or idx == -self.len:
-            return bool(self.unshift(val))
-          # if index is self.len  ##################################################################
-          elif(idx == self.len):
-            return bool(self.append(val))
-          else:
-            # GET THE NODE JUST BEHIND THE SOUGHT FOR INDEX'S POSITION   ###########################
-            # KEEP CODE DRY BY USING METHODS ALREADY WRITTEN  ######################################
-            prev_node = self.get(idx - 1)
-            if prev_node:
-              tmp_node = Node(val)
-              next = prev_node.next
-              prev_node.next = tmp_node
-              tmp_node.next = next
-              self.len += 1
-              return True
+      if self.head:
+        # if index is zero or smaller or equal to negative version of length of the SLL  ###########
+        if idx == 0 or idx <= -self.len:
+          return bool(self.unshift(val))
+        # if index is greater or equal to self.len  ################################################
+        elif(idx >= self.len):
+          return bool(self.append(val))
+        else:
+          # GET THE NODE JUST BEHIND THE SOUGHT FOR INDEX'S POSITION   #############################
+          # KEEP CODE DRY BY USING METHODS ALREADY WRITTEN  ########################################
+          prev_node = self.get(idx - 1)
+          if prev_node:
+            tmp_node = Node(val)
+            next = prev_node.next
+            prev_node.next = tmp_node
+            tmp_node.next = next
+            self.len += 1
+            return True
     return False
 
-  #######################  PYTHON VERSION OF INSERT METHOD FOR []s  ################################
+  #######################   METHOD TO REMOVE NODE FROM SLL  ########################################
+  # time complexity: best case O(1); worst case and on average O(n)
   def remove(self, idx):
      # IF VALID ARGUMENTS IS PASSED IN  ############################################################
     if type(idx) == int:
       # IF THERE IS AT LEAST ONE NODE IN SLL  ######################################################
       if self.len:
-        # if index is illogical  ###################################################################
-        if idx <= -self.len or idx < self.len:
+        # if index is logical  ###################################################################
+        if idx >= -self.len and idx < self.len:
           # if index is the first node  ############################################################
           if idx == 0 or idx == -self.len:
             return self.shift()
@@ -183,6 +186,7 @@ class SLL:
     return None
 
   ###########################  METHOD TO REVERSE SLL  ##############################################
+  # time complexity: O(n)
   def reverse(self):
     # IF THERE IS MORE THAN ONE NODE IN SLL  #######################################################
     if self.len > 1:
@@ -199,6 +203,7 @@ class SLL:
     return self
 
   ##################################  for testing  #################################################
+  # time complexity: O(n)
   def print_SLL(self):
     if self.len:
       nodes_vals, tmp_node = [], self.head
@@ -231,18 +236,22 @@ my_SLL.append(3)
 
 my_SLL.unshift(-1)
 my_SLL.unshift(-2)
-
+my_SLL.unshift(-3)
 
 print('before: ')
 my_SLL.print_SLL()
 
-# print("get nodes's value at the given index: ", my_SLL.get(4).val)
+"""
+  [-3, -2, -1, 1, 2, 3]
+"""
 
-# print('set some value and return true if node is found: ', my_SLL.set(777, -10))
+# print("get nodes's value at the given index: ", my_SLL.get(-20).val) ok
 
-# print('insert a new node at given index: ',  my_SLL.insert(5, 4))
+# print('set some value and return true if node is found: ', my_SLL.set(-12, -10)) ok
 
-# print('remove a node at given index: ',  my_SLL.remove(-3).val)
-my_SLL.reverse()
+# print('insert a new node at given index: ',  my_SLL.insert(-15, 4)) ok
+
+# print('remove a node at given index: ',  my_SLL.remove(5)) ok
+# my_SLL.reverse()
 print('after: ')
 my_SLL.print_SLL()
