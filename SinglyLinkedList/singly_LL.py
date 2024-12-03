@@ -10,7 +10,7 @@ class Singly_LL:
     self.len = 0
 
   """
-  1.  The logic here is to try and simulate what list methods can do
+  1.  The logic here is to try and simulate what list methods can do in PYTHON
   2.  Start by creating an empty singly link list ( my_SLL = Singly_LL() ), just like creating an empty list( my_list = [] )
   3.  Methods:
       I.    append  ( seems to be working just like list method )
@@ -38,12 +38,16 @@ class Singly_LL:
       VI.   index   ( seems to be working just like list method )
             takes a value and a start and stop index
             return the index of the first instance of val with the provided indices
+            time complexity: O(n)
 
+      VII.  reverse ( seems to be working just like list method )
+            reverses the SLL and returns it
+            time complexity: O(n)
 
 
   """
   ##################################################################################################
-  def append(self, val) -> None:
+  def append(self, val):
     incoming_node = None
     if type(val) == int:
       incoming_node = Node(val)
@@ -57,7 +61,7 @@ class Singly_LL:
 
 
   ##################################################################################################
-  def insert(self, idx, val) -> None:
+  def insert(self, idx, val):
     incoming_node = None
     if type(idx) == int and type(val) == int:
       incoming_node = Node(val)
@@ -124,7 +128,7 @@ class Singly_LL:
         self.tail = None
         self.len = 0
 
-  ##################################################################################################
+  ############################  PYTHON VERSION OF LIST METHOD  #####################################
   def pop(self, idx=None):
     # if no index is provided ######################################################################
     if idx == None:
@@ -188,6 +192,22 @@ class Singly_LL:
         tmp_node = tmp_node.next
       return count
 
+
+  ##################################################################################################
+  def reverse(self):
+    if self.len > 1:
+      prev = next = None
+      tmp_node  = self.head
+      self.head = self.tail
+      self.tail = tmp_node
+
+      while tmp_node:
+        next = tmp_node.next
+        tmp_node.next = prev
+        prev = tmp_node
+        tmp_node = next
+    return self
+
   ##################################################################################################
   def print_SLL(self) -> None:
     if self.len >= 1:
@@ -211,15 +231,15 @@ my_SLL = Singly_LL()
 
 ############################################  append  ##############################################
 my_SLL.append(1)
-my_SLL.append(8)
 my_SLL.append(2)
+my_SLL.append(3)
+my_SLL.append(4)
+my_SLL.append(5)
 my_SLL.append(6)
-my_SLL.append(6)
-my_SLL.append(8)
 my_SLL.append(8)
 
-print('before: ')
-my_SLL.print_SLL()
+# print('before: ')
+# my_SLL.print_SLL()
 ############################################  insert  ##############################################
 # my_SLL.insert(-1, 4)
 # my_SLL.insert(2, 3)
@@ -241,14 +261,18 @@ my_SLL.print_SLL()
 # print('pop: ', my_SLL.pop(5))
 
 ############################################  count  ###############################################
-print('count of occurence of value: ', my_SLL.count(8))
+# print('count of occurence of value: ', my_SLL.count(8))
 
 ############################################  index  ###############################################
-print( 'index of first ocuurence of value at provided index or zero: ', my_SLL.index(8))
-print( 'index of first ocuurence of value at provided index or zero: ', my_SLL.index(8, 4))
+# print( 'index of first ocuurence of value at provided index or zero: ', my_SLL.index(8))
+# print( 'index of first ocuurence of value at provided index or zero: ', my_SLL.index(8, 4))
 
+############################################  reverse  #############################################
+print(my_SLL.reverse())
 
 print('after: ')
 my_SLL.print_SLL()
+
+print('self.tail: ', my_SLL.tail.val)
 
 # print(my_SLL.head.next.next.next.val)
