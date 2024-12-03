@@ -33,7 +33,7 @@ class SLL:
     return None
 
   #######################  JS VERSION OF POP METHOD FOR []s  #######################################
-  # time complexity: O(1)
+  # time complexity: O(1) best case; worst case and on average O(n)
   def pop(self):
     found_node = None
     # IF THERE IS AT LEAST A SINGLE NODE IN SLL  ###################################################
