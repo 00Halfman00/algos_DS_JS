@@ -13,10 +13,22 @@ class Node:
 
 
 class SLL:
-  def __init__(self) -> None:
+  def __init__(self):
     self.head = None
     self.tail = None
     self.len = 0
+    self.node_list = []
+
+
+  #################   METHOD TO UPDATE LIST OF NODES IN SLL  #######################################
+  # time complexity: O(n)
+  def update_node_list(self):
+    if self.head:
+      node_list, tmp_node = [], self.head
+      while tmp_node:
+        self.node_list.append(tmp_node.val)
+        tmp_node = tmp_node.next
+
 
   ##################     PYTHON/JS VERSION OF APPEND/PUSH METHOD FOR []s ###########################
   # time complexity: O(1)
@@ -90,7 +102,7 @@ class SLL:
     return None
 
 
-  #########    JUST A GET METHOD FOR SLL (TAKES POSITIVE AND NEGATIVE INDEX )     ##################
+  ########    JUST A GET METHOD FOR SLL (TAKES POSITIVE AND NEGATIVE INDEX )     ##################
   # time complexity: best case O(1); worst case and on average O(n)
   def get(self, idx):
     found_node = None
@@ -122,12 +134,13 @@ class SLL:
   #########    JUST A SET METHOD FOR SLL (TAKES POSITIVE AND NEGATIVE INDEX )     ##################
   # time complexity: best case O(1); worst case and on average O(n)
   def set(self, idx, val):
-    # IF VALID ARGUMENTS ARE PASSED IN  ############################################################
-    if type(val) == int and type(idx):
+    # IF VALID ARGUMENT IS PASSED IN  ##############################################################
+    if type(val) == int:
       # IF THERE IS AT LEAST ONE NODE IN SLL  ######################################################
       if self.head:
         # KEEP CODE DRY BY USING METHODS ALREADY WRITTEN  ##########################################
         found_node = self.get(idx)
+        # IF SOMETHING GOES SIDEWAYS, BEST CHECK  ##################################################
         if found_node:
           found_node.val = val
           return True
@@ -138,25 +151,24 @@ class SLL:
   def insert(self, idx, val):
     # IF VALID ARGUMENTS ARE PASSED IN  ############################################################
     if type(idx) == int and type(val) == int:
-      # IF THERE IS AT LEAST ONE NODE IN SLL  ######################################################
-      if self.head:
-        # if index is zero or smaller or equal to negative version of length of the SLL  ###########
-        if idx == 0 or idx <= -self.len:
-          return bool(self.unshift(val))
-        # if index is greater or equal to self.len  ################################################
-        elif(idx >= self.len):
-          return bool(self.append(val))
-        else:
-          # GET THE NODE JUST BEHIND THE SOUGHT FOR INDEX'S POSITION   #############################
-          # KEEP CODE DRY BY USING METHODS ALREADY WRITTEN  ########################################
-          prev_node = self.get(idx - 1)
-          if prev_node:
-            tmp_node = Node(val)
-            next = prev_node.next
-            prev_node.next = tmp_node
-            tmp_node.next = next
-            self.len += 1
-            return True
+      # if index is zero or smaller or equal to negative version of length of the SLL  ###########
+      if idx == 0 or idx <= -self.len:
+        return bool(self.unshift(val))
+      # if index is greater or equal to self.len  ################################################
+      elif(idx >= self.len):
+        return bool(self.append(val))
+      # ELSE THERE IS MORE THAN ONE NODE IN LIST A
+      else:
+        # GET THE NODE JUST BEHIND THE SOUGHT FOR INDEX'S POSITION   #############################
+        # KEEP CODE DRY BY USING METHODS ALREADY WRITTEN  ########################################
+        prev_node = self.get(idx - 1)
+        if prev_node:
+          tmp_node = Node(val)
+          next = prev_node.next
+          prev_node.next = tmp_node
+          tmp_node.next = next
+          self.len += 1
+          return True
     return False
 
   #######################   METHOD TO REMOVE NODE FROM SLL  ########################################
@@ -214,6 +226,7 @@ class SLL:
       print('head: ', self.head.val)
       print('tail: ', self.tail.val)
       print('len: ', self.len)
+      print('node_list: ', self.node_list)
     else:
       print('list is empty')
 
@@ -245,7 +258,10 @@ my_SLL.print_SLL()
   [-3, -2, -1, 1, 2, 3]
 """
 
-# print("get nodes's value at the given index: ", my_SLL.get(-20).val) ok
+
+# print('popped: ', my_SLL.pop().val)
+
+print("get nodes's value at the given index: ", my_SLL.get(-20).val)
 
 # print('set some value and return true if node is found: ', my_SLL.set(-12, -10)) ok
 
