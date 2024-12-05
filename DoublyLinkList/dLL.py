@@ -22,6 +22,7 @@ class DLL:
 
   ####################### METHOD TO ADD A NEW NODE TO THE END OF THE DLL  ######################  PY
   #  time complexity: O(1)
+
   def append(self, val):
     if type(val) == int:
       tmp_node = Node(val)
@@ -36,6 +37,7 @@ class DLL:
 
   ####################### METHOD TO REMOVE A NODE FROM THE END OF DLL  #########################  JS
   #  time complexity: O(1)
+
   def pop(self):
     found = None
     if self.len:
@@ -49,8 +51,10 @@ class DLL:
         found.prev = None
       self.len -= 1
     return found
+
   ####################### METHOD TO REMOVE NODE FROM START OF DLL  #############################  JS
   #  time complexity: O(1)
+
   def shift(self):
     found = None
     if self.len:
@@ -67,6 +71,7 @@ class DLL:
 
   #######################  METHOD TO ADD A NEW NODE TO THE START OF DLL  ######################   JS
   # time complexity: O(1)
+
   def unshift(self, val):
     if type(val) == int:
       tmp_node = Node(val)
@@ -80,7 +85,8 @@ class DLL:
     return self
 
   #######   METHOD TO GET A NODE BY INDEX FROM DLL (takes positive and negative index)   ###########
-  # time complexity: O(n)/2
+  # time complexity: best cases O(1); worst and average cases O(n)/2
+
   def get(self, idx):
     found_node = None
     # IF INDEX IS AN INTEGER  ######################################################################
@@ -93,11 +99,9 @@ class DLL:
         found_node = self.tail
       # IF INDEX IS NEITHER AT THE FIRST OR LAST NODE  #############################################
       else:
-        target_idx = None
+        target_idx = idx
         if idx < 0:
           target_idx = self.len + idx
-        else:
-          target_idx = idx
         # GO LEFT TO RIGHT  ########################################################################
         if idx <= self.len/2:
           tmp_node, count  = self.head.next, 1
@@ -119,7 +123,9 @@ class DLL:
 
   ###  METHOD TO SET A VALUE ON A NODE BY INDEX IN DLL (takes positive and negative index)   #######
   # time complexity: best case O(1); worst case and on average O(n)/2
+
   def set(self, idx, val):
+    response = False
     # IF VALID ARGUMENT IS PASSED IN  ##############################################################
     if type(val) == int:
       # IF THERE IS AT LEAST ONE NODE IN DLL  ######################################################
@@ -128,12 +134,13 @@ class DLL:
         # IF SOMETHING GOES SIDEWAYS, BEST CHECK  ##################################################
         if found_node:
           found_node.val = val
-          return True
-    return
+          response = True
+    return response
 
   ###  METHOD TO INSERT A NEW NODE BY INDEX INTO DLL (takes positive and negative index)   #########
+  # time complexity: best case O(1); worst case and on average O(n)/2
+
   def insert(self, idx, val):
-    # time complexity: best case O(1); worst case and on average O(n)/2
     if type(val) == int:
       #  WHEN INDEX IS ZERO OR SMALLER THAN OR EQUAL TO THE NEGATIVE LENGTH OF DLL  ################
       #  NOTE:  IF DLL IS EMPTY, IT WILL CREATE FIRST NODE IN DLL
@@ -159,8 +166,9 @@ class DLL:
     return False
 
   ####################  METHOD TO REMOVE A NODE BY INDEX  ##########################################
+  # time complexity: best cases O(1); worst and average cases O(n)/2
+
   def remove(self, idx):
-    # time complexity: best case O(1); worst case and on average O(n)/2
     found_node = None
     # IF VALID ARGUMENT IS PASSED IN  ##############################################################
     if type(idx) == int:
@@ -251,11 +259,11 @@ my_DLL.printer()
 # print('get node by index: ', my_DLL.get(20).val)
 
 
-# print('set node by index: ', my_DLL.set(-5, 100))
-# print('set node by index: ', my_DLL.set(0, 100000000001))
-# print('set node by index: ', my_DLL.set(4, 6789))
-# print('set node by index: ', my_DLL.set(20, 4444))
-# print('set node by index: ', my_DLL.set(2, 4444))
+print('set node by index: ', my_DLL.set(-5, 100))
+print('set node by index: ', my_DLL.set(0, 100000000001))
+print('set node by index: ', my_DLL.set(4, 6789))
+print('set node by index: ', my_DLL.set(20, 4444))
+print('set node by index: ', my_DLL.set(2, 4444))
 
 
 # print('insert node at index: ', my_DLL.insert(-26, 20000))
