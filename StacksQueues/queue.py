@@ -8,7 +8,7 @@
               3.  the size of the queue
       METHODS:
         I.    JS array-style unshift method to add a node to the start of the queue.    (takes a value as parameter)
-        II.   JS array-style pop method to remove a node from the start of the queue.   (takes no parameter)
+        II.   JS array-style pop method to remove a node from the end of the queue.   (takes no parameter)
         III.  JS array-style shift method to remove a node from the start of the queue. (takes no parameter)
         IV.   get method to retrieve a node by index from the queue                     (takes a index as parameter)
         V.    set method to edit a node's properties inside the queue                   (takes index and value as parameters)
@@ -58,47 +58,10 @@ class Queue:
     return self
 
 
-  ####################### METHOD TO REMOVE NODE FROM START OF DLL  #############################  JS
+    #####################   METHOD TO REMOVE A NODE FROM THE END OF THE QUEUE   ##################  JS
   #  time complexity: O(1)
 
-  def _shift(self):
-    #  create a variable to return
-    found_node = None
-    #  check if there is a node in queue
-    if self.len:
-      #  get the first node
-      found_node = self.head
-      #  if there is only one node in the queue, clean head and tail
-      if self.len == 1:
-        self.head = None
-        self.tail = None
-      #  else make the node after the first node the new head
-      else:
-        self.head = found_node.next
-        self.head.prev = None
-        found_node.next = None
-      self.len -= 1
-    return found_node
-
-
-
-
-  ##################################################################################################
-  ##################################################################################################
-  ##################################################################################################
-
-  #           METHODS BELOW USE _name VARIABLES AND ARE MEANT FOR EDITING THE QUEUE                #
-
-  ##################################################################################################
-  ##################################################################################################
-  ##################################################################################################
-
-
-
-  #####################   METHOD TO REMOVE A NODE FROM THE END OF THE QUEUE   ##################  JS
-  #  time complexity: O(1)
-
-  def _pop(self):
+  def pop(self):
     #  create a variable to return
     found_node = None
     #  check if there is a node in queue
@@ -116,6 +79,46 @@ class Queue:
         found_node.prev = None
       self.len -= 1
     return found_node
+
+
+
+
+
+
+  ##################################################################################################
+  ##################################################################################################
+  ##################################################################################################
+
+  #           METHODS BELOW USE _name VARIABLES AND ARE MEANT FOR EDITING THE QUEUE                #
+
+  ##################################################################################################
+  ##################################################################################################
+  ##################################################################################################
+
+
+  ####################### METHOD TO REMOVE NODE FROM START OF QUEUE  ###########################  JS
+  #  time complexity: O(1)
+
+  def _shift(self):
+    #  create a variable to return
+    found_node = None
+    #  check if there is a node in queue
+    if self.len:
+      #  get the first node
+      found_node = self.head
+      #  if there is only one node in the queue, clean head and tail
+      if self.len == 1:
+        self.head = None
+        self.tail = None
+      #  else make the node after the first node the head
+      else:
+        self.head = found_node.next
+        self.head.prev = None
+        found_node.next = None
+      self.len -= 1
+    return found_node
+
+
 
 
   # METHOD TO RETRIEVE A NODE FROM THE QUEUEU, USING POSITIVE OR NEGATIVE INDICES
@@ -162,11 +165,15 @@ class Queue:
 
   ###    METHOD TO SET A VALUE ON A NODE BY INDEX IN QUEUE, VIA POSITIVE OR NEGATIVE INDICES    ####
   # time complexity: best case O(1); worst case and on average O(n)/2
+
   def _set(self, idx, val):
     response = False
-    if type(idx) == int and type(val) == int:
+    #  check for valid argument
+    if type(val) == int:
+      #  if queue has one node or more
       if self.len:
         tmp_node = self._get(idx)
+        # if tmp_node is not None
         if tmp_node:
           tmp_node.val = val
           response = True
@@ -182,7 +189,7 @@ class Queue:
     if type(idx) == int:
       #  REMOVE THE FIRST NODE   ###################################################################
       if idx == 0 or idx <= -self.len:
-        found_node = self.shift()
+        found_node = self._shift()
       #  REMOVE THE LAST NODE   ####################################################################
       elif idx == -1 or idx >= self.len - 1:
         found_node = self._pop()
@@ -237,12 +244,12 @@ print('before: ')
 my_queue._printer()
 
 # working
-# print('remove from the start of queue: ', my_queue._shift().val)
-# print('remove from the start of queue: ', my_queue._shift().val)
-# print('remove from the start of queue: ', my_queue._shift().val)
-# print('remove from the start of queue: ', my_queue._shift().val)
-# print('remove from the start of queue: ', my_queue._shift().val)
-# print('remove from the start of queue: ', my_queue._shift())
+# print('remove from the start of queue: ', my_queue.pop().val)
+# print('remove from the start of queue: ', my_queue.pop().val)
+# print('remove from the start of queue: ', my_queue.pop().val)
+# print('remove from the start of queue: ', my_queue.pop().val)
+# print('remove from the start of queue: ', my_queue.pop().val)
+# print('remove from the start of queue: ', my_queue.pop())
 
 
 ##################################################################################################

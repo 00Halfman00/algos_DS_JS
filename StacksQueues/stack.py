@@ -164,9 +164,12 @@ class Stack:
   # time complexity: best case O(1); worst case and on average O(n)/2
   def _set(self, idx, val):
     response = False
-    if type(idx) == int and type(val) == int:
+    #  check for valid argument
+    if type(val) == int:
+      #  if stack has one node or more
       if self.len:
         tmp_node = self._get(idx)
+        # if tmp_node is not None
         if tmp_node:
           tmp_node.val = val
           response = True
