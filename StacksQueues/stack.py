@@ -1,12 +1,12 @@
 """
-1.  Creating a Node class to produce nodes for a stack.
-2.  Creating a Stack (FIFO) class using a DLL.
-      NOTE: head, tail, get, set, remove and len properties are used to traverse stack and edit nodes.
+1.  Create a Node class to produce nodes for a stack.
+2.  Create a Stack (FIFO) class using a DLL.
+      NOTE: shift, get, set, and remove methods are used to traverse stack and edit/cancel nodes.
             head, tail, and len properties are also useful to gather information:
               1.  the oldest node and its info
               2.  the newest node and its info
               3.  the size of the stack
-      Methods:
+      METHODS:
         I.    Python list-style append method to add a node to the end of the stack.    (takes a value as parameter)
         II.   JS array-style pop method to remove a node from the end of the stack.     (takes no parameter)
         III.  JS array-style shift method to remove a node from the start of the stack. (takes no parameter)
@@ -78,10 +78,28 @@ class Stack:
       self.len -= 1
     return found_node
 
+
+
+  ##################################################################################################
+  ##################################################################################################
+  ##################################################################################################
+
+  #           METHODS BELOW USE _name VARIABLES AND ARE MEANT FOR EDITING THE STACK                #
+
+  ##################################################################################################
+  ##################################################################################################
+  ##################################################################################################
+
+
+
+
+
+
+
   ####################### METHOD TO REMOVE NODE FROM START OF DLL  #############################  JS
   #  time complexity: O(1)
 
-  def shift(self):
+  def _shift(self):
     #  create a variable to return
     found_node = None
     #  check if there is a node in stack
@@ -103,7 +121,7 @@ class Stack:
   # METHOD TO RETRIEVE A NODE FROM THE STACK, USING POSITIVE OR NEGATIVE INDICES
   # time complexity: best cases O(1); worst and average cases O(n)/2
 
-  def get(self, idx):
+  def _get(self, idx):
     #  create a variable to return
     found_node = None
     #  check if index is of integer type
@@ -144,7 +162,7 @@ class Stack:
 
   ###    METHOD TO SET A VALUE ON A NODE BY INDEX IN STACK, VIA POSITIVE OR NEGATIVE INDICES    ####
   # time complexity: best case O(1); worst case and on average O(n)/2
-  def set(self, idx, val):
+  def _set(self, idx, val):
     response = False
     if type(idx) == int and type(val) == int:
       if self.len:
@@ -158,7 +176,7 @@ class Stack:
    ####################  METHOD TO REMOVE A NODE BY INDEX  ##########################################
   # time complexity: best cases O(1); worst and average cases O(n)/2
 
-  def remove(self, idx):
+  def _remove(self, idx):
     found_node = None
     # IF VALID ARGUMENT IS PASSED IN  ##############################################################
     if type(idx) == int:
@@ -186,7 +204,7 @@ class Stack:
   #################################   FOR TESTING   ################################################
   # time complexity: O(n)
 
-  def printer(self):
+  def _printer(self):
     if self.head:
       tmp_node, vals_list = self.head, []
       while tmp_node:

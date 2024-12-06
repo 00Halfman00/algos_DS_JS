@@ -1,10 +1,10 @@
 """
   1.  The logic here is to try and simulate what ARRAY methods in JavaScript can do for DLL in Python programming language
-  2.  Start by creating an empty singly link list ( my_SLL = Singly_LL() ), just like creating an empty list( my_list = [] )
-  3.  Indices that are illogicaly small or greater than or equal to the length of SLL will access first and last node, respectively
+  2.  Start by creating an empty doubly link list ( my_DLL = Doubly_LL() ), just like creating an empty list( my_list = [] )
+  3.  Indices that are illogicaly small or greater than or equal to the length of DLL will access first and last node, respectively
   NOTE: push, pop, shift, and unshift all have a time complexity of O(1), which in the SLL only three of the four JS style methods had an O(1) time complexity
-  NOTE: get, set enter and remove all have a time complexity of O(n)/2 which is which is an improvement over SLL similar methods that have a O(n) time complexity
-  NOTE: reverse and printer both have a time complexity of O(n) and they are the same in in both DLL and SLL
+  NOTE: get, set, insert and remove all have a time complexity of O(n)/2 which is an improvement over SLL similar methods that have an O(n) time complexity
+  NOTE: reverse and printer methods both have a time complexity of O(n) and they are the same in in both DLL and SLL
 """
 
 class Node:
