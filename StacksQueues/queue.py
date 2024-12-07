@@ -8,7 +8,7 @@
               3.  the size of the queue
       METHODS:
         I.    JS array-style unshift method to add a node to the start of the queue.    (takes a value as parameter)
-        II.   JS array-style pop method to remove a node from the end of the queue.   (takes no parameter)
+        II.   JS array-style pop method to remove a node from the end of the queue.     (takes no parameter)
         III.  JS array-style shift method to remove a node from the start of the queue. (takes no parameter)
         IV.   get method to retrieve a node by index from the queue                     (takes a index as parameter)
         V.    set method to edit a node's properties inside the queue                   (takes index and value as parameters)
