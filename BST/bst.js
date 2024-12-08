@@ -305,25 +305,6 @@
 //console.log("preorderDFS's return value: ", myBST.preorderDFSv2()); // [10, 6, 3, 8, 15, 20]
 //console.log("postorderDFS's return value: ", myBST.postorderDFSv1()); // [3, 8, 6, 20, 15, 10]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -366,7 +347,7 @@ const BST = class {
     if (this.root && val) {
       let curr = this.root;
       while (curr) {
-        if(val === curr.val) break;
+        if (val === curr.val) break;
         if (val < curr.val) {
           if (!curr.left) {
             curr.left = incoming;
@@ -448,6 +429,21 @@ const BST = class {
     // if code reaches this point undefined will be returned by default
   }
 
+  bFSR(node, level, result = []) {
+    if (!node) return;
+
+    if (!result[level]) {
+      result[level] = [];
+    }
+
+    result[level].push(node.val);
+
+    this.bFSR(node.left, level + 1, result);
+    this.bFSR(node.right, level + 1, result);
+
+    return [].concat(...result);
+  }
+
   ////////////////////////////////////////////////////////////////////////////////
   //////////////////////////// DFS BELOW THIS LINE ///////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -503,7 +499,8 @@ const BST = class {
     if (this.root) {
       const stack = [this.root];
       let node;
-      while (stack[0]) { // [10]  //  [15, 6]  // [15, 8, 3]  // [15, 8]
+      while (stack[0]) {
+        // [10]  //  [15, 6]  // [15, 8, 3]  // [15, 8]
         node = stack.pop(); //  10   // 6  //  3  //  8
         res[res.length] = node.val; // [10]  // [10, 6]  // [10, 6, 3]  // [10, 6, 3, 8]
         if (node.right) stack[stack.length] = node.right; // [15]  // [15, 8]  // [15, 8]  // [15]
@@ -536,7 +533,8 @@ const BST = class {
         stack2 = [];
       let node;
 
-      while (stack1[0]) { // [10]  // [6, 15]  // [6, 20]  // [6] // [6, 3, 8]  // [3]
+      while (stack1[0]) {
+        // [10]  // [6, 15]  // [6, 20]  // [6] // [6, 3, 8]  // [3]
         node = stack1.pop(); // 10  //  15  //  20  // 6  // 8  // 3
         stack2[stack2.length] = node; // [10]  // [10, 15]  // [10, 15, 20]  // [10, 15, 20, 6]  // [10, 15, 20, 6, 8]  // [10, 15, 20, 6, 8, 3]
         if (node.left) stack1[stack1.length] = node.left; // [6] // [6]  // [6]  // [3]  // [ 3]
@@ -574,9 +572,11 @@ myBST.insertR(20);
 // console.log("findI method's return value: ", myBST.findI(6));
 // console.log("findR method's return value: ", myBST.findR(5));
 // console.log('bfs method\'s return value: ', myBST.bFS())
-console.log("inorderR method's return value: ", myBST.inorderR());
+// console.log("inorderR method's return value: ", myBST.inorderR());
 // console.log("inorderI method's return value: ", myBST.inorderI());
-console.log("preorderR method's return value: ", myBST.preorderR());
+// console.log("preorderR method's return value: ", myBST.preorderR());
 // console.log("preorderI method's return value: ", myBST.preorderI());
-console.log("postorderR method's return value: ", myBST.postorderR());
-// console.log("postorderI method's return value: ", myBST.postorderI());
+// console.log("postorderR method's return value: ", myBST.postorderR());
+console.log("postorderI method's return value: ", myBST.postorderI());
+console.log(myBST.root.val);
+// console.log('bFSR method:  ', myBST.bFSR(myBST.root, 0));
