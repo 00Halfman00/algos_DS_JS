@@ -1,7 +1,7 @@
 """
   1.  Create Node class that will provide nodes for the BST class
   2.  Create BST classs to store the binary search tree data structure
-      along with methods to add, delete and manipulate nodes.
+      along with methods to insert nodes, find nodes by value and to traverse the tree.
       METHODS:
         I.    TO INSERT NEW NODES
               a.    insert_iterate method to add nodes at the proper place in bst
@@ -10,8 +10,16 @@
               a.    find_iterate method to find a node in the bst by its value
               b.    find_recurse method to find a node in the bst by its value
         III.  TO TRAVERSE THE BINARY SEARCH TREE
-              a.    BFS (BRETH FIRST SEARCH)
-                    1a.
+              a.    BFS (BREATH FIRST SEARCH)
+                    1a.   bfs_iterative
+                    2a.   bfs_recurse
+              b.    DFS (DEPTH FIRST SEARCH)
+                    1b.   dfs_preorder_iterate
+                    2b.   dfs_preorder_recurse
+                    3b.   dfs_inorder_iterate
+                    4b.   dfs_inorder_recurse
+                    5b.   dfs_postorder_iterate
+                    6b.   dfs_postorder_recurse
 
 """
 
@@ -30,10 +38,10 @@ class BST:
 
 
   ##################################################################################################
-  ####################       METHODS TO INSERT NODE INTO BST      ##################################
+  ####################       METHODS TO INSERT A  NODE INTO BST      ###############################
   ##################################################################################################
 
-  ##################   insert_iterate METHOD ( ITERATION )    ######################################
+  ##################   insert_iterate METHOD     ###################################################
   #   time complexity: O(n)
   """
     1.  VALIDATE ARGUMENT PASSED IN
@@ -71,7 +79,7 @@ class BST:
 
 
 
-  ##################   insert_recurse METHOD ( RECURSION )    ######################################
+  ##################        insert_recurse METHOD       ############################################
   #  time complexity: O(n)
   """
     1.  IF VALID ARGUMENT IS PASSED IN
@@ -121,7 +129,7 @@ class BST:
 
 
   ##################################################################################################
-  ####################          METHODS TO FIND NODE IN  BST      ##################################
+  ####################          METHODS TO FIND NODE IN  BST          ##############################
   ##################################################################################################
 
 
@@ -208,7 +216,7 @@ class BST:
 
 
   ##################################################################################################
-  ####################           METHODS TO TRAVERSE THE BST      ##################################
+  ####################           METHODS TO TRAVERSE THE BST        ################################
   ##################################################################################################
 
 
@@ -308,7 +316,7 @@ class BST:
 
 
   ##################################################################################################
-  ###################           DEPTH FIRST SEARCH        ##########################################
+  ###################           DEPTH FIRST SEARCH          ########################################
   ##################################################################################################
 
 
@@ -526,7 +534,7 @@ class BST:
 
 
   ##################################################################################################
-  #####################             FOR TESTING          ###########################################
+  #####################             FOR TESTING             ########################################
   ##################################################################################################
   def printer(self):
     if self.root:
