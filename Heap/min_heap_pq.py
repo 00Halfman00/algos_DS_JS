@@ -35,7 +35,7 @@ class min_binary_heap_priority_queue:
 
 
    ##################            _heap_up METHOD               #####################################
-  #   time complexity: O(n)
+  #   time complexity: O(log n)
 
   """
     1.  CREATE A CHILD INDEX FROM THE LAST INDEX IN PQ AND USE IT TO CREATE PARENT INDEX
@@ -99,7 +99,7 @@ class min_binary_heap_priority_queue:
 
 
   ###################               _heap_down METHOD        #######################################
-  #   time complexity: O(n)
+  #   time complexity: O(log n)
 
   """
         1.    create three indices: parent index, left child index, and a right child index
@@ -127,8 +127,6 @@ class min_binary_heap_priority_queue:
       p_idx = larger_child_idx
       l_child_idx = p_idx * 2 + 1
       r_child_idx = l_child_idx + 1
-
-
 
   ###################              dequeue_node METHOD        ######################################
   #   time complexity: O(1)
@@ -159,7 +157,7 @@ class min_binary_heap_priority_queue:
 
 
 
-
+  ##################################   for testing    ##############################################
   def printer(self):
     print(self.nodes)
 
