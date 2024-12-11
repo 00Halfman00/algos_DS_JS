@@ -1,5 +1,5 @@
 """
-  1.  Create Node class that will provide nodes for the BST class
+  1.  Create Node class that will provide nodes for the MBH class
       I.  It will take a value and make it a property
 """
 ##################################   NODE CLASS   ##################################################
@@ -31,22 +31,19 @@ class Max_Binary_Heap:
 
   """
     1.  CREATE A CHILD INDEX FROM THE LAST INDEX IN MBH AND USE IT TO CREATE PARENT INDEX
-    2.  IF BOTH PARENT INDEX AND CHILD INDEX ARE VALID INDICES IN THE MBH
-        I.    loop while parent index is zero or greater and the value at parent
-              index is smaller than the value at child's index
-              a.    swap the nodes at those two indices
-              b.    adjust the two indices for the next iteration
-    3.  RETURN SELF
+    2.  loop while parent index is zero or greater and the value at parent
+        index is smaller than the value at child's index
+          I.      swap the nodes at those two indices
+          II.     adjust the two indices for the next iteration
   """
 
   def _heap_up(self):
     c_Idx = len(self.values) - 1
     p_Idx = (c_Idx - 1)//2
-    if (c_Idx >= 0 and c_Idx < len(self.values)) and (p_Idx >= 0 and p_Idx < len(self.values)):
-      while p_Idx >= 0 and self.values[p_Idx].val < self.values[c_Idx].val:
-        self.values[p_Idx], self.values[c_Idx] = self.values[c_Idx], self.values[p_Idx]
-        c_Idx = p_Idx
-        p_Idx = (c_Idx - 1)//2
+    while p_Idx >= 0 and self.values[p_Idx].val < self.values[c_Idx].val:
+      self.values[p_Idx], self.values[c_Idx] = self.values[c_Idx], self.values[p_Idx]
+      c_Idx = p_Idx
+      p_Idx = (c_Idx - 1)//2
 
 
   ##################   insert_node METHOD     ######################################################
@@ -87,44 +84,33 @@ class Max_Binary_Heap:
   #   time complexity: O(n)
 
   """
-        1.    create three indices: parent index, left child index, and a right child index
-        2.    loop while the node's value at the parent index is smaller than
-              either child's value at their respecitive indices in the MBH and while child
-              indices are not longer than the length of the MBH
-              I.    find the child node with the larger value
-              II.   if the larger child's value is greater than the parent's value
-                    a.   swap the two nodes at those indices in the MBH
-              III.  make the parent index the larger child's index and calculate the
-                    children's indices
+    1.    create three indices: parent index, left child index, and a right child index
+    2.    loop while the node's value at the parent index is smaller than
+          either child's value at their respecitive indices in the MBH and while child
+          indices are not longer than the length of the MBH
+          I.    find the child node with the larger value
+          II.   swap the two nodes at those indices in the MBH
+          III.  make the parent index the larger child's index and calculate the
+                children's indices
   """
+
   def _heap_down(self):
     # create necessary indices for swapping  #####################################################
     p_Idx = 0
     l_child_Idx = 1
     r_child_Idx = 2
-
-    #  loop while indexes are within reasonable range and either child's value is larger than the parent's value
+    #  loop while either child's index is within reasonable range and that child's value is larger than the parent's value
     while (l_child_Idx < len(self.values) and self.values[p_Idx].val < self.values[l_child_Idx].val) or (r_child_Idx < len(self.values) and self.values[p_Idx].val < self.values[r_child_Idx].val):
-
       #  find the larger child  ##################################################################
-      larger_child_Idx = 0
-      if r_child_Idx >= len(self.values):
-        larger_child_Idx = l_child_Idx
-      else:
-        if self.values[l_child_Idx].val > larger_child_Idx:
-          larger_child_Idx = l_child_Idx
-        if self.values[r_child_Idx].val > self.values[larger_child_Idx].val:
-          larger_child_Idx = r_child_Idx
-
+      larger_child_Idx = l_child_Idx
+      if r_child_Idx < len(self.values) and self.values[l_child_Idx].val < self.values[r_child_Idx].val:
+        larger_child_Idx = r_child_Idx
       #  swap parent with larger child  ############################################################
       self.values[p_Idx], self.values[larger_child_Idx] = self.values[larger_child_Idx], self.values[p_Idx]
-
       #  adjust indices for next iteration  ######################################################
       p_Idx = larger_child_Idx
       l_child_Idx = p_Idx * 2 + 1
       r_child_Idx = l_child_Idx + 1
-
-
 
 
 
@@ -153,6 +139,9 @@ class Max_Binary_Heap:
         self._heap_down()
       return max_node
 
+
+
+  ##################################   for testing    ##############################################
   def printer(self):
     print(self.values)
 
@@ -175,5 +164,5 @@ print('remove max node from MBH: ', my_MBH.shift().val)
 print('remove max node from MBH: ', my_MBH.shift().val)
 print('remove max node from MBH: ', my_MBH.shift().val)
 print('remove max node from MBH: ', my_MBH.shift())
-# my_MBH.printer()
+my_MBH.printer()
 
