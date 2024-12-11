@@ -44,13 +44,22 @@ class BST:
   ##################   insert_iterate METHOD     ###################################################
   #   time complexity: O(n)
   """
-    1.  VALIDATE ARGUMENT PASSED IN
-        a.  create new node
-    2.  IF BINARY SEARCH TREE HAS AT LEAST ONE NODE
-        a.  check if incoming node is smaller or bigger than root node
-            and place accordingly
-    3.  ELSE BINARY SEARCH TREE HAS NO NODES
+    1.  IF ARGUMENT IS VALID
+        I.  create new node
+    2.  IF THRE IS ATLEAST ONE NODE IN BST
+        I.  cretea variable, call it tmp_node, and assign it the value of the root node
+        II. loop while tmp_node is not None
+            a.    if value passed in is smaller than tmp_node's value,
+                  1a.   if tmp_node does not have a left property
+                        a1.  place accordingly and break
+                  2a.   else assign tmp_node to be its left property
+            b.    else value passed in must be be larger than tmp_node's value
+                  1b.   if tmp_node does not have a right propery
+                        b1.   place accordingly and break
+                  2b.   else assign tmp_node to be its right property
+    3.  ELSE BST IS EMPTY
         a.  make incoming node the root node
+    4.  RETURN SELF
   """
   def insert_iterate(self, val):
     #  if argument passed in is valid  #############################################################
@@ -60,6 +69,7 @@ class BST:
       if self.root:
         current_node = self.root
         while current_node:
+          #  if value already exist, avoid it
           if val == current_node.val:
             break
           if val < current_node.val:
@@ -85,14 +95,13 @@ class BST:
     1.  IF VALID ARGUMENT IS PASSED IN
         I.  create an incoming node
     2.  IF THERE IS A ROOT
-        I.    create a helper function to recurse that will take two arguments a current
+        I.    create a helper function to recurse that will take two arguments: a current
               node and an incoming node.
-              a.  if current node is None, return
-              b.  if incoming node's value is less than current node's value
+              a.  if incoming node's value is less than current node's value
                   1b.   if current node does not have a left property
                         a1.   make incoming node the left property
                   2b.   else call helper function with current node's left property and incoming node
-              c.  if current node's value is greater than incoming node's value
+              b.  if incoming node's value is greater than current node's value
                   1c.   if current node does not have a right proptery
                         a1.   make incoming node the right property
                   2c.   else call helper function with paren node's right property and incoming node
@@ -107,8 +116,6 @@ class BST:
       if self.root:
         #  create a helper function that takes two nodes. It will traverse the bst, recursively  ###
         def recurse(current_node, incoming_node):
-          if not current_node:
-            return
           if val < current_node.val:
             if not current_node.left:
               current_node.left = incoming_node
@@ -119,9 +126,8 @@ class BST:
               current_node.right = incoming_node
             else:
               recurse(current_node.right, incoming_node)
-
         return recurse(self.root, incoming_node)
-      # else the binary search three is empty, so add first node  ##################################
+      # else the binary search tree is empty, so add first node  ##################################
       else:
         self.root = incoming_node
     return self
@@ -213,8 +219,6 @@ class BST:
 
 
 
-
-
   ##################################################################################################
   ####################           METHODS TO TRAVERSE THE BST        ################################
   ##################################################################################################
@@ -237,7 +241,7 @@ class BST:
   """
     1.  CREATE VARIABLE NAMED results AND ASSIGN IT AN EMPTY LIST
     2.  IF THERE IS AT LEAST ONE NODE IN THE BINARY SEARCH TREE
-        I.    create a variable named queue and initiate it with the value of a list with the root node in it
+        I.    create a queue ( FIFO ) and initiate it to be a list with the root node in it
         II.   create a variable named tmp_node and initiate if to be None
         III.  iterate while the queue has anythng in it
               a.    remove the first node in the queue and assign it to a variable named tmp_node
@@ -280,7 +284,7 @@ class BST:
                     1c.   call helper function with node's left property and level + 1
               d.    if node has a right property
                     1d.   call helper funtion with node's right property and level + 1
-        III.  invoke call to helper function, passing in the root node and index 0
+        III.  invoke a call to helper function, passing in the root node and zero
         IV.  iterate over response
               a.    for each list in response, extend list to results
     3.  RETURN results
@@ -362,12 +366,10 @@ class BST:
     1.  CREATE A VARIABLE NAMED results AND ASSIGN IT AN EMPTY LIST
     2.  IF THERE IS AT LEAST ONE NODE IN THE BST
         I.    create a helper function to recurse with that takes a node as an argument
-              a.    if node is None
-                    1a.   return
-              b.    append the node's value to the results list
-              c.    if node has a left property that is not None
+              a.    append the node's value to the results list
+              b.    if node has a left property that is not None
                     1c.   call the helper function, passing in node.left
-              d.    if node has a right property that is not None
+              c.    if node has a right property that is not None
                     1d.   call the helper function, passing in node.right
     3.  INVOKE A CALL TO THE HELPER FUNCTION, PASSING IN THE ROOT NODE AS THE ARGUMENT
     4.  RETURN results
@@ -381,8 +383,6 @@ class BST:
     if self.root:
       #  create a helper function that takes a node. It will traverse the bst, recursively  ########
       def recurse(node):
-        if not Node:
-          return
         results.append(node.val)
         if node.left:
           recurse(node.left)
@@ -562,9 +562,7 @@ my_BST.insert_recurse(15)
 my_BST.insert_recurse(3)
 my_BST.insert_recurse(8)
 my_BST.insert_recurse(20)
-# my_BST.insert_recurse(4)
-# my_BST.insert_recurse(7)
-# my_BST.insert_recurse(13)
+
 
 # my_BST.printer()
 

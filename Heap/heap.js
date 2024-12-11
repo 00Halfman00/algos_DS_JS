@@ -45,8 +45,12 @@ const MaxBH = class {
   remove() {
     if (this.root) {
       const max = this.root[0];
-      this.root[0] = this.root.pop();
-      this.heapDown();
+      if (this.root.length > 1) {
+        this.root[0] = this.root.pop();
+        this.heapDown();
+      } else {
+        this.root.pop();
+      }
       return max;
     }
   }
@@ -77,21 +81,43 @@ const MaxBH = class {
       rightCIdx = leftCIdx + 1;
     }
   }
+
+  printer() {
+    let head = this.root;
+    let one = 'one';
+  }
 };
 
 const myMaxBH = new MaxBH();
-myMaxBH.insert(41);
-myMaxBH.insert(39);
-myMaxBH.insert(33);
-myMaxBH.insert(18);
-myMaxBH.insert(27);
-myMaxBH.insert(12);
-myMaxBH.insert(55);
+// myMaxBH.insert(41);
+// myMaxBH.insert(39);
+// myMaxBH.insert(33);
+// myMaxBH.insert(18);
+// myMaxBH.insert(27);
+// myMaxBH.insert(12);
+// myMaxBH.insert(55);
+
+myMaxBH.insert(5);
+myMaxBH.insert(10);
+myMaxBH.insert(15);
+myMaxBH.insert(20);
+myMaxBH.insert(25);
+myMaxBH.insert(30);
+myMaxBH.insert(8);
 
 console.log(myMaxBH.root, '\n\n');
 
-console.log("remove method's return value: ", myMaxBH.remove(), '\n\n');
-console.log("remove method's return value: ", myMaxBH.remove(), '\n\n');
-myMaxBH.insert(100);
+console.log("remove method's return value: ", myMaxBH.remove());
+console.log("remove method's return value: ", myMaxBH.remove());
+console.log("remove method's return value: ", myMaxBH.remove());
+console.log("remove method's return value: ", myMaxBH.remove());
+console.log("remove method's return value: ", myMaxBH.remove());
+console.log("remove method's return value: ", myMaxBH.remove());
+console.log("remove method's return value: ", myMaxBH.remove());
+console.log("remove method's return value: ", myMaxBH.remove());
 
-console.log(myMaxBH.root, '\n\n');
+myMaxBH.printer();
+// console.log("remove method's return value: ", myMaxBH.remove(), '\n\n');
+// myMaxBH.insert(100);
+
+// console.log(myMaxBH.root, '\n\n');
