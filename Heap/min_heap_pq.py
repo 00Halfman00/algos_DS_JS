@@ -59,9 +59,6 @@ class min_binary_heap_priority_queue:
 
 
 
-
-
-
    ##################           enqueue_node METHOD            #####################################
   #   time complexity: O(1)
 
@@ -113,7 +110,7 @@ class min_binary_heap_priority_queue:
   """
 
   def _heap_down(self):
-    #  CREATE PARENT, LEFT CHILD AND RIGHT CHILD INDICES IN THAT ORDERD    ##########################
+    #  CREATE PARENT, LEFT CHILD AND RIGHT CHILD INDICES IN THAT ORDER    ##########################
     p_idx, l_child_idx, r_child_idx = 0, 1, 2
     #  LOOP WHILE EIHER CHILD'S INDEX IS VALID AND THAT CHILDS PRIORITY IS HIGHER THAN PARENT  #####
     while ((l_child_idx < len(self.nodes) and self.nodes[l_child_idx].priority < self.nodes[p_idx].priority) or (r_child_idx < len(self.nodes) and self.nodes[r_child_idx].priority < self.nodes[p_idx].priority)):
@@ -145,7 +142,7 @@ class min_binary_heap_priority_queue:
   def dequeue_node(self):
     #  IF THERE IS AT LEAST ONE NODE IN THE PQ, ELSE IMPLICITY RETURN NONE
     if len(self.nodes):
-      max_node  = self.nodes[0]
+      highest_priority_node  = self.nodes[0]
       #  IF THERE IS JUST ONED NODE IN PQ, JUST REMOVE IT  #########################################
       if len(self.nodes) == 1:
         self.nodes.pop()
@@ -153,7 +150,7 @@ class min_binary_heap_priority_queue:
       else:
         self.nodes[0] = self.nodes.pop()
         self._heap_down()
-      return max_node
+      return highest_priority_node
 
 
 

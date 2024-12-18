@@ -27,7 +27,7 @@ class Max_Binary_Heap:
 
 
    ##################            _heap_up METHOD               #####################################
-  #   time complexity: O(n)
+  #   time complexity: O(log n)
 
   """
     1.  CREATE A CHILD INDEX FROM THE LAST INDEX IN MBH AND USE IT TO CREATE PARENT INDEX
@@ -47,7 +47,7 @@ class Max_Binary_Heap:
 
 
   ##################   insert_node METHOD     ######################################################
-  #   time complexity: O(n)
+  #   time complexity: O(1)
 
   """
     1.  IF BOTH ARGUMENTS ARE VALID
@@ -81,7 +81,7 @@ class Max_Binary_Heap:
 
 
   ###################        _heap_down METHOD         #############################################
-  #   time complexity: O(n)
+  #   time complexity: O(log n)
 
   """
     1.    create three indices: parent index, left child index, and a right child index
@@ -115,7 +115,7 @@ class Max_Binary_Heap:
 
 
   ########################        shift METHOD         #############################################
-  #   time complexity: O(n)
+  #   time complexity: O(1)
 
     """
       1.  IF THERE IS AT LEAST ONE NODE IN THE MBH

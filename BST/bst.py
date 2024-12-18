@@ -42,7 +42,7 @@ class BST:
   ##################################################################################################
 
   ##################   insert_iterate METHOD     ###################################################
-  #   time complexity: O(n)
+  #   time complexity: O(log n)
   """
     1.  IF ARGUMENT IS VALID
         I.  create new node
@@ -90,7 +90,7 @@ class BST:
 
 
   ##################        insert_recurse METHOD       ############################################
-  #  time complexity: O(n)
+  #  time complexity: O(log n)
   """
     1.  IF VALID ARGUMENT IS PASSED IN
         I.  create an incoming node
@@ -141,7 +141,7 @@ class BST:
 
 
   ##################   find_iterate METHOD ( ITERATION )    ########################################
-   #  time complexity: O(n)
+   #  time complexity: O(log n)
   """
     1.  CREATE A TEMPORARY VARIABLE NAMED found_node AND ASSIGN IT THE VALUE OF NONE
     2.  IF A VALID ARGUMENT IS PASSED IN
@@ -179,7 +179,7 @@ class BST:
 
 
   ##################   find_recurse METHOD ( RECURSION )    ########################################
-  #  time complexity: O(n)
+  #  time complexity: O(log n)
   """
     1.  IF VALID ARGUMENT IS PASSED IN
         I.    if bst has at least one node in it
@@ -573,26 +573,26 @@ my_BST.insert_recurse(20)
 # print('find method using iteration: ', my_BST.find_iterate(50))
 
 
-# print('find method using recursion: ', my_BST.find_recurse(7).val)
-# print('find method using recursion: ', my_BST.find_recurse(13).val)
-# print('find method using recursion: ', my_BST.find_recurse(50))
+print('find method using recursion: ', my_BST.find_recurse(3))
+print('find method using recursion: ', my_BST.find_recurse(13))
+print('find method using recursion: ', my_BST.find_recurse(15))
 
 ##################################################################################################
 
-print('traverse the bst via bfs_iterate: ', my_BST.bfs_iterate())  #  expect:  [10, 6, 15, 3, 8, 20]
-print('traverse the bst via bfs_recurse: ', my_BST.bfs_recurse())  #  expect:  [10, 6, 15, 3, 8, 20]
+# print('traverse the bst via bfs_iterate: ', my_BST.bfs_iterate())  #  expect:  [10, 6, 15, 3, 8, 20]
+# print('traverse the bst via bfs_recurse: ', my_BST.bfs_recurse())  #  expect:  [10, 6, 15, 3, 8, 20]
 
-##################################################################################################
+# ##################################################################################################
 
-print('dfs_preorder_iterate:  ', my_BST.dfs_preorder_iterate())  #  expect:   [10, 6, 3, 8, 15, 20]
-print('dfs_preorder_recurse:  ', my_BST.dfs_preorder_recurse())  #  expect:   [10, 6, 3, 8, 15, 20]
+# print('dfs_preorder_iterate:  ', my_BST.dfs_preorder_iterate())  #  expect:   [10, 6, 3, 8, 15, 20]
+# print('dfs_preorder_recurse:  ', my_BST.dfs_preorder_recurse())  #  expect:   [10, 6, 3, 8, 15, 20]
 
-##################################################################################################
+# ##################################################################################################
 
-print('dfs_inorder_iterate:  ', my_BST.dfs_inorder_iterate())  #  expect:   [3, 6, 8, 10, 15, 20]
-print('dfs_inorder_recurse:  ', my_BST.dfs_inorder_recurse())  #  expect:   [3, 6, 8, 10, 15, 20]
+# print('dfs_inorder_iterate:  ', my_BST.dfs_inorder_iterate())  #  expect:   [3, 6, 8, 10, 15, 20]
+# print('dfs_inorder_recurse:  ', my_BST.dfs_inorder_recurse())  #  expect:   [3, 6, 8, 10, 15, 20]
 
-##################################################################################################
+# ##################################################################################################
 
-print('dfs_postorder_iterate:  ', my_BST.dfs_postorder_iterate())  #  expect:  [3, 8, 6, 20, 15, 10]
-print('dfs_postorder_recurse:  ', my_BST.dfs_postorder_recurse())  #  expect:  [3, 8, 6, 20, 15, 10]
+# print('dfs_postorder_iterate:  ', my_BST.dfs_postorder_iterate())  #  expect:  [3, 8, 6, 20, 15, 10]
+# print('dfs_postorder_recurse:  ', my_BST.dfs_postorder_recurse())  #  expect:  [3, 8, 6, 20, 15, 10]
