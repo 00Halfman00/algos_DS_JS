@@ -1,17 +1,9 @@
-class Queue:
-    def __init__(self):
-        self.values = []
+from priority_queue import Min_Binary_Heap_Priority_Queue
 
-    def enqueue(self, val, pri):
-        if type(val) == str and pri >= 0:
-            self.values.append({"val": val, "priority": pri})
-            self.values.sort(key=lambda info: info["priority"])
-
-    def dequeue(self):
-        node = None
-        if self.values:
-            node = self.values.pop(0)
-        return node
+"""
+    NOTE:   By using the imported min binary heap priority queue,
+            time complexity for the queue is now O(log n)
+"""
 
 
 class Node:
@@ -25,10 +17,16 @@ class Dijkstra:
 
     """
     METHOD ONE
+    NOTE:   In this scenario a class called Node is used to represent some data about an entity.
+            Perhaps that entity is best stored in a database, but there is metadata that might
+            be of use by having either a class, which can hadle stored data more elagently, or
+            a dictionary, which is faster/lighter. 
+            
     1.  method to create an entry in the adjacency list with a vertex's name
         as the key in adjacency list and a dictionary containing a class instance
         of a Node to represent an entity and a list of edges that are associated with
         the entity/vertex as the value.
+    time complexity: O(1)
     """
 
     def create_vertex(self, vertex_name):
@@ -44,6 +42,7 @@ class Dijkstra:
     """
     METHOD TWO
     1.  method to create an edge between two vertices
+    time complexity: O(1)
     """
 
     def create_edge(self, vertex1_name, vertex2_name, weight):
@@ -64,6 +63,7 @@ class Dijkstra:
     """
     METHOD THREE
     1.  method to remove an edge from the adjacency list
+    time complexity: O(v)
     """
 
     def remove_edge(self, vertex1_name, vertex2_name):
@@ -88,6 +88,7 @@ class Dijkstra:
     """
     METHOD FOUR
     1.  method to remove a vertex from the adjacency list; that is, vertex will be removed from the graph
+    time complexity: O(v + e)
     """
 
     def remove_vertex(self, vertex_name):
@@ -107,6 +108,7 @@ class Dijkstra:
     """
     METHOD 5
     1.  method to find the shortest path betweeen to vertices in graph
+    time complexity: O((v + e) log v)
     """
 
     def shortest_path(self, start_vertex_name, end_vertex_name):
@@ -115,7 +117,7 @@ class Dijkstra:
                 start_vertex_name in self.adjacency_list
                 and end_vertex_name in self.adjacency_list
             ):
-                queue, distances, previous = Queue(), {}, {}
+                queue, distances, previous = Min_Binary_Heap_Priority_Queue(), {}, {}
                 for _, vertex in enumerate(self.adjacency_list):
                     if vertex == start_vertex_name:
                         queue.enqueue(vertex, 0)
@@ -131,10 +133,7 @@ class Dijkstra:
                 while queue:
                     node = queue.dequeue()
                     if node["val"] == end_vertex_name:
-                        print("found the end vertex: ", node)
-                        print("previous: ", previous)
-                        print("distances: ", distances)
-                        return None
+                        return node["val"]
                     vertex_payload = self.adjacency_list[node["val"]]
                     if node or distances[node["node"]]:
                         for _, edge in enumerate(vertex_payload["edges"]):

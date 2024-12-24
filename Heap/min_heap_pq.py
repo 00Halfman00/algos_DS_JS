@@ -25,7 +25,7 @@ class Node:
 
 
 #  MIN-BINARY-HEAP-PRIORITY-QUEUE
-class min_binary_heap_priority_queue:
+class Min_Binary_Heap_Priority_Queue:
     def __init__(self):
         self.nodes = []
 
@@ -39,10 +39,10 @@ class min_binary_heap_priority_queue:
     """
     1.  CREATE A CHILD INDEX FROM THE LAST INDEX IN PQ AND USE IT TO CREATE PARENT INDEX
     2.    loop while parent index is zero or greater and the value at parent
-          index is smaller than the value at child's index
+          index is greater than the value at child's index
           I.      swap the nodes at those two indices
           II.     adjust the two indices for the next iteration
-  """
+    """
 
     def _heap_up(self):
         #  CREATE CHILD AND PARENT INDEX IN THAT ORDER         #########################################
@@ -67,7 +67,7 @@ class min_binary_heap_priority_queue:
               b.    call helper method named _heap_up
         III.  ELSE ADD THE NODE TO THE PQ
         IV.   RETURN SELF
-  """
+    """
 
     def enqueue_node(self, pri, data):
         #  IF BOTH ARGUMENTS PASSED IN ARE VALID  #######################################################
@@ -90,14 +90,14 @@ class min_binary_heap_priority_queue:
 
     """
         1.    create three indices: parent index, left child index, and a right child index
-        2.    loop while the node's value at the parent index is smaller than
+        2.    loop while the node's value at the parent index is greater than
               either child's value at their respecitive indices in the PQ and while child
               indices are not longer than the length of the PQ
               I.    find the child node with the larger value
               II.   swap the two nodes at those indices in the PQ
               III.  make the parent index the larger child's index and calculate the
                     children's indices
-  """
+    """
 
     def _heap_down(self):
         #  CREATE PARENT, LEFT CHILD AND RIGHT CHILD INDICES IN THAT ORDER    ##########################
@@ -132,19 +132,19 @@ class min_binary_heap_priority_queue:
 
     """
     1.  IF THERE IS AT LEAST ONE NODE IN THE PQ
-        I.    create a variable, call it max_node, and assign it the value of the first node in PQ
+        I.    create a variable, call it min_node, and assign it the value of the first node in PQ
         II.   if lenght of PQ is one
               a.  pop off the only node in PQ
         III.  else PQ has more than one node
               a.  assign the first node of the PQ the value of the last node in PQ
               b.  call the _heap_down helper funciton
         IV.   return max_node
-  """
+    """
 
     def dequeue_node(self):
         #  IF THERE IS AT LEAST ONE NODE IN THE PQ, ELSE IMPLICITY RETURN NONE
         if len(self.nodes):
-            highest_priority_node = self.nodes[0]
+            min_node = self.nodes[0]
             #  IF THERE IS JUST ONED NODE IN PQ, JUST REMOVE IT  #########################################
             if len(self.nodes) == 1:
                 self.nodes.pop()
@@ -152,14 +152,14 @@ class min_binary_heap_priority_queue:
             else:
                 self.nodes[0] = self.nodes.pop()
                 self._heap_down()
-            return highest_priority_node
+            return min_node
 
     ##################################   for testing    ##############################################
     def printer(self):
         print(self.nodes)
 
 
-my_pq = min_binary_heap_priority_queue()
+my_pq = Min_Binary_Heap_Priority_Queue()
 my_pq.enqueue_node(1, "red")
 my_pq.enqueue_node(2, "orange")
 my_pq.enqueue_node(8, "grey")
