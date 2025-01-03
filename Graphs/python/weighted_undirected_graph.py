@@ -20,8 +20,8 @@ class Dijkstra:
     NOTE:   In this scenario a class called Node is used to represent some data about an entity.
             Perhaps that entity is best stored in a database, but there is metadata that might
             be of use by having either a class, which can hadle stored data more elagently, or
-            a dictionary, which is faster/lighter. 
-            
+            a dictionary, which is faster.
+
     1.  method to create an entry in the adjacency list with a vertex's name
         as the key in adjacency list and a dictionary containing a class instance
         of a Node to represent an entity and a list of edges that are associated with
@@ -63,7 +63,7 @@ class Dijkstra:
     """
     METHOD THREE
     1.  method to remove an edge from the adjacency list
-    time complexity: O(v)
+    time complexity: O(e)
     """
 
     def remove_edge(self, vertex1_name, vertex2_name):
