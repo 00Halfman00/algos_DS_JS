@@ -93,7 +93,7 @@ class Min_Binary_Heap_Priority_Queue:
         2.    loop while the node's value at the parent index is greater than
               either child's value at their respecitive indices in the PQ and while child
               indices are not longer than the length of the PQ
-              I.    find the child node with the larger value
+              I.    find the child node with the smaller value
               II.   swap the two nodes at those indices in the PQ
               III.  make the parent index the larger child's index and calculate the
                     children's indices

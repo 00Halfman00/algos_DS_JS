@@ -1,3 +1,5 @@
+import minBinaryHeapPriorityQueue from './minBinaryHeapPriorityQueue.js';
+
 /*
   STEP ONE
   1.  Create a class that will create nodes for the undirected weighted graph
@@ -188,7 +190,7 @@ const undirectedWeightedGraph = class {
         //  PART ONE: FILL DATA STRUCTURES WITH INITIAL DATA
         const previous = {},
           distances = {},
-          priorityQueue = new PriorityQueue();
+          priorityQueue = new minBinaryHeapPriorityQueue();
         for (let vertex in this.adjacencyList) {
           previous[vertex] = null;
           if (vertex === startVertex) {
