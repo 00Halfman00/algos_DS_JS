@@ -572,11 +572,12 @@ myBST.insertR(20);
 // console.log("findI method's return value: ", myBST.findI(6));
 // console.log("findR method's return value: ", myBST.findR(5));
 // console.log('bfs method\'s return value: ', myBST.bFS())
+console.log(myBST.bFSR(myBST.root, 0));
 // console.log("inorderR method's return value: ", myBST.inorderR());
 // console.log("inorderI method's return value: ", myBST.inorderI());
 // console.log("preorderR method's return value: ", myBST.preorderR());
 // console.log("preorderI method's return value: ", myBST.preorderI());
 // console.log("postorderR method's return value: ", myBST.postorderR());
-console.log("postorderI method's return value: ", myBST.postorderI());
-console.log(myBST.root.val);
+// console.log("postorderI method's return value: ", myBST.postorderI());
+// console.log(myBST.root.val);
 // console.log('bFSR method:  ', myBST.bFSR(myBST.root, 0));

@@ -93,9 +93,9 @@ class Min_Binary_Heap_Priority_Queue:
         2.    loop while the node's value at the parent index is greater than
               either child's value at their respecitive indices in the PQ and while child
               indices are not longer than the length of the PQ
-              I.    find the child node with the smaller value
+              I.    find the child node with the smaller priority
               II.   swap the two nodes at those indices in the PQ
-              III.  make the parent index the larger child's index and calculate the
+              III.  make the parent index the smaller child's index and calculate the
                     children's indices
     """
 
@@ -111,19 +111,19 @@ class Min_Binary_Heap_Priority_Queue:
             and self.nodes[r_child_idx].priority < self.nodes[p_idx].priority
         ):
             #  FIND THE VALID CHILD WITH HIGER PRIORITY
-            larger_child_idx = l_child_idx
+            smaller_child_idx = l_child_idx
             if (
                 r_child_idx < len(self.nodes)
                 and self.nodes[r_child_idx].priority < self.nodes[l_child_idx].priority
             ):
-                larger_child_idx = r_child_idx
-            #  SWAP THE PARENT AND THE LARGER CHILD IN THE PQ
-            self.nodes[p_idx], self.nodes[larger_child_idx] = (
-                self.nodes[larger_child_idx],
+                smaller_child_idx = r_child_idx
+            #  SWAP THE PARENT AND THE smaller CHILD IN THE PQ
+            self.nodes[p_idx], self.nodes[smaller_child_idx] = (
+                self.nodes[smaller_child_idx],
                 self.nodes[p_idx],
             )
             #  REASSING PARENT, LEFT CHILD AND RIGHT CHILD IN THAT ORDER
-            p_idx = larger_child_idx
+            p_idx = smaller_child_idx
             l_child_idx = p_idx * 2 + 1
             r_child_idx = l_child_idx + 1
 
