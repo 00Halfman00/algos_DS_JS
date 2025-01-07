@@ -22,42 +22,46 @@ const BST = class {
     this.root = null;
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////            add node to BST by value                  //////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
   /*
     insertIterate
-    1.  IF ARGUMENT IS VALID
-        2.  create a new node
-    3.  IF THRE IS ATLEAST ONE NODE IN BST
-        4.  Cretea a variable, call it tmp_node, and assign it the value of the root node
-        5.  Loop while tmp_node is not null
-            6.    If value passed in is smaller than tmp_node's value,
-                  7.    If tmp_node does not have a left property
-                        8.    Place accordingly and break
-                  9.    Else assign tmp_node to be its left property
-            10.   Else value passed in must be be larger than tmp_node's value
-                  11.   If tmp_node does not have a right propery
-                        12.   Place accordingly and break
-                  13.   Else assign tmp_node to be its right property
-    14. ELSE BST IS EMPTY
-        15. Make incoming node the root node
-    4.  RETURN SELF
+    1.  If the argument is valid
+        2.  Create a new node, call it incomingNode
+        3.  If there is atleast one node in BST
+            4.  Cretea a variable, call it tmpNode, and assign it the value of the root node
+            5.  Loop while tmp is not null
+                6.    If value passed in is smaller than tmp's value,
+                      7.    If tmp does not have a left property
+                            8.    Place accordingly and break
+                      9.    Else assign tmp to be its left property
+                10.   Else value passed in must be be larger than tmp's value
+                      11.   If tmp does not have a right propery
+                            12.   Place accordingly and break
+                      13.   Else assign tmp_node to be its right property
+        14. Else BST is empty
+            15. Make incomingNode the root node
+        4.  Return this
   */
 
   insertIterate(val) {
     if (typeof val === 'number') {
-      const incomongNode = new Node(val);
+      const incomingNode = new Node(val);
       if (this.root) {
         let tmp = this.root;
         while (tmp) {
           if (val < tmp.val) {
             if (!tmp.left) {
-              tmp.left = incomongNode;
+              tmp.left = incomingNode;
               break;
             } else {
               tmp = tmp.left;
             }
           } else {
             if (!tmp.right) {
-              tmp.right = incomongNode;
+              tmp.right = incomingNode;
               break;
             } else {
               tmp = tmp.right;
@@ -65,7 +69,7 @@ const BST = class {
           }
         }
       } else {
-        this.root = incomongNode;
+        this.root = incomingNode;
       }
     }
     return this;
@@ -73,21 +77,21 @@ const BST = class {
 
   /*
     insertRecurse
-    1.  IF VALID ARGUMENT IS PASSED IN
-    2.  create an incoming node
-    3.  IF THERE IS A ROOT
-        4.    create a helper function to recurse that will take two arguments: a current
-              node and an incoming node.
+    1.  If the argument is valid
+    2.  Create a new Node, using the argument passed into method, call it incomingNode
+    3.  If there is a root
+        4.    Create a helper function to recurse that will take two arguments: a current
+              node with thge value of the root node and an incoming node.
               5.  If incoming node's value is less than current node's value
-                  1b.   if current node does not have a left property
-                        a1.   make incoming node the left property
-                  2b.   else call helper function with current node's left property and incoming node
-              b.  if incoming node's value is greater than current node's value
-                  1c.   if current node does not have a right proptery
-                        a1.   make incoming node the right property
-                  2c.   else call helper function with paren node's right property and incoming node
-    3.  INVOKE HELPER FUNCTION
-    4.  RETURN SELF
+                  6.    If current node does not have a left property
+                        7.    Make incoming node its left property
+                  8.    Else call the helper function with current node's left property and incoming node
+              9.  If incoming node's value is greater than current node's value
+                  10.   If current node does not have a right proptery
+                        11.   Make incoming node its right property
+                  12.   Else call the helper function with current node's right property and incoming node
+    3.  Invoke helperfunction, passing in the root node and incominNode
+    4.  Return this
   */
 
   insertRecurse(val) {
@@ -112,20 +116,24 @@ const BST = class {
     }
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////            find node in BST by value                  /////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
   /*
     findIterate
-    1.  IF A VALID ARGUMENT IS PASSED IN
-        2.  if there is at least a single node in bst
-            3.  create a variable named tmp and assign it the root node's value
-            4.  iterate while current node is not None
-                5.  if value is the same as tmp's value
-                    6.  assgin tmp to foundNode
-                    7.  break while loop
-                8.  if value is smaller than current node's value
-                    9.  assign the current node to be the current node's left property
-                10. if value is greater than current nodes's value
-                    11. assign the current node to be the current node's right property
-    12.  RETURN foundNode
+    1.  If the argument passed in is valid
+        2.  If there is at least a single node in BST
+            3.  Create a variable named tmp and assign it the root node
+            4.  Iterate while current node is truthy
+                5.  If the value passed in is the same as tmp's value
+                    6.    Assgin tmp to foundNode
+                    7.    Break out of while loop
+                8.  If value is smaller than the current node's value
+                    9.    Assign the current node to be its left property
+                10. If value is greater than current nodes's value
+                    11.   Assign the current node to be its right property
+    12.  Return foundNode
   */
 
   findIterate(val) {
@@ -149,6 +157,20 @@ const BST = class {
     }
   }
 
+  /*
+    findRecurse
+    1.  If the argument passed in is valid
+        2.  If there is at least a single node in BST
+            3.  Create a variable named foundNode
+            4.  Create a helper function to recuse with that takes a node
+                5.  If node is falsy, return
+                6.  If node's value equals the value passed in to method, assign it to foundNode
+                7.  Else if value passed in is less than node's value, recurse, passing in node's left node
+                8.  Else if value pass in is greater than node's value, recurse, passing in node's right node
+            9.  Invoke helper function, passing in the root node
+    10.  Return foundNode
+  */
+
   findRecurse(val) {
     if (typeof val === 'number') {
       if (this.root) {
@@ -165,57 +187,57 @@ const BST = class {
     }
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////            BFS                  ///////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
   /*
     iterateBFS
-    1.  CREATE VARIABLE NAMED results AND ASSIGN IT AN EMPTY LIST
-    2.  IF THERE IS AT LEAST ONE NODE IN THE BINARY SEARCH TREE
+    1.  Create a variable named results and assign it an empty array
+    2.  If there is atleast one node in the BST
         3.  Create a queue ( FIFO ) and initiate it to be an array with the root node in it
-        4.  Create a variable named tmp_node and initiate if to be None
+        4.  Create a variable named tmp_node
         5.  Iterate while the queue has something in it
               6.    Remove the first node in the queue and assign it to the variable named tmp_node
-              7.    Append the value of tmp_node to the results list
+              7.    Push the value of tmp_node to the results array
               8.    If tmp_node has a left node
-                    9.  Add the value of tmp_node's left property to the end of the queue
+                    9.  Add the node at tmp_node's left property to the end of the queue
               10.   If tmp_node has a right node
-                    11. Add the value of tmp_node's right property to the end of the queue.
-    12. RETURN results
+                    11. Add the node at tmp_node's right property to the end of the queue.
+    12. Return results
   */
 
   iterateBFS() {
-    const response = [];
+    const results = [];
     if (this.root) {
       const queue = [this.root];
       let tmp;
       while (queue[0]) {
         tmp = queue.shift();
-        response[response.length] = tmp.val;
+        results[results.length] = tmp.val;
         if (tmp.left) queue[queue.length] = tmp.left;
         if (tmp.right) queue[queue.length] = tmp.right;
       }
     }
-    return response;
+    return results;
   }
 
   /*
-    1.  Create a variable named respoonse and inititate it as an empty array
+    1.  Create a variable named results and inititate it as an empty array
     2.  If there is atleast one node in the BST
         3.    Create a variable named response and assign it an empty a
-        II.   create helper function to recurse with that takes a node and an integer as level
-              a.    if level is greater or the same as the length of the response list, append
-                    an empty list to response
-              b.    append the node's value to the list at index level of the response list
-              c.    if node has a left property
-                    1c.   call helper function with node's left property and level + 1
-              d.    if node has a right property
-                    1d.   call helper funtion with node's right property and level + 1
-        III.  invoke a call to helper function, passing in the root node and zero
-        IV.  iterate over response
-              a.    for each list in response, extend list to results
-    3.  RETURN results
+        4.    Create helper function to recurse with and that takes a node and an integer as level
+              5.    If node is null, just return
+              6.    If response is empty at index leve, assign at that index an empty array
+              7.    push node's value onto the array at index level inside response
+              8.    If node has a left property, call recurse with node.left ant level += 1
+              9.    If node has a right property, call recurse with node.right and level += 1
+        10.   Invoke the recurse helper function, passing in the root node and zero
+        11.   return an array that contains all the elements in the arrays within response
+    3.  Return results
   */
 
   recurseBFS() {
-    const results = [];
     if (this.root) {
       const response = [];
       const recurse = (node, level = 0) => {
@@ -228,8 +250,16 @@ const BST = class {
       recurse(this.root);
       return [].concat(...response);
     }
-    return results;
+    return [];
   }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////                DFS                  ///////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /*
+
+  */
 
   printer() {
     const tmp = this.root;
@@ -254,6 +284,15 @@ myBST.insertRecurse(8);
 myBST.insertRecurse(20);
 
 // console.log(myBST.findRecurse(20));
-console.log(myBST.recurseBFS(myBST.root));
+// console.log(myBST.iterateBFS(myBST.root));
+console.log(myBST.recurseBFS());
 
 // myBST.printer();
+
+/*
+               10
+             /    \
+            6      15
+          /   \      \
+        3      8      20
+*/
