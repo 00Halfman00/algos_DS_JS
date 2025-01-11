@@ -193,18 +193,7 @@ const BST = class {
 
   /*
     iterateBFS
-    1.  Create a variable named results and assign it an empty array
-    2.  If there is atleast one node in the BST
-        3.  Create a queue ( FIFO ) and initiate it to be an array with the root node in it
-        4.  Create a variable named tmp_node
-        5.  Iterate while the queue has something in it
-              6.    Remove the first node in the queue and assign it to the variable named tmp_node
-              7.    Push the value of tmp_node to the results array
-              8.    If tmp_node has a left node
-                    9.  Add the node at tmp_node's left property to the end of the queue
-              10.   If tmp_node has a right node
-                    11. Add the node at tmp_node's right property to the end of the queue.
-    12. Return results
+    1.  Visit all nodes on the same level before visiting nodes in the next level
   */
 
   iterateBFS() {
@@ -223,18 +212,8 @@ const BST = class {
   }
 
   /*
-    1.  Create a variable named results and inititate it as an empty array
-    2.  If there is atleast one node in the BST
-        3.    Create a variable named response and assign it an empty a
-        4.    Create helper function to recurse with and that takes a node and an integer as level
-              5.    If node is null, just return
-              6.    If response is empty at index leve, assign at that index an empty array
-              7.    push node's value onto the array at index level inside response
-              8.    If node has a left property, call recurse with node.left ant level += 1
-              9.    If node has a right property, call recurse with node.right and level += 1
-        10.   Invoke the recurse helper function, passing in the root node and zero
-        11.   return an array that contains all the elements in the arrays within response
-    3.  Return results
+    recurseBFS
+    1.  Visit all nodes on the same level before visiting nodes in the next level
   */
 
   recurseBFS() {
@@ -258,14 +237,117 @@ const BST = class {
   //////////////////////////////////////////////////////////////////////////////////////////////////
 
   /*
-
+  preorder DFS
+  1.  Visit the root node, then the left side of tree, and, finally, the right
+      side of the tree.
   */
+
+  preorderIterateDFS() {
+    const results = [];
+    if (this.root) {
+      const stack = [this.root];
+      let tmpNode;
+      while (stack[0]) {
+        tmpNode = stack.pop();
+        results.push(tmpNode.val);
+        if (tmpNode.right) stack.push(tmpNode.right);
+        if (tmpNode.left) stack.push(tmpNode.left);
+      }
+    }
+    return results;
+  }
+
+  preorderRecurseDFS() {
+    const results = [];
+    const recurse = (node) => {
+      results.push(node.val);
+      if (node.left) recurse(node.left);
+      if (node.right) recurse(node.right);
+    };
+    if (this.root) recurse(this.root);
+    return results;
+  }
+
+  /*
+    inorder DFS
+    1.  Visit the left side of the tree, then the root node, and then the right side of tree.
+  */
+
+  inorderIterateDFS() {
+    const stack = [],
+      results = [];
+    let tmpNode = this.root;
+    while (stack[0] || tmpNode) {
+      while (tmpNode) {
+        // go as far left as possible
+        stack.push(tmpNode);
+        tmpNode = tmpNode.left;
+      }
+      tmpNode = stack.pop();
+      results.push(tmpNode.val);
+      tmpNode = tmpNode.right;
+    }
+    return results;
+  }
+
+  inorderRecurseDFS() {
+    const results = [];
+    const recurse = (node) => {
+      if (node.left) recurse(node.left);
+      results.push(node.val);
+      if (node.right) recurse(node.right);
+    };
+    if (this.root) recurse(this.root);
+    return results;
+  }
+
+  /*
+    postorder DFS
+    1.  Visit the left side of the tree, then the right side, and then the root node.
+  */
+
+  postOrderIterate() {
+    const results = [];
+    if (this.root) {
+      const stack1 = [this.root],
+        stack2 = [];
+      let tmpNode;
+      while (stack1[0]) {
+        tmpNode = stack1.pop();
+        stack2.push(tmpNode);
+        if (tmpNode.left) stack1.push(tmpNode.left);
+        if (tmpNode.right) stack1.push(tmpNode.right);
+      }
+
+      while (stack2[0]) {
+        tmpNode = stack2.pop();
+        results.push(tmpNode.val);
+      }
+    }
+    return results;
+  }
+
+  postOrderRecurse() {
+    const results = [];
+    const recurse = (node) => {
+      if (node.left) recurse(node.left);
+      if (node.right) recurse(node.right);
+      results.push(node.val);
+    };
+    if (this.root) recurse(this.root);
+    return results;
+  }
 
   printer() {
     const tmp = this.root;
     console.log(tmp);
   }
 };
+
+/*
+  postorder DFS
+  1.  Visit the left side of the tree, then the right side of the tree, and then the root node;
+*/
 
 const myBST = new BST();
 
@@ -284,9 +366,14 @@ myBST.insertRecurse(8);
 myBST.insertRecurse(20);
 
 // console.log(myBST.findRecurse(20));
-// console.log(myBST.iterateBFS(myBST.root));
-console.log(myBST.recurseBFS());
-
+console.log(myBST.iterateBFS()); // expect:  [10, 6, 15, 3, 8, 20]
+console.log(myBST.recurseBFS()); // expect:  [10, 6, 15, 3, 8, 20]
+console.log(myBST.preorderIterateDFS()); // expect:   [10, 6, 3, 8, 15, 20]
+console.log(myBST.preorderRecurseDFS()); // expect:   [10, 6, 3, 8, 15, 20]
+console.log(myBST.inorderIterateDFS()); // expect:   [3, 6, 8, 10, 15, 20]
+console.log(myBST.inorderRecurseDFS()); // expect:   [3, 6, 8, 10, 15, 20]
+console.log(myBST.postOrderIterate()); // expect:  [3, 8, 6, 20, 15, 10]
+console.log(myBST.postOrderRecurse()); // expect:  [3, 8, 6, 20, 15, 10]
 // myBST.printer();
 
 /*
