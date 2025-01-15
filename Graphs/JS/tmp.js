@@ -179,8 +179,9 @@ const Graph = class {
           }
           ///////////////    else run thru the list of neighbors for the current vertex in adjacencyList
           else if (currVertex && distances[currVertex] !== Infinity) {
+            const edges = this.adjacencyList[currVertex.value].edges;
             let pathCost = 0;
-            for (let edge of this.adjacencyList[currVertex.value].edges) {
+            for (let edge of edges) {
               pathCost = currVertex.priority + edge.weight;
               if (pathCost < distances[edge.node]) {
                 distances[edge.node] = pathCost;

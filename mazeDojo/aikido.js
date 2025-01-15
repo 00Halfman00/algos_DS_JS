@@ -51,11 +51,11 @@ const Maze = class {
 
   /*
     getShortestPath method
-    1.  It will check if the class instance has a maze
+    1.  It will check if the class instance has a maze and startCoordinates
       2.  It will create a couple of data structures ( a queue and a visted cell's table),
           and both will be inititated with starting data: ( queue: start coordinates, visited: stop flag)
       3.  It will iterate while the queue is not empty
-          4.  It will remove the first array of row and column coordinates from the queue.
+          4.  It will remove the first array of row and column coordinates from th e queue.
           5.  It will check if the coordinates of row and column contain the finish pointer.
               6.  It will create an empty array, called path, to return the path or coordinates used to
                   get from the start to the finish
@@ -66,9 +66,9 @@ const Maze = class {
                   10. It will return the path reversed; that is, it will return an array that starts
                       with the start coordinates and up to the finish coordinates
           11. Create cross of valid moves (right, down, left, and up)
-              12. Check if coordinates are within bounds of the maze, and if coordinates are not a wall and hasn't been visited.
-                  13. Add coordinates to the end of the queue
-                  14. Mark coordinates  and their previous coordinates in the visited table.
+          12. Check if coordinates are within bounds of the maze, and if coordinates are not a wall and hasn't been visited.
+              13. Add coordinates to the end of the queue
+              14. Mark coordinates  and their previous coordinates in the visited table.
   */
 
   getShortestPath() {
