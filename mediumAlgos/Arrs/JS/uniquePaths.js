@@ -109,5 +109,5 @@ const uniquePathsV4 = (m, n, memo = {}) => {
   return memo[key];
 };
 
-console.log(uniquePathsV1(3, 7));
-console.log(uniquePathsV2(3, 2));
+console.log(uniquePathsV3(3, 7));
+console.log(uniquePathsV3(3, 2));
