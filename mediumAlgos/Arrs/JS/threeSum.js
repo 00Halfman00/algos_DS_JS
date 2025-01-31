@@ -1,3 +1,102 @@
+/*
+15. 3Sum
+
+Hint
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+Notice that the solution set must not contain duplicate triplets.
+
+
+Example 1:
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+Explanation:
+nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
+nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
+nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
+The distinct triplets are [-1,0,1] and [-1,-1,2].
+Notice that the order of the output and the order of the triplets does not matter.
+
+
+Example 2:
+Input: nums = [0,1,1]
+Output: []
+Explanation: The only possible triplet does not sum up to 0.
+
+
+Example 3:
+Input: nums = [0,0,0]
+Output: [[0,0,0]]
+Explanation: The only possible triplet sums up to 0.
+
+
+Constraints:
+
+3 <= nums.length <= 3000
+-105 <= nums[i] <= 105
+
+*/
+
+// var threeSum = function (nums) {
+//   let res = [];
+//   nums.sort((a, b) => a - b);
+
+//   for (let i = 0; i < nums.length; i++) {
+//     if (i > 0 && nums[i] === nums[i - 1]) {
+//       continue;
+//     }
+
+//     let j = i + 1;
+//     let k = nums.length - 1;
+
+//     while (j < k) {
+//       let total = nums[i] + nums[j] + nums[k];
+
+//       if (total > 0) {
+//         k--;
+//       } else if (total < 0) {
+//         j++;
+//       } else {
+//         res.push([nums[i], nums[j], nums[k]]);
+//         j++;
+
+//         while (nums[j] === nums[j - 1] && j < k) {
+//           j++;
+//         }
+//       }
+//     }
+//   }
+//   return res;
+// };
+
+// BINARY SEARCH
+var threeSum = function (nums) {
+  const resp = [];
+  nums = nums.sort((a, b) => a - b);
+
+  let left, right, sum;
+  for (let start = 0; start < nums.length; ++start) {
+    if (start > 0 && nums[start] === nums[start - 1]) continue;
+
+    (left = start + 1), (right = nums.length - 1);
+    while (left < right) {
+      sum = nums[start] + nums[left] + nums[right];
+      if (sum < 0) ++left;
+      else if (sum > 0) --right;
+      else {
+        resp.push([nums[start], nums[left], nums[right]]);
+        while (nums[left] === nums[left + 1] && left < right) ++left;
+        while (nums[right] === nums[right - 1] && left < right) --right;
+        ++left, --right;
+      }
+    }
+  }
+  return resp;
+};
+
+const nums1 = [-1, 0, 1, 2, -1, -4];
+
+console.log(threeSum(nums1));
+
 // const threeSum = function (nums) {
 //   nums = nums.sort((a, b) => a - b);
 //   const res = [];
@@ -93,44 +192,44 @@
 
 */
 
-const threeSum = (nums) => {
-  if (nums[0] !== nums[nums.length - 1]) {
-    nums = nums.sort((a, b) => a - b);
-  }
+// const threeSum = (nums) => {
+//   if (nums[0] !== nums[nums.length - 1]) {
+//     nums = nums.sort((a, b) => a - b);
+//   }
 
-  const res = [];
-  let target, subtrahend;
+//   const res = [];
+//   let target, subtrahend;
 
-  for (let i = 0; i < nums.length - 2; ++i) {
-    if (nums[i] > 0) break;
-    if (i > 0 && nums[i] === nums[i - 1]) continue;
+//   for (let i = 0; i < nums.length - 2; ++i) {
+//     if (nums[i] > 0) break;
+//     if (i > 0 && nums[i] === nums[i - 1]) continue;
 
-    target = -nums[i];
+//     target = -nums[i];
 
-    for (let left = i + 1, right = nums.length - 1; left < right; ) {
-      subtrahend = nums[left] + nums[right];
+//     for (let left = i + 1, right = nums.length - 1; left < right; ) {
+//       subtrahend = nums[left] + nums[right];
 
-      if (target === subtrahend) {
-        res[res.length] = [nums[i], nums[left], nums[right]];
+//       if (target === subtrahend) {
+//         res[res.length] = [nums[i], nums[left], nums[right]];
 
-        if (nums[left] === nums[right]) break;
+//         if (nums[left] === nums[right]) break;
 
-        while (nums[left] === nums[left + 1] && left < right) ++left;
-        while (nums[right] === nums[right - 1] && left < right) --right;
-        ++left;
-        --right;
-      } else if (target >= subtrahend) ++left;
-      else --right;
-    }
-  }
-  return res;
-};
+//         while (nums[left] === nums[left + 1] && left < right) ++left;
+//         while (nums[right] === nums[right - 1] && left < right) --right;
+//         ++left;
+//         --right;
+//       } else if (target >= subtrahend) ++left;
+//       else --right;
+//     }
+//   }
+//   return res;
+// };
 
-const nums1 = [-1, 0, 1, 2, -1, -4]; // length = 6 - 2 = 4
-const nums2 = [0, 0, 0, 0, 0, 0, 0, 0];
-const nums3 = [-1, 0, 1, 0]; // --> [ -1, 0, 0, 1 ]
-const nums4 = [-2, 0, 0, 2, 2];
-const nums5 = [-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4];
-const nums6 = [-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6];
+// const nums1 = [-1, 0, 1, 2, -1, -4];
+// const nums2 = [0, 0, 0, 0, 0, 0, 0, 0];
+// const nums3 = [-1, 0, 1, 0]; // --> [ -1, 0, 0, 1 ]
+// const nums4 = [-2, 0, 0, 2, 2];
+// const nums5 = [-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4];
+// const nums6 = [-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6];
 
-console.log("threeSum's return value: ", threeSum(nums6));
+// console.log("threeSum's return value: ", threeSum(nums6));
