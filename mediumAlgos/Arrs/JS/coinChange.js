@@ -29,22 +29,37 @@ Constraints:
 
 */
 
-const coins = [1, 2, 3],
-  amount = 5;
+// var coinChange = function (coins, amount) {
+//   let dp = new Array(amount + 1).fill(Infinity);
+//   dp[0] = 0;
+
+//   for (let i = 0; i < coins.length; i++) {
+//     for (let j = coins[i]; j <= amount; j++) {
+//       let coin = coins[i];
+//       // quite the trick: to assign the
+//       let numCoins = dp[j - coin] + 1;
+//       dp[j] = Math.min(numCoins, dp[j]);
+//     }
+//   }
+
+//   return dp[amount] === Infinity ? -1 : dp[amount];
+// };
+
+const coins = [1, 2, 5],
+  amount = 11;
 
 var coinChange = function (coins, amount) {
-  let dp = new Array(amount + 1).fill(Infinity);
+  const dp = new Array(amount + 1).fill(Infinity);
   dp[0] = 0;
 
-  for (let i = 0; i < coins.length; i++) {
-    for (let j = coins[i]; j <= amount; j++) {
-      let coin = coins[i];
-      // quite the trick: to assign the
-      let numCoins = dp[j - coin] + 1;
-      dp[j] = Math.min(numCoins, dp[j]);
+  for (let idx = 0; idx < coins.length; ++idx) {
+    for (let currAmount = coins[idx]; currAmount <= amount; ++currAmount) {
+      dp[currAmount] = Math.min(
+        dp[currAmount - coins[idx]] + 1,
+        dp[currAmount]
+      );
     }
   }
-
   return dp[amount] === Infinity ? -1 : dp[amount];
 };
 
