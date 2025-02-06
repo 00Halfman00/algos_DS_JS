@@ -114,4 +114,4 @@ var getHint = function (secret, guess) {
 
 // console.log(getHint('1708', '8710'));
 
-console.log(getHint('1123', '0111'));
+console.log(getHintV1('1123', '0111'));

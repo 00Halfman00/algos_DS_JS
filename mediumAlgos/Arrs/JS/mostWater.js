@@ -28,21 +28,35 @@ n == height.length
 // time complexity O(N)
 const water = [1, 8, 6, 2, 5, 4, 8, 3, 7];
 
-var maxArea = function (height) {
-  let max = 0,
-    i = 0,
-    j = height.length - 1,
-    area;
-  // loop until you bump into i and j bump into each other
-  while (i < j) {
-    // find the smallest of the two values and multiply that time the width between them to get area
-    area = (height[i] < height[j] ? height[i] : height[j]) * (j - i);
-    // if the area is greater than max, asign that area to max
-    max = max >= area ? max : area;
-    // move the smallest value/wall one step forward
-    height[i] < height[j] ? i++ : j--;
-  }
+// var maxArea = function (height) {
+//   let max = 0,
+//     i = 0,
+//     j = height.length - 1,
+//     area;
+//   // loop until you bump into i and j bump into each other
+//   while (i < j) {
+//     // find the smallest of the two values and multiply that time the width between them to get area
+//     area = (height[i] < height[j] ? height[i] : height[j]) * (j - i);
+//     // if the area is greater than max, asign that area to max
+//     max = max >= area ? max : area;
+//     // move the smallest value/wall one step forward
+//     height[i] < height[j] ? i++ : j--;
+//   }
 
+//   return max;
+// };
+
+var maxArea = function (height) {
+  let j = height.length - 1,
+    max = 0,
+    area,
+    vertical;
+  for (let i = 0; i < j; ) {
+    vertical = height[i] < height[j] ? height[i] : height[j];
+    area = vertical * (j - i);
+    max = area > max ? area : max;
+    height[i] < height[j] ? ++i : --j;
+  }
   return max;
 };
 
