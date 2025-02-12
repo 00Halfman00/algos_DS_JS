@@ -46,13 +46,18 @@ Constraints:
 Node.random is null or is pointing to some node in the linked list.
 */
 
-// funcdtion to create Node class instances
+// funcdtion to create Node class instances for testing purposes
 const Node = function (val, next, random) {
   this.val = val;
   this.next = next;
   this.random = random;
 };
 
+/////////////////////////////        first example        ////////////////////////
+// Input: head = [ [4,1],[7,2],[-2,null] ]
+// Output: [ [4,1],[7,2],[-2,null] ]
+// to use, uncomment the code block below
+/*
 // create three nodes
 const fourNode = new Node(4, null, null);
 const sevenNode = new Node(7, null, null);
@@ -65,8 +70,30 @@ sevenNode.next = negTwoNode;
 // random pointer
 fourNode.random = negTwoNode;
 sevenNode.random = fourNode;
+*/
 
-const copyRandomPointer = (head) => {
+/////////////////////////////     second example         ///////////////////////
+// Input: head = [ [7,null],[13,0],[11,4],[10,2],[1,0] ]
+// Output: [ [7,null],[13,0],[11,4],[10,2],[1,0] ]
+const sevenNode = new Node(7, null, null);
+const thirteenNode = new Node(13, null, null);
+const elevenNode = new Node(11, null, null);
+const tenNode = new Node(10, null, null);
+const oneNode = new Node(1, null, null);
+
+// next pointer
+sevenNode.next = thirteenNode;
+thirteenNode.next = elevenNode;
+elevenNode.next = tenNode;
+tenNode.next = oneNode;
+
+// random pointer
+thirteenNode.random = sevenNode;
+elevenNode.random = oneNode;
+tenNode.random = elevenNode;
+oneNode.random = sevenNode;
+
+const copyRandomPointerRecurse = (head) => {
   // create data structure
   const hashMap = new Map();
   // create recursive function
@@ -90,5 +117,36 @@ const copyRandomPointer = (head) => {
   return recurse(head);
 };
 
-const deepCopyFourNode = copyRandomPointer(fourNode);
-console.log(deepCopyFourNode);
+const CopyRandomPointerIterate = (head) => {
+  if (head) {
+    // create datastructure to store key:value pairs
+    const hashMap = new Map();
+    // create two pointers: oneto manipulate list; the other to return
+    let deepCopy, node;
+    // iterate over original list to copy the list from start to end, moving to the next node
+    for (node = head; node; node = node.next) {
+      const newNode = new Node(node.val);
+      hashMap.set(node, newNode);
+      if (!deepCopy) deepCopy = newNode;
+    }
+    // reset node to point to the start of the new list and iterate over it again
+    for (node = head; node; node = node.next) {
+      // add deep copy of next property
+      if (node.next) {
+        const tmp1 = hashMap.get(node);
+        tmp1.next = hashMap.get(node.next);
+      }
+      // add deep copy of random property
+      if (node.random) {
+        const tmp2 = hashMap.get(node);
+        tmp2.random = hashMap.get(node.random);
+      }
+    }
+    return deepCopy;
+  }
+};
+
+const deepCopySevenNodeRecurse = copyRandomPointerRecurse(sevenNode); // first example
+const deepCopySevenNodeIterate = CopyRandomPointerIterate(sevenNode); // second example
+console.log(deepCopySevenNodeRecurse);
+console.log(deepCopySevenNodeIterate);
