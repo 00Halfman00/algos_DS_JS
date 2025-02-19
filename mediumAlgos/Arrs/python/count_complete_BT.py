@@ -69,82 +69,71 @@ class Complete_BT:
 
 
 my_full_tree = Complete_BT()
-my_full_tree.add_many(
-    [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-    ]
-)
+my_full_tree.add_many([1, 2, 3, 4, 5, 6, 7, 8])
 
 print("values: ", my_full_tree.values)
 
 
 """
-CODE BELOW IS FROM THE LEETCODE EDITORIAL PAGE, GOTTEN FOR LEARNING PURPOSES; THAT IS, TO UNDERSTAND IT.
+BELOW IS ALGORITHM TO FIND THE COUNT OF ALL NODES IN A COMPLETE BINARY TREE
 """
 
 
 ###################################################################  challenge algo starts here
 class Solution:
-    def compute_depth(self, node: TreeNode) -> int:
-        """
-        Return tree depth in O(d) time.
-        """
-        depth = 0
+    def layersLeft(self, node):
+        count = 0
         while node.left:
+            count += 1
             node = node.left
-            depth += 1
-        return depth
+        return count
 
-    def exists(self, idx: int, depth: int, node: TreeNode) -> bool:
-        """
-        Last level nodes are enumerated from 0 to 2**d - 1 (left -> right).
-        Return True if last level node idx exists.
-        Binary search with O(d) complexity.
-        """
-        left, right = 0, 2**depth - 1
+    def layersRight(self, node):
+        count = 0
+        while node.right:
+            count += 1
+            node = node.right
+        return count
+
+    def exist(self, idx, depth, node):
+        left, right, locateIdx = 0, 2**depth - 1, None
         for _ in range(depth):
-            pivot = left + (right - left) // 2
-            if idx <= pivot:
-                one = node.val
+            locateIdx = left + (right - left) // 2
+            if idx <= locateIdx:
                 node = node.left
-                right = pivot
-
+                right = locateIdx
             else:
-                two = node.val
                 node = node.right
-                left = pivot + 1
+                left = locateIdx + 1
         return node is not None
 
     def countNodes(self, root: TreeNode) -> int:
-        # if the tree is empty
+        """
+        STAGE 1: GATHER NECESSARY DATA AND RETURN IF IT'S THE CASE
+        DEPTH IS CALCULATED SAME AS INDEX: LAYER 1 = INDEX 0, LAYER 2 = INDEX 1, ETC...
+        """
         if not root:
             return 0
-
-        depth = self.compute_depth(root)
-        # if the tree contains 1 node
-        if depth == 0:
+        depthLeft = self.layersLeft(root)
+        depthRight = self.layersRight(root)
+        if depthLeft == 0:
             return 1
+        if depthLeft == depthRight:
+            return 2 ** (depthLeft + 1) - 1
 
-        # Last level nodes are enumerated from 0 to 2**d - 1 (left -> right).
-        # Perform binary search to check how many nodes exist.
-        # start at index 1 cause you already know that there is atleast one node in the last level
-        left, right = 1, 2**depth - 1
+        """
+            STAGE 2: COMMENSE BINARY SEARCH
+            LEFT IS INITIATED TO INDEX/VALUE 1 CAUSE YOU ALREADY KNOW THAT INDEX 0 EXIST
+        """
+
+        left, right, potentialNodes = 0, 2**depthLeft - 1, None
         while left <= right:
-            pivot = left + (right - left) // 2
-            # perform binary search
-            if self.exists(pivot, depth, root):
-                left = pivot + 1
+            potentialNodes = left + (right - left) // 2
+            if self.exist(potentialNodes, depthLeft, root):
+                left = potentialNodes + 1
             else:
-                right = pivot - 1
-
-        # The tree contains 2**d - 1 nodes on the first (d - 1) levels
-        # and left nodes on the last level.
-        return (2**depth - 1) + left
+                right = potentialNodes - 1
+        return 2**depthLeft - 1 + left
 
 
 omg_extra_steps = Solution()

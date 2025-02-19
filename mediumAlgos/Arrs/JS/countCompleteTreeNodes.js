@@ -77,7 +77,7 @@ const myFullTree = new FullBinaryTree();
 // check for layers to the left and right being equal
 myFullTree.addMany([1, 2, 3, 4, 5, 6, 7, 8]);
 // how does it work when it has to go left instead of right?
-myFullTree.addMany([1, 2, 3]);
+// myFullTree.addMany([1, 2, 3]);
 // myFullTree.addMany([]);
 // myFullTree.addMany([23]);
 // console.log(myFullTree);
@@ -162,7 +162,7 @@ var countNodes = function (root) {
       right = potentialNodes - 1;
     }
   }
-  return 2 ** root - 1 + left;
+  return 2 ** depth1 - 1 + left;
 };
 
 console.log(countNodes(myFullTree.root));

@@ -60,10 +60,7 @@ Follow up: Can you come up with an algorithm that runs in O(m + n) time?
 
 def merge(nums1, m, nums2, n):
     tmp = nums1[::]
-    left, right = (
-        0,
-        0,
-    )
+    left, right = 0, 0
 
     for count in range(m + n):
         if right >= n or (left < m and tmp[left] <= nums2[right]):
