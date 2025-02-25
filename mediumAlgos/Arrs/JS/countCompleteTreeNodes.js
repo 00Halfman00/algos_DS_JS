@@ -75,7 +75,7 @@ const FullBinaryTree = class {
 const myFullTree = new FullBinaryTree();
 // perhaps a check for all leaf nodes being full can make it even faster:
 // check for layers to the left and right being equal
-myFullTree.addMany([1, 2, 3, 4, 5, 6, 7, 8]);
+myFullTree.addMany([1, 2, 3, 4, 5, 6]);
 // how does it work when it has to go left instead of right?
 // myFullTree.addMany([1, 2, 3]);
 // myFullTree.addMany([]);
