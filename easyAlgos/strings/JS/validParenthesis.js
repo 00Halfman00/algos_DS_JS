@@ -36,18 +36,59 @@ Constraints:
  <= s.length <= 04
 s consists of parentheses only '()[]{}'.
 */
-
+// time complexity: O(n)
 const isValid = function (str) {
-  const combinations = new Map(),
+  const pairs = new Map(),
     stack = [];
-  combinations.set('{', '}').set('[', ']').set('(', ')');
+  pairs.set('{', '}').set('[', ']').set('(', ')');
   for (const braket of str) {
-    if (combinations.has(braket)) stack.push(braket);
-    else if (combinations.get(stack.pop()) !== braket) return false;
+    if (pairs.has(braket)) stack.push(braket);
+    else if (pairs.get(stack[stack.length - 1]) === braket) stack.pop();
+    else return false;
   }
   return !stack.length;
 };
 
-const s = '()[]{}';
+var isValidV2 = function (str) {
+  const stack = [];
+  for (const braket of str) {
+    switch (braket) {
+      case '(': {
+        stack.push(')');
+        continue;
+      }
+      case '{': {
+        stack.push('}');
+        continue;
+      }
+      case '[': {
+        stack.push(']');
+        continue;
+      }
+      default:
+        if (braket !== stack.pop()) {
+          return false;
+        }
+    }
+  }
+  return !stack.length;
+};
+
+const s = '([])';
 
 console.log(isValid(s));
+
+/*
+  time complexity: O(n)
+                                STEPS
+  DATA STRUCTURES
+  1.  create a hash map of left parenthesis as key and right parenthesis as value
+  2.  create a stack
+  3.  loop over the string from left to right
+  4.  check if parenthesis is a key in the hash map, which would be a left parenthesis
+      - push the parenthesis onto the stack
+  5.  else if the hash map at the popped parenthesis does not equal the current parenthesis in the loop
+      - return false
+  6.  after loop return truthy of the length of stack; that is, empty true or not empty false
+
+*/
