@@ -74,10 +74,10 @@ var isValidV2 = function (str) {
   return !stack.length;
 };
 
-const s = '([])';
+const s = ')([])';
 
 console.log(isValid(s));
-
+console.log(isValidV2(s));
 /*
   time complexity: O(n)
                                 STEPS
