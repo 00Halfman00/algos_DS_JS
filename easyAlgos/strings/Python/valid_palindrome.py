@@ -37,9 +37,11 @@ import re
 
 
 def isPalindrome(s: str) -> bool:
-    c = re.sub("[^a-zA-Z0-9]", "", s.lower().replace(" ", ""))
-    r = c[::-1]
-    return c == r
+    c = re.sub("[^a-zA-Z0-9]", "", s.lower().replace(" ", ""))  # time complexity: O(n)
+    r = c[::-1]  # time complexity: O(n)
+    return c == r  # time complexity: O(n)
 
 
+# time complexity: O(n)
+# space complexity O(n)
 print(isPalindrome("Race Car"))

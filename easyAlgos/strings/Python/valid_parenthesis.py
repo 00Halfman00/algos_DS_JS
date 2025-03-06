@@ -38,26 +38,46 @@ s consists of parentheses only '()[]{}'.
 """
 
 
-def is_valid(string: str):
-    hash_map = dict([("(", ")"), ("[", "]"), ("{", "}")])
-    stack = []
+def is_valid1(string: str):
+    hash_map = dict([("(", ")"), ("[", "]"), ("{", "}")])  # time complexity: O(1)
+    stack = []  # time complexity: O(1)
 
-    for char in string:
-        if char in hash_map:
-            stack.append(char)
-        elif stack and hash_map.get(stack[-1]) == char:
-            stack.pop()
+    for char in string:  # time complexity: O(n)
+        if char in hash_map:  # time complexity: O(1)
+            stack.append(char)  # time complexity: O(1)
+        elif stack and hash_map.get(stack[-1]) == char:  # time complexity: O(1)
+            stack.pop()  # time complexity: O(1)
         else:
             return False
 
+    return not stack  # time complexity: O(1)
+
+
+def is_valid(s: str):
+    stack = []
+    if len(s) < 2 or len(s) % 2:
+        return False
+    for _, char in enumerate(s):
+        if char == "(":
+            stack.append(")")
+        elif char == "}":
+            stack.append("}")
+        elif char == "[":
+            stack.append("]")
+        elif stack and char != stack.pop():
+            return False
     return not stack
 
 
-print(is_valid("()[]{}"))  # true
-print(is_valid("([])"))  # true
-print(is_valid("){"))  # false
-print(is_valid("(]"))  # false
+# time complexity: O(n)
+# space complexity: O(n)
 
+# print(is_valid("()[]{}"))  # true
+# print(is_valid("([])"))  # true
+# print(is_valid("){"))  # false
+# print(is_valid("(]"))  # false
+
+# print(is_valid(")(){}"))  # false
+
+# print(is_valid("))"))  # false
 print(is_valid(")(){}"))  # false
-
-print(is_valid("))"))  # false

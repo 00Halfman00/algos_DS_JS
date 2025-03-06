@@ -16,9 +16,7 @@ from collections import Counter  # to use Counter, import it
 def first_unique_char(s: str):
     char_map = Counter(s)  # time complexity: O(n)
     for _, char in enumerate(s):  # time complexity: O(n)
-        if (
-            char_map.get(char) == 1
-        ):  # average time complexity: O(1). Though rare collision can happen causing time complexity: O(n)
+        if char_map.get(char) == 1:  # time complexity: O(1)
             return char
     return None
 

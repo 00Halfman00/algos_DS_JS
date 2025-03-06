@@ -43,34 +43,21 @@ insertion order, while a regular object is not optimized for these actions and h
 limitations on key types (only allowing strings and symbols)."
 */
 const twoSum = (nums, target) => {
-  for (let i = 0, hash = {}; i < nums.length; ++i) {
-    if (hash[nums[i]] !== undefined) return [hash[nums[i]], i];
-    hash[target - nums[i]] = i;
+  const differences = {}; // time complexity: O(1)
+  let int; // time complexity: O(1)
+  // time complexity: O(n)
+  for (let i = 0; i < nums.length; ++i) {
+    int = nums[i]; // time complexity: O(1)
+    if (differences[int] !== undefined) {
+      return [differences[int], i]; // time complexity: O(1)
+    }
+    differences[target - int] = i; // time complexity: O(1)
   }
-  return [];
+  return []; // time complexity: O(1)
 };
 
 // time complexity: O(n)
-// faster version than the one above because it uses a new Map object, which has faster insertion,
-// deleting and retrieving of key/values
-const twoSumV2 = (nums, target) => {
-  for (let i = 0, hash = new Map(); i < nums.length; ++i) {
-    if (hash.has(nums[i])) return [hash.get(nums[i]), i];
-    hash.set(target - nums[i], i);
-  }
-  return [];
-};
-
-// time complexity: O(n)
-// this version of using an array as a hash map is slower than using a new Map object
-// but faster than using a regular object
-const twoSumV3 = (nums, target) => {
-  for (let i = 0, hash = []; i < nums.length; ++i) {
-    if (hash[nums[i]] !== undefined) return [hash[nums[i]], i];
-    hash[target - nums[i]] = i;
-  }
-  return [];
-};
+// space complexity: O(n)
 
 const nums1 = [2, 7, 11, 15],
   target1 = 9;
