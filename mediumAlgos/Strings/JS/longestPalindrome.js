@@ -47,40 +47,38 @@ s consist of only digits and English letters.
 // // use of primitives to store odds and even palindromes makes
 // // space complexity: O(1)
 
-var longestPalindrome = function (s) {
-  strLength = s.length;
-  // helper function
-  expand = (left, right) => {
-    /* indixes are expanded and 1 is subtracted to return length */
-    while (left >= 0 && right < strLength && s[left] === s[right]) {
-      --left;
-      ++right;
+const longestPalindrome = (s) => {
+  // helper function; time complexity: O(n)
+  const expand = (leftIdx, rightIdx) => {
+    /*  expand palindrome indexes and return their length */
+    while (leftIdx >= 0 && rightIdx < s.length && s[leftIdx] === s[rightIdx]) {
+      --leftIdx;
+      ++rightIdx;
     }
-    return right - left - 1;
+    return rightIdx - leftIdx - 1;
   };
 
-  // main funntion body
-  let idxs = [0, 0];
-  let oddPalLength = 0,
-    evenPalLength = 0,
-    half = 0;
-  for (i = 0; i < strLength; ++i) {
-    // odd length palindromes
+  // function's main body time complexity: O(n)
+  let startIdx = 0,
+    endIdx = 0,
+    half = 0,
+    oddPalLength = 0,
+    evenPalLength = 0;
+  for (let i = 0; i < s.length; ++i) {
     oddPalLength = expand(i, i);
-    if (oddPalLength > idxs[1] - idxs[0]) {
-      // expanding from the middle
+    if (oddPalLength > endIdx - startIdx) {
       half = Math.floor(oddPalLength / 2);
-      idxs = [i - half, i + half + 1];
+      startIdx = i - half;
+      endIdx = i + half + 1;
     }
-    // even length palindromes
     evenPalLength = expand(i, i + 1);
-    if (evenPalLength > idxs[1] - idxs[0]) {
-      // expanding from the middle
-      half = Math.floor(oddPal / 2);
-      idxs = [i - half + 1, i + half + 1];
+    if (evenPalLength > endIdx - startIdx) {
+      half = Math.floor(evenPalLength / 2);
+      startIdx = i - half + i;
+      endIdx = i + half + i;
     }
   }
-  return s.slice(idxs[0], idxs[1]);
+  return s.slice(startIdx, endIdx);
 };
 
 console.log(longestPalindrome('babad'));
