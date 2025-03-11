@@ -30,7 +30,7 @@ nums[i] is either 0, 1, or 2.
 
 def soft_colors1(nums):
     """
-    initiate three variable to zero, each representin one of the three colors available
+    initiate three variable to zero, each representing one of the three colors available
     loop over nums and add one to the respetcive variable that represents that color.
     Next, iterate over the same length a sencond time from zero to lenght of nums,
     replacing each element in the original list with
