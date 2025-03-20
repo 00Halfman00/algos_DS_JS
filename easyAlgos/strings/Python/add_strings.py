@@ -88,7 +88,7 @@ def addManyStrings(digits: list[str]) -> str:
     while i >= 0 or carry > 0:
         sum = carry
 
-        for j, num in enumerate(digits):
+        for _, num in enumerate(digits):
             index = len(num) - 1 - (max_len - 1 - i)
             if index >= 0:
                 sum += ord(num[index]) - 48

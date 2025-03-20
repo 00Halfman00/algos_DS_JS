@@ -88,15 +88,14 @@ const addManyBinaryStrings = (binaryNums) => {
   let i = maxLength - 1,
     carry = 0,
     sum = 0,
+    index,
     result = '';
 
   while (i >= 0 || carry > 0) {
     sum = carry;
-    for (let j = 0; j < binaryNums.length; ++j) {
-      if (
-        binaryNums[j].length - 1 - (maxLength - 1 - i) >= 0 &&
-        binaryNums[j][binaryNums[j].length - 1 - (maxLength - 1 - i)] === '1'
-      ) {
+    for (const num of binaryNums) {
+      index = num.length - 1 - (maxLength - 1 - i);
+      if (index >= 0 && binaryNums[index] === '1') {
         sum += 1;
       }
     }

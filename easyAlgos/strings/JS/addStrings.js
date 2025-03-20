@@ -75,14 +75,14 @@ const addManyNumberStrings = (strNums) => {
   let i = maxLength - 1,
     sum = 0,
     carry = 0,
+    index = 0,
     result = '';
 
   while (i >= 0 || carry > 0) {
     sum = carry;
-    for (let j = 0; j < strNums.length; ++j) {
-      if (strNums[j].length - 1 - (maxLength - 1 - i) >= 0) {
-        sum += strNums[j][strNums[j].length - 1 - (maxLength - 1 - i)] - '0';
-      }
+    for (const num of strNums) {
+      index = num.length - 1 - (maxLength - 1 - i);
+      if (index >= 0) sum += num[index] - '0';
     }
 
     result = (sum % 10) + result;
@@ -93,5 +93,5 @@ const addManyNumberStrings = (strNums) => {
 };
 
 const stringNums = ['11', '123', '456', '77'];
-console.log(addManyNumberStrings(stringNums));
+console.log(addManyNumberStrings(stringNums)); // 667
 console.log(addManyNumberStrings(['11']));
