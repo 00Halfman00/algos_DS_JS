@@ -23,8 +23,8 @@ var lengthOfLongestSubstringKDistinct = function (s, k) {
 
 const s1 = 'eceba',
   k1 = 2;
-const s2 = 'aa',
+const s2 = 'aabac',
   k2 = 1;
 
 console.log(lengthOfLongestSubstringKDistinct(s1, k1));
-console.zlog(lengthOfLongestSubstringKDistinct(s2, k2));
+console.log(lengthOfLongestSubstringKDistinct(s2, k2));

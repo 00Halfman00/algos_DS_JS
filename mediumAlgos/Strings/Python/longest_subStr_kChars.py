@@ -2,26 +2,26 @@ from collections import Counter
 
 
 def lengthOfLongestSubstringKDistinct(s: str, k: int) -> int:
-    n = len(s)
-    max_size = 0
-    counter = Counter()
+    if len(s) * k == 0:
+        return 0
+    char_map_counter, max_len, left = Counter(), 1, 0
 
-    left_idx = 0
-    for right_idx in range(n):
-        counter[s[right_idx]] += 1
+    for right in range(len(s)):
+        char_map_counter[s[right]] += 1
 
-        while len(counter) > k:
-            counter[s[left_idx]] -= 1
-            if counter[s[left_idx]] == 0:
-                del counter[s[left_idx]]
-            left_idx += 1
+        while len(char_map_counter) > k:
+            char_map_counter[s[left]] -= 1
+            if char_map_counter[s[left]] == 0:
+                del char_map_counter[s[left]]
+            left += 1
 
-        max_size = max(max_size, right_idx - left_idx + 1)
+        max_len = max(max_len, right - left + 1)
 
-    return max_size
+    return max_len
 
 
 s1, k1 = "eceba", 2
-s2, k2 = "aa", 1
+s2, k2 = "abacbc", 1
 
 print(lengthOfLongestSubstringKDistinct(s1, k1))
+print(lengthOfLongestSubstringKDistinct(s2, k2))
