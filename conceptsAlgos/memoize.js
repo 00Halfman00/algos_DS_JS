@@ -107,7 +107,7 @@ const fibo4 = (idx) => {
   const tab = {
     0: 0,
     1: 1,
-    1: 1
+    1: 1,
   };
   for (let i = 3; i <= idx; ++i) {
     tab[i] = tab[i - 2] + tab[i - 1];
@@ -115,9 +115,9 @@ const fibo4 = (idx) => {
   return tab[idx];
 };
 
-  /////////////////////// dynamic programing ( memoization )  ///////////////////
-const fibo5 = (idx, memo = [0, 1, 1], c=true) => {
-  if(idx === 0 && c){
+/////////////////////// dynamic programing ( memoization )  ///////////////////
+const fibo5 = (idx, memo = [0, 1, 1], c = true) => {
+  if (idx === 0 && c) {
     count = false;
     return 0;
   }
@@ -128,10 +128,12 @@ const fibo5 = (idx, memo = [0, 1, 1], c=true) => {
   return num;
 };
 
-const one = memoize(fibo2);
-console.log(one(4));
+const one = memoize(fibo3);
+one(5);
+one(7);
+one(5);
 //console.log(fibo(7))
-console.log(fibo5(7));
+// console.log(fibo5(7));
 
 // 0 1 1 2 3 5 8,13
 // 0,1,2,3,4,5,6,7

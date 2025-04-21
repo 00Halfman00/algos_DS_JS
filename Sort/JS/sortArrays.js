@@ -22,20 +22,20 @@ const bubbleSort = (intsArray) => {
         sorted = false;
       }
     }
-    if (sorted) {
-      console.log('breaking loop', intsArray);
-      break;
-    }
+    if (sorted) break;
   }
   return intsArray;
 };
 
 // const ints1 = [11, 4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
 // const ints2 = [1, 2, 3, 5, 4, 6];
+// const ints3 = [5];
 // bubbleSort(ints1);
 // bubbleSort(ints2);
+// bubbleSort(ints3);
 // console.log(ints1);
 // console.log(ints2);
+// console.log(ints3);
 
 /*
   SELECTION SORT      //////////////////////////////////////////////////////////////////////////////
@@ -51,7 +51,7 @@ const bubbleSort = (intsArray) => {
 
 const selectionSort = (intsArray) => {
   let sorted = true;
-  for (let i = 0; i < intsArray.length; ++i) {
+  for (let i = 0; i < intsArray.length - 1; ++i) {
     sorted = true;
     for (let j = intsArray.length - 1; j > i; --j) {
       if (intsArray[j] < intsArray[j - 1]) {
@@ -67,13 +67,15 @@ const selectionSort = (intsArray) => {
   return intsArray;
 };
 
-// const ints1 = [11, 4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
+// const ints1 = [10, 4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
 // const ints2 = [1, 2, 3, 5, 4, 6];
+// const ints3 = [5];
 // selectionSort(ints1);
 // selectionSort(ints2);
+// selectionSort(ints3);
 // console.log(ints1);
 // console.log(ints2);
-
+// console.log(ints3);
 /*
   INSERTION SORT      //////////////////////////////////////////////////////////////////////////////
   (STARTS SEARCHING FROM SECOND ELEMENT TOWARDS END WITH INDEX i, AND IF IT SEES THAT THE ELEMENT AT i - 1
@@ -91,23 +93,23 @@ const selectionSort = (intsArray) => {
   space complexity: O(1)
 */
 
-const insertionSort = (intsArray) => {
-  if (intsArray.length > 1) {
-    for (let i = 1; i < intsArray.length; ++i) {
-      if (intsArray[i] < intsArray[i - 1]) {
-        const pivot = intsArray[i];
-        for (let j = i - 1; j >= 0 && intsArray[j] > pivot; --j) {
-          if (intsArray[j] > intsArray[j + 1]) {
-            [intsArray[j], intsArray[j + 1]] = [intsArray[j + 1], intsArray[j]];
+const insertionSort = (intsArr) => {
+  if (intsArr.length > 1) {
+    for (let i = 1; i < intsArr.length; ++i) {
+      if (intsArr[i - 1] > intsArr[i]) {
+        const pivot = intsArr[i];
+        for (let j = i - 1; j >= 0 && intsArr[j] > pivot; --j) {
+          if (intsArr[j] > intsArr[j + 1]) {
+            [intsArr[j], intsArr[j + 1]] = [intsArr[j + 1], intsArr[j]];
           }
         }
       }
     }
   }
-  return intsArray;
+  return intsArr;
 };
 
-// const ints1 = [11, 4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
+// const ints1 = [10, 4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
 // const ints2 = [1, 2, 3, 5, 4, 6];
 // insertionSort(ints1);
 // insertionSort(ints2);
@@ -156,33 +158,26 @@ const insertionSort = (intsArray) => {
 // takes two sorted arrays and returns a new array with both array's elements in sorted order
 const mergeTwoSortedArrays = (intsArr1, intsArr2) => {
   const reply = [];
-
   let left = 0,
     right = 0;
   while (left < intsArr1.length && right < intsArr2.length) {
     if (intsArr1[left] < intsArr2[right]) {
-      reply[reply.length] = intsArr1[left];
-      ++left;
+      reply.push(intsArr1[left++]);
     } else {
-      reply[reply.length] = intsArr2[right];
-      ++right;
+      reply.push(intsArr2[right++]);
     }
   }
-
   while (left < intsArr1.length) {
-    reply[reply.length] = intsArr1[left];
-    ++left;
+    reply.push(intsArr1[left++]);
   }
   while (right < intsArr2.length) {
-    reply[reply.length] = intsArr2[right];
-    ++right;
+    reply.push(intsArr2[right++]);
   }
-
   return reply;
 };
 
-// const first = [1, 3, 5, 7, 9],
-//   second = [0, 2, 4, 6, 8, 10];
+const first = [1, 3, 5, 7, 9],
+  second = [0, 2, 4, 6, 8, 10];
 // console.log(mergeTwoSortedArrays(first, second));
 
 const mergeSort = (intsArr) => {
@@ -226,12 +221,9 @@ const pivot = (arr, startIdx = 0, endIdx = arr.length - 1) => {
   let swapIdx = startIdx;
   for (let i = startIdx + 1; i <= endIdx; ++i) {
     if (arr[i] < pivotElement) {
-      // swap(arr, ++swapIdx, i);
-      ++swapIdx;
-      [arr[swapIdx], arr[i]] = [arr[i], arr[swapIdx]];
+      [arr[swapIdx], arr[i]] = [arr[i], arr[++swapIdx]];
     }
   }
-  // swap(arr, startIdx, swapIdx);
   [arr[startIdx], arr[swapIdx]] = [arr[swapIdx], arr[startIdx]];
   return swapIdx;
 };
@@ -245,9 +237,8 @@ const quickSort = (intsArr, startIdx = 0, endIdx = intsArr.length - 1) => {
   return intsArr;
 };
 
-// const ints1 = [4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
-// console.log(quickSort(ints1));
-// console.log(ints1);
+const ints1 = [4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
+console.log(quickSort(ints1));
 
 /*
   RADIX SORT      //////////////////////////////////////////////////////////////////////////////////
@@ -263,38 +254,38 @@ const quickSort = (intsArr, startIdx = 0, endIdx = intsArr.length - 1) => {
       8.  CONCATENATES ALL THE BASE 10 ARRAYS INTO A SINGLE ARRAY WITH ALL THEIR VALUES
 */
 
-const getDigit = (num, idx) => {
-  const numStr = num + '';
-  if (idx < numStr.length) {
-    return numStr[numStr.length - idx - 1];
-  }
-  return 0;
-};
+// const getDigit = (num, idx) => {
+//   const numStr = num + '';
+//   if (idx < numStr.length) {
+//     return numStr[numStr.length - idx - 1];
+//   }
+//   return 0;
+// };
 
-const mostDigits = (numsArr) => {
-  let max = 0;
-  for (let num of numsArr) {
-    num = num + '';
-    max = num.length > max ? num.length : max;
-  }
-  return max;
-};
+// const mostDigits = (numsArr) => {
+//   let max = 0;
+//   for (let num of numsArr) {
+//     num = num + '';
+//     max = num.length > max ? num.length : max;
+//   }
+//   return max;
+// };
 
 // console.log(mostDigits([1, 234, 23, 56789, 90, 1000]));
 
-const radixSort = (numsArr) => {
-  if (numsArr.length > 1) {
-    const longestNum = mostDigits(numsArr);
-    for (let i = 0; i < longestNum; ++i) {
-      let base10Containers = [[], [], [], [], [], [], [], [], [], []];
-      for (let num of numsArr) {
-        base10Containers[getDigit(num, i)].push(num);
-      }
-      numsArr = [].concat(...base10Containers);
-    }
-  }
-  return numsArr;
-};
+// const radixSort = (numsArr) => {
+//   if (numsArr.length > 1) {
+//     const longestNum = mostDigits(numsArr);
+//     for (let i = 0; i < longestNum; ++i) {
+//       let base10Containers = [[], [], [], [], [], [], [], [], [], []];
+//       for (let num of numsArr) {
+//         base10Containers[getDigit(num, i)].push(num);
+//       }
+//       numsArr = [].concat(...base10Containers);
+//     }
+//   }
+//   return numsArr;
+// };
 
-const ints1 = [4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
-console.log('radix sort: ', radixSort(ints1));
+// const ints1 = [4, 8, 2, 1, 9, 5, 7, 6, 3, 0];
+// console.log('radix sort: ', radixSort(ints1));

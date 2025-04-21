@@ -23,26 +23,23 @@ Each string does not contain leading zeros except for the zero itself.
 */
 
 // two binary numbers, explictly adding either a 1 or a 0 to carry
-var addBinary = function (a, b) {
-  let i = a.lenght - 1,
-    j = b.length - 1,
-    carry = 0,
-    result = '';
-  while (i >= 0 || j >= 0 || carry > 0) {
-    i >= 0 && a[i] === '1' ? (carry += 1) : (carry += 0);
-    j >= 0 && b[j] === '1' ? (carry += 1) : (carry += 0);
+// var addBinary = function (a, b) {
+//   let i = a.length - 1,
+//     j = b.length - 1,
+//     carry = 0,
+//     result = '';
+//   while (i >= 0 || j >= 0 || carry > 0) {
+//     i >= 0 && a[i] === '1' ? (carry += 1) : (carry += 0);
+//     j >= 0 && b[j] === '1' ? (carry += 1) : (carry += 0);
 
-    result = (carry % 2) + result;
-    carry = Math.floor(carry / 2);
+//     result = (carry % 2) + result;
+//     carry = Math.floor(carry / 2);
 
-    i -= 1;
-    j -= 1;
-  }
-  return result;
-};
-
-// console.log(addBinary('11', '1')); // expect 100
-// console.log(addBinary('1010', '1011')); // expect "10101"
+//     i -= 1;
+//     j -= 1;
+//   }
+//   return result;
+// };
 
 // sum more than two binary numbers
 
@@ -84,24 +81,26 @@ JavaScript
 */
 
 const addManyBinaryStrings = (binaryNums) => {
-  const maxLength = Math.max(...binaryNums.map((num) => num.length));
-  let i = maxLength - 1,
+  const maxIdx = Math.max(...binaryNums.map((num) => num.length)) - 1;
+  let i = maxIdx,
     carry = 0,
     sum = 0,
-    index,
+    currIdx = 0,
     result = '';
 
   while (i >= 0 || carry > 0) {
     sum = carry;
+
     for (const num of binaryNums) {
-      index = num.length - 1 - (maxLength - 1 - i);
-      if (index >= 0 && binaryNums[index] === '1') {
-        sum += 1;
+      currIdx = num.length - 1 - (maxIdx - i);
+      if (currIdx >= 0) {
+        sum += num[currIdx] - 0;
       }
     }
 
     result = (sum % 2) + result;
     carry = Math.floor(sum / 2);
+
     i -= 1;
   }
   return result;
@@ -132,3 +131,27 @@ If you were to implement decimal addition in a similar digit-by-digit way, you'd
 
 You've grasped the fundamental principle. It's a powerful and versatile technique for handling carries in arithmetic operations.
 */
+
+const addBinary = function (a, b) {
+  let i = a.length - 1,
+    j = b.length - 1,
+    sum = 0,
+    carry = 0,
+    result = '';
+
+  while (i >= 0 || j >= 0 || carry > 0) {
+    sum = carry;
+    if (i >= 0) sum += a[i] - 0;
+    if (j >= 0) sum += b[j] - 0;
+
+    result = (sum % 2) + result;
+    carry = Math.floor(sum / 2);
+
+    i -= 1;
+    j -= 1;
+  }
+  return result;
+};
+
+console.log(addBinary('11', '1')); // expect 100
+console.log(addBinary('1010', '1011')); // expect "10101"
