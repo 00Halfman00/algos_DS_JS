@@ -5,31 +5,32 @@ note:
   managers is an array of all managers
   informTime is an array that represents how long it takes for each manager to inform subordinates
 
-  time and space complexity are both O(n)
+  time and space complexity are both O(n )
   */
 
-const numOfMinutesBFS = function (n, head, managers, informTime) {
-  let totalMinutes = 0;
-  if (n > 1) {
-    const adjList = new Array(n).fill(null).map(() => []);
-    managers.forEach((manager, subordinate) => {
-      if (manager !== -1) adjList[manager].push(subordinate);
-    });
+// const numOfMinutesBFS = function (n, head, managers, informTime) {
+//   let totalMinutes = 0;
+//   if (n > 1) {
+//     const adjList = new Array(n).fill(null).map(() => []);
+//     managers.forEach((manager, subordinate) => {
+//       if (manager !== -1) adjList[manager].push(subordinate);
+//     });
 
-    const queue = [[head, 0]];
-    while (queue.length) {
-      const [currEmployee, currTime] = queue.shift();
-      totalMinutes = Math.max(totalMinutes, currTime);
-      if (adjList[currEmployee][0] >= 0) {
-        adjList[currEmployee].forEach((report) => {
-          queue.push([report, currTime + informTime[currEmployee]]);
-        });
-      }
-    }
-  }
-  return totalMinutes;
-};
-
+//     const queue = [[head, 0]];
+//     while (queue.length) {
+//       const [currEmployee, currTime] = queue.shift();
+//       totalMinutes = Math.max(totalMinutes, currTime);
+//       if (adjList[currEmployee][0] >= 0) {
+//         adjList[currEmployee].forEach((report) => {
+//           queue.push([report, currTime + informTime[currEmployee]]);
+//         });
+//       }
+//     }
+//   }
+//   return totalMinutes;
+// };
+// DFS is faster than BFS. Wonder if BFS can be set up to avoid processing every
+// node/path to a manager
 const numOfMinutesDFS = function (n, head, managers, informTime) {
   let totalMinutes = 0;
 
@@ -57,18 +58,18 @@ const numOfMinutesDFS = function (n, head, managers, informTime) {
   return totalMinutes;
 };
 
-const n1 = 6,
-  headID1 = 2,
-  manager1 = [2, 2, -1, 2, 2, 2],
-  informTime1 = [0, 0, 1, 0, 0, 0];
+// const n1 = 6,
+//   headID1 = 2,
+//   manager1 = [2, 2, -1, 2, 2, 2],
+//   informTime1 = [0, 0, 1, 0, 0, 0];
 
-console.log(numOfMinutesBFS(n1, headID1, manager1, informTime1));
-console.log(numOfMinutesDFS(n1, headID1, manager1, informTime1));
+// console.log(numOfMinutesBFS(n1, headID1, manager1, informTime1));
+// console.log(numOfMinutesDFS(n1, headID1, manager1, informTime1));
 
 const n2 = 7,
   headID2 = 0,
   manager2 = [-1, 0, 0, 1, 1, 2, 2],
   informTime2 = [15, 0, 10, 0, 5, 0, 0];
 
-console.log(numOfMinutesBFS(n2, headID2, manager2, informTime2));
+// console.log(numOfMinutesBFS(n2, headID2, manager2, informTime2));
 console.log(numOfMinutesDFS(n2, headID2, manager2, informTime2));

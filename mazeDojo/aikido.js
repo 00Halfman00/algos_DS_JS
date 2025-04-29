@@ -123,7 +123,13 @@ const Maze = class {
   }
 };
 
-const maze2 = '##  S   F ####';
+const maze2 = `
+#S      #
+####### #
+#       #
+# #######
+#      F#
+`;
 // const maze3 = 'SF';
 // const maze4 = '';
 

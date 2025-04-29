@@ -1,11 +1,11 @@
 /*
 You're given a number of users n and a list of referral connections
 where each connection[i] = [a, b] means user a referred user b.
-Count how many distinct referral NocountReferralNodeClusters (connected components) exist.
+Count how many distinct countReferralNodeClusters (connected components) exist.
 def countReferralNodeClusters(n: int, connections: List[List[int]]) -> int:
 
 
-that is, find all the distinct clusters of node/s connected independently
+That is, find all the distinct clusters of node/s connected independently
 of other clusters of nodes.
 
 Keep code Dry: no point in having multiple return statements
