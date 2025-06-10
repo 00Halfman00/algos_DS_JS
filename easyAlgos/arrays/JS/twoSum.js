@@ -31,8 +31,7 @@ Constraints:
 Only one valid answer exists.
 */
 
-// time complexity: O(n)
-// this version of using a regular object as a hash map is slower than using a new Map object
+// time and space complexity: O(n)
 /*
 According to google search with AI assisting:
 "In JavaScript, a regular object and a "new Map" object both store key-value pairs,
