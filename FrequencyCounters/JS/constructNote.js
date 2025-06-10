@@ -19,7 +19,7 @@ constructNote('abc', 'dcba') // true
 constructNote('aabbcc', 'bcabcaddff') // true
 
 
-          PSEUDOCODE
+          THEORY & PSEUDOCODE
     If the right letters are passed in, one should be able to construct the message
 
 1   Declare and initiate a new Map object
