@@ -26,11 +26,12 @@ Space - O(1)
   If one could sort the array, first. Then duplicates would be contiguous inside array
   Specific to language, consider how sort would work...
 
-  1   Use spread parameter to catch any number of arguments passed in
-  2   Sort the arguemnts with built in sort method
-  3   Iterate over the arguments array
+  1   Use arbitrary positional arguments to catch any number of arguments passed in
+  2   Create an array from the tuple
+  3   Sort the arguemnts with built in sort method
+  4   Iterate over the arguments array
       3.1   Return true if duplicates are found
-  4.  Return false otherwise
+  5.  Return false otherwise
 """
 
 

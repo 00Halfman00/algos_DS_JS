@@ -5,7 +5,7 @@ Given two positive integers, find out if the two numbers have the same frequency
 
 
 Your solution MUST have the following complexities:
-Time: O(N)
+Time: O(N log N)
 
 
 Sample Input:

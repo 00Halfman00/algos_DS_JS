@@ -26,7 +26,7 @@ Space - O(1)
   If one could sort the array, first. Then duplicates would be contiguous inside array
   Specific to language, consider how sort would work...
 
-  1   Use spread parameter to catch any number of arguments passed in
+  1   Use rest parameter to catch any number of arguments passed in
   2   Sort the arguemnts with built in sort method
   3   Iterate over the arguments array
       3.1   Return true if duplicates are found
