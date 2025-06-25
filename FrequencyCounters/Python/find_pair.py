@@ -62,14 +62,16 @@ def find_pair(nums: list[int], diff: int) -> bool:
     if len(nums) > 1:
         hash_map = {}
         for num in nums:
-            if num - diff in hash_map or num + diff in hash_map:
+            if num - diff in hash_map:
+                return True
+            if num + diff in hash_map:
                 return True
             hash_map[num] = True
     return False
 
 
-print(find_pair([6, 1, 4, 10, 2, 4], 2))  # true
-print(find_pair([8, 6, 2, 4, 1, 0, 2, 5, 13], 1))  # true
+# print(find_pair([6, 1, 4, 10, 2, 4], 2))  # true
+# print(find_pair([8, 6, 2, 4, 1, 0, 2, 5, 13], 1))  # true
 print(find_pair([4, -2, 3, 10], -6))  # true
 print(find_pair([6, 1, 4, 10, 2, 4], 22))  # false
 print(find_pair([], 0))  # false
