@@ -7,7 +7,7 @@ PSEUDOCODE
     1.  Return zero if the list of packages is empty
     2.  Sort the list of packages by end time
     3.  Declare an initiate a dp array of length of packages filled with zeros
-    4.  Assign the weight of the first package to the first index of bp (base case)
+    4.  Assign the weight of the first package to the first index of the dp array (base case)
     5.  Iterate over the sorted list of packages, starting at the second package
         5.1 get the start time of current package
         5.2 get the weight of the current package
@@ -15,7 +15,7 @@ PSEUDOCODE
         5.4 binary search over all the packages before the current package
             5.4.1   get the index(if any) of the package that does not overlap
                     with current package until condition is false
-        5.5 get the max weight of the sequence of previous package that do not overlap with curr
+        5.5 get the max weight of the sequence of previous package/s that do not overlap with curr
             by index in dp, if any
         5.6 calculate the inclusive max weight by adding curr weight and max sequence of previous
             packages
